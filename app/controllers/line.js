@@ -14,36 +14,89 @@ module.exports = {
             }
             res.render('line/index', { lines: lines });
         });
-
-        //var params = _.pick(req.body, 'author', 'body');
-
-        //req.models.line.get(req.params.messageId, function (err, message) {
-        //        if (err) {
-        //                if (err.code == orm.ErrorCodes.NOT_FOUND) {
-        //                        res.send(404, "Message not found");
-        //                } else {
-        //                        return next(err);
-        //                }
-        //        }
-
-        //        params.message_id = message.id;
-
-        //        req.models.comment.create(params, function (err, message) {
-        //                if(err) {
-        //                        if(Array.isArray(err)) {
-        //                                return res.send(200, { errors: helpers.formatErrors(err) });
-        //                        } else {
-        //                                return next(err);
-        //                        }
-        //                }
-
-        //                return res.send(200, message.serialize());
-        //        });
-        //});
     },
     add: function (req, res, next) {
         res.render('line/add', {params: req.params});
     },
     create: function (req, res, next) {
+        req.body.createdAt=new Date();
+        req.models.line.create(req.body,function(err,line){
+            if(err) {
+                                        if(Array.isArray(err)) {
+                                                return res.send(200, { errors: helpers.formatErrors(err) });
+                                        } else {
+                                                return next(err);
+                                        }
+                                }
+            res.redirect('/line/'+line.id);
+        });
+    },
+    show:function (req, res, next) {
+        req.models.line.get(req.params.id,function(err,line){
+            if(err) {
+                if(Array.isArray(err)) {
+                    return res.send(200, { errors: helpers.formatErrors(err) });
+                } else {
+                    return next(err);
+                }
+            }
+            res.render('line/show',{line:line});
+        });
+    },
+    edit:function (req, res, next) {
+        req.models.line.get(req.params.id,function(err,line){
+            if(err) {
+                if(Array.isArray(err)) {
+                    return res.send(200, { errors: helpers.formatErrors(err) });
+                } else {
+                    return next(err);
+                }
+            }
+            res.render('line/edit',{params:req.params,line:line});
+        });
+    },
+    update:function (req, res, next) {
+        req.models.line.get(req.params.id,function(err,line){
+            if(err) {
+                if(Array.isArray(err)) {
+                    return res.send(200, { errors: helpers.formatErrors(err) });
+                } else {
+                    return next(err);
+                }
+            }
+            req.body.updatedAt=new Date();
+            line.save(req.body,function(err){
+                if(err) {
+                    if(Array.isArray(err)) {
+                        return res.send(200, { errors: helpers.formatErrors(err) });
+                    } else {
+                        return next(err);
+                    }
+                }
+                res.redirect('/line/'+line.id);
+            });
+        });
+    },
+    remove:function (req, res, next) {
+        console.log('deleted');
+        req.models.line.get(req.params.id,function(err,line){
+            if(err) {
+                if(Array.isArray(err)) {
+                    return res.send(200, { errors: helpers.formatErrors(err) });
+                } else {
+                    return next(err);
+                }
+            }
+            line.remove(function(err){
+                if(err) {
+                    if(Array.isArray(err)) {
+                        return res.send(200, { errors: helpers.formatErrors(err) });
+                    } else {
+                        return next(err);
+                    }
+                }
+                res.redirect('/line');
+            });
+        });
     }
 };

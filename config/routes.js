@@ -8,4 +8,9 @@ module.exports = function (app) {
         app.post('/message/:messageId/comment', controllers.comment.create);
         app.get('/line', controllers.line.index);
         app.get('/line/add', controllers.line.add);
+        app.post('/line', controllers.line.create);
+        app.get('/line/:id', controllers.line.show);
+        app.get('/line/edit/:id', controllers.line.edit);
+        app.post('/line/:id', controllers.line.update);
+        app.post('/line/delete/:id', controllers.line.remove);
 };

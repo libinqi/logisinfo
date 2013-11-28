@@ -6,19 +6,16 @@
             <div class="control-group">
                 <ul>
                     <% for(var err in params.errors) { %>
-                    <li><%= params.errors[err]; %></li>
+                    <li><%- params.errors[err] %></li>
                     <% } %>
                 </ul>
             </div>
             <% } %>
-
-            <%- partial('form', {line: line}) %>
+            <%- partial('line/form', {line: line}) %>
 
             <div class="form-actions">
                 <input type="submit" class="btn btn-primary" value="保存">
-                <form action="/line/<%= params.id %>?_method=DELETE" method="POST">
-                    <button type="submit" class="btn btn-danger">删除</button>
-                </form>
+                    <button type="submit" formaction="/line/delete/<%= params.id %>" formmethod="POST" class="btn btn-danger">删除</button>
             </div>
         </fieldset>
     </form>
