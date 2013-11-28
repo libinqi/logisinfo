@@ -1,0 +1,25 @@
+<div class="hero-unit">
+    <h2>所有专线</h2>
+    <a href='/line/add' class='btn pull-right'>创建一条专线信息</a>
+</div>
+
+<div id="lines-list">
+    <% if (lines) { %>
+    <% lines.forEach(function (line) {  %>
+    <div class="row list-item" id="line-<%= line.id %>">
+        <div class="span8">
+            <h3>
+                <a href="/line/<%= line.id %>" class='btn pull-right'>
+                <%- line.id %>
+                </a>
+            </h3>
+        </div>
+        <div class="span4">
+            <h3>
+                <i class="icon-list-alt"></i><%- line.id %>
+            </h3>
+        </div>
+    </div>
+    <% })%>
+    <% } %>
+</div>

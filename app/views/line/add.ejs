@@ -1,0 +1,22 @@
+<div class="hero-unit">
+    <form id="line-form" class="form-horizontal" action="/line" method="POST">
+        <fieldset>
+            <legend>创建专线</legend>
+            <% if(params.errors) { %>
+            <div class="control-group">
+                <ul>
+                    <% for(var err in params.errors) { %>
+                    <li><%- params.errors[err] %></li>
+                    <% } %>
+                </ul>
+            </div>
+            <% } %>
+
+            <% partial('form', {line: params}) %>
+
+            <div class="form-actions">
+                <input type="submit" class="btn btn-primary" value="添加">
+            </div>
+        </fieldset>
+    </form>
+</div>
