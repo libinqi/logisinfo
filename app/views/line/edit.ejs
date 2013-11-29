@@ -1,7 +1,9 @@
 <div class="hero-unit">
-    <form id="line-form" class="form-horizontal" action="/line/<%= params.id %>?_method=PUT" method="POST">
+    <form id="line-form" class="form-horizontal" role="form" action="/line/<%= params.id %>?_method=PUT" method="POST">
         <fieldset>
-            <legend>Update this Line</legend>
+            <div class="page-header">
+                <h3 id="js-overview">更新专线</h3>
+            </div>
             <% if(params.errors) { %>
             <div class="control-group">
                 <ul>
@@ -13,7 +15,7 @@
             <% } %>
             <%- partial('line/form', {line: line}) %>
 
-            <div class="form-actions">
+            <div class="col-sm-offset-2 col-sm-10">
                 <input type="submit" class="btn btn-primary" value="保存">
                     <button type="submit" formaction="/line/delete/<%= params.id %>" formmethod="POST" class="btn btn-danger">删除</button>
             </div>

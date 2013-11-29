@@ -1,7 +1,9 @@
 <div class="hero-unit">
     <form id="line-form" class="form-horizontal" action="/line" method="POST">
         <fieldset>
-            <legend>创建专线</legend>
+            <div class="page-header">
+                <h3 id="js-overview">创建专线</h3>
+            </div>
             <% if(params.errors) { %>
             <div class="control-group">
                 <ul>
@@ -13,7 +15,7 @@
             <% } %>
             <%- partial('line/form', {line:params}) %>
 
-            <div class="form-actions">
+            <div class="col-sm-offset-2 col-sm-10" role="form">
                 <input type="submit" class="btn btn-primary" value="添加">
             </div>
         </fieldset>
