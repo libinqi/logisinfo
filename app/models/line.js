@@ -91,15 +91,14 @@ module.exports = function (orm, db) {
                         endTel: this.endTel,
                         endPhone: this.endPhone,
                         valid: this.valid,
-                        expiryDate: this.expiryDate,
+                        expiryDate: moment().format('YYYY-MM-DD HH:mm:ss'),
                         status: 1,//0:不发布，1:发布
                         freeText: this.freeText,
                         eId: this.eId,
                         createrId: this.createrId,
-                        createdAt: moment(this.createdAt).fromNow(),
+                        createdAt: moment().format('YYYY-MM-DD HH:mm:ss'),
                         updaterId: this.updaterId,
-                        updatedAt: moment(this.updatedAt).fromNow()
-
+                        updatedAt: this.updatedAt
                     };
                 }
             }
