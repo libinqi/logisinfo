@@ -19,22 +19,25 @@ module.exports = {
     add: function (req, res, next) {
         var line = _.mapValues(new req.models.line().serialize(), function (val) {
             if (_.isNull(val))return "";
-             return val;
+            return val;
         });
         res.render('line/add', {params: line});
     },
     create: function (req, res, next) {
-        req.body.createdAt = new Date();
-        req.models.line.create(req.body, function (err, line) {
-            if (err) {
-                if (Array.isArray(err)) {
-                    return res.send(200, { errors: helpers.formatErrors(err) });
-                } else {
-                    return next(err);
-                }
-            }
-            res.redirect('/line/' + line.id);
-        });
+        // req.body.createdAt = new Date();
+//        req.models.line.create(req.body, function (err, line) {
+//            if (err) {
+//                if (Array.isArray(err)) {
+//                    return res.send(200, { errors: helpers.formatErrors(err) });
+//                } else {
+//                    return next(err);
+//                }
+//            }
+//            res.redirect('/line/' + line.id);
+//        });
+
+        res.send(req.body);
+
     },
     show: function (req, res, next) {
         req.models.line.get(req.params.id, function (err, line) {

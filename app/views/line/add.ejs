@@ -1,23 +1,40 @@
-<div class="hero-unit">
-    <form id="line-form" class="form-horizontal" action="/line" method="POST">
-        <fieldset>
-            <div class="page-header">
-                <h3 id="js-overview">创建专线</h3>
-            </div>
-            <% if(params.errors) { %>
-            <div class="control-group">
-                <ul>
-                    <% for(var err in params.errors) { %>
-                    <li><%- params.errors[err] %></li>
-                    <% } %>
-                </ul>
-            </div>
-            <% } %>
-            <%- partial('line/form', {line:params}) %>
+<div class="container w1002 tn_margin" id="qiye">
 
-            <div class="col-sm-offset-2 col-sm-10" role="form">
-                <input type="submit" class="btn btn-primary" value="添加">
+    <div class="col-lg-2 col-md-2 col-sm-2 left_bar">
+        <h4>信息共享</h4>
+        <ul class="sub_nav">
+            <li class="li_hover"><span class="badge pull-right"><a class="wide_font" href="#">42</a></span><a href="#">专线信息</a>
+            </li>
+            <li><a href="#">仓库信息</a></li>
+            <li><a href="#">港口信息</a></li>
+            <li><a href="#">货场信息</a></li>
+            <li><a href="#">货源信息</a></li>
+            <li><a href="#">车源信息</a></li>
+            <li><a href="#">铁路信息</a></li>
+        </ul>
+    </div>
+    <div class="col-lg-10 col-md-10 col-sm-10 youce">
+        <div class="bg_pale_yellow">
+            <div class="col-md-12 pad_topbot_change">
+                <h4 class="line_b">发布专线
+                    <small class="pull-right"><a href="#">返回专线信息</a></small>
+                </h4>
             </div>
-        </fieldset>
-    </form>
+            <!--<div class="col-md-7 col-md-offset-2 pad_topbot">
+              <img src="images/id_one.png" class="img-responsive img_pad" alt="Responsiveimage">
+            </div>-->
+        </div>
+        <form id="line-form" class="form-horizontal" action="/line" method="POST">
+            <%- partial('line/form', {line: params}) %>
+            <div class="form-group">
+                <div class="col-sm-1 col-sm-offset-4">
+                    <button type="submit" class="btn btn-info btn_detail">发布</button>
+                </div>
+                <div class="col-sm-1">
+                    <button type="reset" class="btn btn-default btn_detail">重置</button>
+                </div>
+            </div>
+        </form>
+        <div class="clearfix"></div>
+    </div>
 </div>

@@ -1,19 +1,242 @@
-<div class="page-header">
-    <h2 id="js-overview">所有专线  <a href='/line/add' class="btn btn-primary btn-lg" role="button">创建一条专线信息</a></h2>
+<div class="container w1002 tn_margin" id="qiye">
+<div class="col-lg-2 col-md-2 col-sm-2 left_bar">
+    <h4>信息共享</h4>
+    <ul class="sub_nav">
+        <li class="li_hover"><span class="badge pull-right"><a class="wide_font" href="#">42</a></span><a
+                    href="#">专线信息</a></li>
+        <li><a href="#">仓库信息</a></li>
+        <li><a href="#">港口信息</a></li>
+        <li><a href="#">货场信息</a></li>
+        <li><a href="#">货源信息</a></li>
+        <li><a href="#">车源信息</a></li>
+        <li><a href="#">铁路信息</a></li>
+    </ul>
 </div>
-
-<div id="lines-list">
-    <% if (lines) { %>
-    <% lines.forEach(function (line) {  %>
-    <div class="row list-item" id="line-<%= line.id %>">
-        <div class="span8">
-                <a href="/line/<%= line.id %>" class='btn pull-left'>
-                    <h3>
-                        <i class="glyphicon glyphicon-list-alt"></i>   <%- line.id %>
-                    </h3>
-                </a>
+<div class="col-lg-10 col-md-10 col-sm-10 youce">
+    <div class="bg_pale_yellow">
+        <div class="col-lg-12 col-md-12 col-sm-12 pad_topbot_change">
+            <h4 class="lh h4_line">
+                <div class="w120 pull-left ts_padding">专线信息</div>
+                <div class="third_nav third_hover"><a href="#">全部信息</a></div>
+                <div class="third_nav"><a href="#">已发布</a></div>
+                <div class="third_nav"><a href="#">未发布</a></div>
+                <div class="btn pull-right btn-info btn-sm"><a href="/line/add">发布专线</a></div>
+            </h4>
         </div>
     </div>
-    <% })%>
-    <% } %>
+    <div class="col-lg-12 col-md-12 col-sm-12">
+        <div class="line_search">
+            <form class="navbar-form navbar-left" role="search">
+                <div class="w280 pull-left">
+                    <div class="w60 pull-left ts_padding">出发地：</div>
+                    <div class="w100 pull-left">
+                        <select class="form-control min_hundred w100 input-sm">
+                            <option>请选择省</option>
+                            <option>湖南省</option>
+                            <option>3</option>
+                            <option>4</option>
+                            <option>5</option>
+                        </select>
+                    </div>
+                    <div class="w100 pull-left ln_margin">
+                        <select class="form-control min_hundred w100 input-sm">
+                            <option>请选择市</option>
+                            <option>克孜来苏柯</option>
+                            <option>长沙市</option>
+                            <option>4</option>
+                            <option>5</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="w280 pull-left">
+                    <div class="w60 pull-left ts_padding">目的地：</div>
+                    <div class="w100 pull-left">
+                        <select class="form-control min_hundred w100 input-sm">
+                            <option>请选择省</option>
+                            <option>湖南省</option>
+                            <option>3</option>
+                            <option>4</option>
+                            <option>5</option>
+                        </select>
+                    </div>
+                    <div class="w100 pull-left ln_margin">
+                        <select class="form-control min_hundred w100 input-sm">
+                            <option>请选择市</option>
+                            <option>克孜来苏柯</option>
+                            <option>长沙市</option>
+                            <option>4</option>
+                            <option>5</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="pull-left w100"><input type="button" value="搜索" class="btn btn-success btn-sm"/></div>
+            </form>
+            <div class="clearfix"></div>
+        </div>
+    </div>
+    <script type="text/javascript">
+        $(function () {
+            $('.info .info_item').hover(function () {
+                $('.info .info_item').removeClass('info_item_hover');
+                $(this).addClass('info_item_hover');
+            });
+        });
+    </script>
+    <div class="col-lg-12 col-dm-12 col-sm-12 info tn_margin">
+        <div class="info_item">
+            <div class="info_title">
+                <div class="w210 ln_padding pull-left">
+                    <span class="pull-left">湖南长沙</span><span class="zhida"><img src="images/zhida.png"/></span><span
+                            class="pull-left">江西南昌(直达)</span>
+                    <span class="clearfix"></span>
+                </div>
+                <div class="w100 pull-left">
+                    <small>最新订单：<span class="text-primary">5</span></small>
+                </div>
+                <div class="w200 pull-left">
+                    <small>更新时间：2013-15-12 5:20</small>
+                </div>
+                <div class="w100 pull-left">
+                    <small class="dropdown">状态：
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">已发布 <b class="caret"></b></a>
+                        <ul class="dropdown-menu nav_bigdropdown">
+                            <li><a href="#">已发布</a></li>
+                            <li><a href="#">未发布</a></li>
+                        </ul>
+                    </small>
+                </div>
+                <div class="chaozuo pull-right">
+                    <div class="shouqi pull-left"><a href="#"><img src="images/shouqi.png"></a></div>
+                    <div class="delet pull-right"><a href="#"><img src="images/delet.png"></a></div>
+                </div>
+                <div class="clearfix"></div>
+            </div>
+            <div class="info_content">
+                <div class=" pull-left w145 tn_padding ln_padding bn_padding">
+                    <a href="#"><img src="images/pic.jpg"></a>
+                </div>
+                <div class="pull-left w305 tn_padding rn_padding ln_padding lianxi">
+                    <p>始发地址：高桥物流园B区302</p>
+
+                    <p>联系方式：<span class="text-primary">13878782588    张先生</span></p>
+
+                    <p>到达地址：银燕物流基地12栋17号</p>
+
+                    <p>联系方式：<span class="text-primary">13878782588   刘先生</span></p>
+                </div>
+                <div class="pull-left w135 ln_padding tn_padding xijie">
+                    <div class="w65 text-right pull-left">重货价格：</div>
+                    <div class="pull-left">面议</div>
+                    <div class="w65 text-right pull-left">泡货价格：</div>
+                    <div class="pull-left">面议</div>
+                    <span class="w65 text-right pull-left">货重：</span>
+
+                    <div class="pull-left">10吨</div>
+                    <span class="w65 text-right pull-left">发车班次：</span>
+
+                    <div class="pull-left">不固定</div>
+                    <span class="w65 text-right pull-left">在途时间：</span>
+
+                    <div class="pull-left">2天</div>
+                </div>
+                <div class="pull-right w80 tl_padding">
+                    <input class="btn btn-info" type="button" value="查看">
+                    <input class="btn btn-warning tn_margin" type="button" value="修改">
+                </div>
+                <div class="clearfix"></div>
+            </div>
+        </div>
+        <div class="info_item">
+            <div class="info_title">
+                <div class="w210 ln_padding pull-left">
+                    <span class="pull-left">湖南长沙</span><span class="zhida"><img src="images/wangfan.png"/></span><span
+                            class="pull-left">江西南昌(直达)</span>
+                    <span class="clearfix"></span>
+                </div>
+                <div class="w100 pull-left">
+                    <small>最新订单：<span class="text-primary">5</span></small>
+                </div>
+                <div class="w200 pull-left">
+                    <small>更新时间：2013-15-12 5:20</small>
+                </div>
+                <div class="w100 pull-left">
+                    <small class="dropdown">状态：
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">已发布 <b class="caret"></b></a>
+                        <ul class="dropdown-menu nav_bigdropdown">
+                            <li><a href="#">已发布</a></li>
+                            <li><a href="#">未发布</a></li>
+                        </ul>
+                    </small>
+                </div>
+                <div class="chaozuo pull-right">
+                    <div class="shouqi pull-left"><a href="#"><img src="images/shouqi.png"></a></div>
+                    <div class="delet pull-right"><a href="#"><img src="images/delet.png"></a></div>
+                </div>
+                <div class="clearfix"></div>
+            </div>
+            <div class="info_content">
+                <div class=" pull-left w145 tn_padding ln_padding bn_padding">
+                    <a href="#"><img src="images/pic.jpg"></a>
+                </div>
+                <div class="pull-left w305 tn_padding rn_padding ln_padding lianxi">
+                    <p>始发地址：高桥物流园B区302</p>
+
+                    <p>联系方式：<span class="text-primary">13878782588    张先生</span></p>
+
+                    <p>到达地址：银燕物流基地12栋17号</p>
+
+                    <p>联系方式：<span class="text-primary">13878782588   刘先生</span></p>
+                </div>
+                <div class="pull-left w135 ln_padding tn_padding xijie">
+                    <div class="w65 text-right pull-left">重货价格：</div>
+                    <div class="pull-left">面议</div>
+                    <div class="w65 text-right pull-left">泡货价格：</div>
+                    <div class="pull-left">面议</div>
+                    <span class="w65 text-right pull-left">货重：</span>
+
+                    <div class="pull-left">10吨</div>
+                    <span class="w65 text-right pull-left">发车班次：</span>
+
+                    <div class="pull-left">不固定</div>
+                    <span class="w65 text-right pull-left">在途时间：</span>
+
+                    <div class="pull-left">2天</div>
+                </div>
+                <div class="pull-right w80 tl_padding">
+                    <input class="btn btn-info" type="button" value="查看">
+                    <input class="btn btn-warning tn_margin" type="button" value="修改">
+                </div>
+                <div class="clearfix"></div>
+            </div>
+        </div>
+        <div class="col-lg-5 col-sm-offset-4">
+            <ul class="pagination">
+                <li class="disabled">
+                    <a href="#">«</a>
+                </li>
+                <li class="active">
+                    <a href="#">
+                        1
+                        <span class="sr-only">(current)</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="#">2</a>
+                </li>
+                <li>
+                    <a href="#">3</a>
+                </li>
+                <li>
+                    <a href="#">4</a>
+                </li>
+                <li>
+                    <a href="#">5</a>
+                </li>
+                <li>
+                    <a href="#">»</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
 </div>
