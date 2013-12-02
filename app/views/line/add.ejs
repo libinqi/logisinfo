@@ -1,433 +1,396 @@
 <div class="container w1002 tn_margin" id="qiye">
 
-    <div class="col-lg-2 col-md-2 col-sm-2 left_bar">
-        <h4>信息共享</h4>
-        <ul class="sub_nav">
-            <li class="li_hover"><span class="badge pull-right"><a class="wide_font" href="#">42</a></span><a href="#">专线信息</a>
-            </li>
-            <li><a href="#">仓库信息</a></li>
-            <li><a href="#">港口信息</a></li>
-            <li><a href="#">货场信息</a></li>
-            <li><a href="#">货源信息</a></li>
-            <li><a href="#">车源信息</a></li>
-            <li><a href="#">铁路信息</a></li>
-        </ul>
+<div class="col-lg-2 col-md-2 col-sm-2 left_bar">
+    <h4>信息共享</h4>
+    <ul class="sub_nav">
+        <li class="li_hover">
+            <!--<span class="badge pull-right"><a class="wide_font" href="#">42</a></span>-->
+            <a href="/line">专线信息</a>
+        </li>
+        <li><a href="#">仓库信息</a></li>
+        <li><a href="#">港口信息</a></li>
+        <li><a href="#">货场信息</a></li>
+        <li><a href="#">货源信息</a></li>
+        <li><a href="#">车源信息</a></li>
+        <li><a href="#">铁路信息</a></li>
+    </ul>
+</div>
+<div class="col-lg-10 col-md-10 col-sm-10 youce">
+<div class="bg_pale_yellow">
+    <div class="col-md-12 pad_topbot_change">
+        <h4 class="line_b">发布专线
+            <small class="pull-right"><a href="/line">返回专线信息</a></small>
+        </h4>
     </div>
-    <div class="col-lg-10 col-md-10 col-sm-10 youce">
-        <div class="bg_pale_yellow">
-            <div class="col-md-12 pad_topbot_change">
-                <h4 class="line_b">发布专线
-                    <small class="pull-right"><a href="#">返回专线信息</a></small>
-                </h4>
-            </div>
-            <!--<div class="col-md-7 col-md-offset-2 pad_topbot">
-              <img src="images/id_one.png" class="img-responsive img_pad" alt="Responsiveimage">
-            </div>-->
+</div>
+<form id="line-form" class="form-horizontal" action="/line" method="POST">
+<div class="form-group">
+    <label for="inputEmail3" class="col-lg-4 col-sm-4 control-label jiben_left"><span class="text_red">*</span>
+        出发城市：</label>
+
+    <div class="col-lg-8 col-sm-8 jiben_right">
+        <div class="w100 pull-left">
+            <select id="sProvinceCode" name="sProvinceCode" class="form-control min_hundred w100">
+            </select>
         </div>
-        <form id="line-form" class="form-horizontal" action="/line" method="POST">
-        <div class="form-group">
-            <label for="inputEmail3" class="col-lg-4 col-sm-4 control-label jiben_left"><span class="text_red">*</span>
-                出发城市：</label>
-
-            <div class="col-lg-8 col-sm-8 jiben_right">
-                <div class="w100 pull-left">
-                    <select id="sProvinceCode" name="sProvinceCode" class="form-control min_hundred w100">
-                    </select>
-                </div>
-                <div class="w100 pull-left ln_margin">
-                    <select id="sCityCode" name="sCityCode" class="form-control min_hundred w100">
-                    </select>
-                </div>
-                <div class="w150 pull-left ln_margin">
-                    <select id="sAreaCode" class="form-control min_hundred w150">
-                    </select>
-                </div>
-            </div>
+        <div class="w100 pull-left ln_margin">
+            <select id="sCityCode" name="sCityCode" class="form-control min_hundred w100">
+            </select>
         </div>
-        <div class="form-group">
-            <label for="inputEmail3" class="col-lg-4 col-sm-4 control-label jiben_left"><span class="text_red">*</span>
-                到达城市：</label>
-
-            <div class="col-lg-8 col-sm-8 jiben_right">
-                <div class="w100 pull-left">
-                    <select id="eProvinceCode" name="eProvinceCode" class="form-control min_hundred w100">
-                    </select>
-                </div>
-                <div class="w100 pull-left ln_margin">
-                    <select id="eCityCode" name="eCityCode" class="form-control min_hundred w100">
-                    </select>
-                </div>
-                <div class="w150 pull-left ln_margin">
-                    <select id="eAreaCode" name="eAreaCode" class="form-control min_hundred w150">
-                    </select>
-                </div>
-            </div>
+        <div class="w150 pull-left ln_margin">
+            <select id="sAreaCode" name="sAreaCode" class="form-control min_hundred w150">
+            </select>
         </div>
-        <div class="form-group">
-            <label for="inputEmail3" class="col-lg-4 col-sm-4 control-label jiben_left"><span class="text_red">*</span>
-                重货价格：</label>
-
-            <div class="col-lg-8 col-sm-8 jiben_right">
-                <input type="text" class="form-control w20 inputinline" id="inputEmail3" name="heavyCargoPrice" placeholder="0">元/kg
-                <small>0表示面议</small>
-            </div>
-        </div>
-
-        <div class="form-group">
-            <label for="inputEmail3" class="col-lg-4 col-sm-4 control-label jiben_left"><span class="text_red">*</span>
-                泡货价格：</label>
-
-            <div class="col-lg-8 col-sm-8 jiben_right">
-                <input type="text" class="form-control w20 inputinline" id="inputEmail3" name="foamGoodsPrice" placeholder="0">元/kg
-                <small>0表示面议</small>
-            </div>
-        </div>
-        <div class="form-group">
-            <label for="inputEmail3" class="col-lg-4 col-md-4 col-sm-4 control-label jiben_left">专线类型：</label>
-            <div class="col-lg-4 col-md-4 col-sm-4 jiben_right">
-                <%if(locals.line_type){
-                    var index=0;
-                        line_type.forEach(function(lineType){
-                %>
-                <div class="pad_select w75 pull-left">
-                    <div class="radio">
-                        <label>
-                            <% if(index==0){%>
-                            <input type="radio" name="lineTypeCode" class="radio" value="<%=lineType.id%>" checked="checked" /><%=lineType.name%>
-                            <%}else{%>
-                            <input type="radio" name="lineTypeCode" class="radio" value="<%=lineType.id%>" /><%=lineType.name%>
-                            <%}%>
-                        </label>
-                    </div>
-                </div>
-                <%
-                    index++;
-                });
-                }%>
-            </div>
-        </div>
-        <div class="form-group">
-            <label for="inputEmail3" class="col-lg-4 col-md-4 col-sm-4 control-label jiben_left">运输方式：</label>
-
-            <div class="col-lg-3 col-md-3 col-sm-3 jiben_right w300">
-                <select name="modeTransportCode" class="form-control min_hundred w300">
-                    <option value="1">公路运输</option>
-                    <option value="2">海上运输</option>
-                    <option value="3">铁路运输</option>
-                    <option value="4">航空运输</option>
-                    <option value="5">邮件运输</option>
-                    <option value="6">多式联运</option>
-                    <option value="7">固定设置运输</option>
-                    <option value="8">内河运输</option>
-                    <option value="9">其他运输</option>
-                </select>
-            </div>
-        </div>
-        <div class="form-group">
-            <label for="inputEmail3" class="col-lg-4 col-md-4 col-sm-4 control-label jiben_left">是否直达：</label>
-
-            <div class="col-lg-4 col-md-4 col-sm-4 jiben_right">
-                <div class="pad_select w75 pull-left">
-                    <div class="radio">
-                        <label>
-                            <input type="radio" id="optionsRadios3" name="isDirect" class="radio" value="1" checked>直达
-                        </label>
-                    </div>
-                </div>
-                <div class="pad_select w75 pull-left">
-                    <div class="radio">
-                        <label>
-                            <input type="radio" id="optionsRadios4" name="isDirect" class="radio" value="0">中转
-                        </label>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="form-group">
-            <label for="inputEmail3" class="col-lg-4 col-md-4 col-sm-4 control-label jiben_left">发车班次：</label>
-
-            <div class="col-lg-8 col-md-8 col-sm-8 jiben_right">
-                <div class="pad_select w75 pull-left">
-                    <div class="radio">
-                        <label>
-                            <input type="radio" id="optionsRadios3" name="isFrozen" class="radio" value="1" checked>不固定
-                        </label>
-                    </div>
-                </div>
-                <div class="pad_select w80 pull-left">
-                    <div class="radio">
-                        <label>
-                            <input type="radio" id="optionsRadios4" name="isFrozen" class="radio" value="0">固定班车
-                        </label>
-                    </div>
-                </div>
-                <div class="col-xs-5 pad_select">
-                    <div class="radio">每<input type="number" id="optionsRadios4" name="transRateDay" placeholder="number"
-                                               class="w40" value="1">天<input type="number" id="optionsRadios4"
-                                                                             name="transRateNumber" placeholder="number"
-                                                                             class="w40" value="1">班
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="form-group">
-            <label for="inputEmail3" class="col-lg-4 col-md-4 col-sm-4 control-label jiben_left">运输货物：</label>
-
-            <div class="col-lg-8 col-md-8 col-sm-8 jiben_right">
-                <label class="checkbox-inline">
-                    <input type="checkbox" id="inlineCheckbox1" name="lineGoodsType" value="1" class="radio" checked> 不限
-                </label>
-                <label class="checkbox-inline">
-                    <input type="checkbox" id="inlineCheckbox2" name="lineGoodsType" value="2" class="radio"> 普通货物
-                </label>
-                <label class="checkbox-inline">
-                    <input type="checkbox" id="inlineCheckbox3" name="lineGoodsType" value="3" class="radio"> 大件货物
-                </label>
-                <label class="checkbox-inline">
-                    <input type="checkbox" id="inlineCheckbox3" name="lineGoodsType" value="4" class="radio"> 鲜活易腐
-                </label>
-                <label class="checkbox-inline">
-                    <input type="checkbox" id="inlineCheckbox3" name="lineGoodsType" value="5" class="radio"> 危险货物
-                </label>
-                <label class="checkbox-inline">
-                    <input type="checkbox" id="inlineCheckbox3" name="lineGoodsType" value="6" class="radio"> 贵重货物
-                </label>
-                <label class="checkbox-inline">
-                    <input type="checkbox" id="inlineCheckbox3" name="lineGoodsType" value="7" class="radio"> 保温冷藏
-                </label>
-                <label class="checkbox-inline">
-                    <input type="checkbox" id="inlineCheckbox3" name="lineGoodsType" value="8" class="radio"> 搬家货物
-                </label>
-            </div>
-        </div>
-        <div class="form-group">
-            <label for="inputEmail3" class="col-lg-4 col-md-4 col-sm-4 control-label jiben_left">在途时间：</label>
-
-            <div class="col-lg-8 col-md-8 col-sm-8 jiben_right">
-                <div class="pad_select w75 pull-left">
-                    <div class="radio">
-                        <label>
-                            <input type="radio" id="optionsRadios1" name="transTime" class="radio" value="1" checked>1天
-                        </label>
-                    </div>
-                </div>
-                <div class="pad_select w75 pull-left">
-                    <div class="radio">
-                        <label>
-                            <input type="radio" id="optionsRadios2" name="transTime" class="radio" value="2">2天
-                        </label>
-                    </div>
-                </div>
-                <div class="pad_select w75 pull-left">
-                    <div class="radio">
-                        <label>
-                            <input type="radio" id="optionsRadios3" name="transTime" class="radio" value="3">3天
-                        </label>
-                    </div>
-                </div>
-                <div class="pad_select w75 pull-left">
-                    <div class="radio">
-                        <label>
-                            <input type="radio" id="optionsRadios4" name="transTime" class="radio" value="4">4天
-                        </label>
-                    </div>
-                </div>
-                <div class="pad_select w75 pull-left">
-                    <div class="radio">
-                        <label>
-                            <input type="radio" id="optionsRadios5" name="transTime" class="radio" value="5">5天
-                        </label>
-                    </div>
-                </div>
-                <div class="pad_select w75 pull-left">
-                    <div class="radio">
-                        <label>
-                            <input type="radio" id="optionsRadios6" name="transTime" class="radio" value="6">5天以上
-                        </label>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="form-group">
-            <label for="inputEmail3" class="col-lg-4 col-md-4 col-sm-4 control-label jiben_left">附加说明：</label>
-
-            <div class="col-lg-8 col-md-8 col-sm-8 jiben_right">
-                <textarea name="freeText" class="form-control" maxlength="500" rows="3"></textarea>
-                <small>(限制500字符)</small>
-            </div>
-        </div>
-        <div class="form-group">
-            <label for="inputEmail3" class="col-lg-4 col-md-4 col-sm-4 control-label jiben_left"><span class="text_red">*</span>起始地联系人：</label>
-
-            <div class="col-lg-3 col-md-3 col-sm-3 jiben_right">
-                <input type="text" class="form-control" id="inputEmail6" name="startContact" placeholder="请填写联系人">
-            </div>
-        </div>
-
-        <div class="form-group ">
-            <label for="inputEmail3" class="col-sm-4 control-label jiben_left"><span class="text_red">*</span> 所在地址：</label>
-
-            <div class="col-sm-8 jiben_right">
-                <input type="text" class="form-control" id="inputEmail3" name="startAddress" placeholder="请填入详细地址，省市县不需要重复填写">
-            </div>
-        </div>
-        <div class="form-group">
-            <label for="inputEmail3" class="col-sm-4 control-label jiben_left"><span class="text_red">*</span> 手机：</label>
-
-            <div class="col-sm-4 jiben_right">
-                <input type="text" class="form-control" id="inputEmail3" name="startPhone" placeholder="联系电话和手机必填一项">
-            </div>
-        </div>
-        <div class="form-group">
-            <label for="inputEmail3" class="col-sm-4 control-label jiben_left">联系电话：</label>
-
-            <div class="col-sm-1 pad_select">
-                <input type="text" class="form-control min_fifty" id="inputEmail3" name="startTel" placeholder="区号">
-            </div>
-            <div class="pull-left pad_p">
-                <span>-</span>
-            </div>
-            <div class="col-sm-2 pad_select">
-                <input type="text" class="form-control min_hundred" id="inputEmail3" name="startTel" placeholder="电话号">
-            </div>
-            <div class="pull-left pad_p">
-                <span>-</span>
-            </div>
-            <div class="col-sm-1 pad_select">
-                <input type="text" class="form-control min_fifty" id="inputEmail3" name="startTel" placeholder="分机号">
-            </div>
-        </div>
-        <div class="form-group">
-            <label for="inputEmail3" class="col-lg-4 col-md-4 col-sm-4 control-label jiben_left">到达地联系人：</label>
-
-            <div class="col-lg-3 col-md-3 col-sm-3 jiben_right">
-                <input type="text" class="form-control" id="inputEmail6" name="endContact" placeholder="请填写联系人">
-            </div>
-        </div>
-
-        <div class="form-group ">
-            <label for="inputEmail3" class="col-sm-4 control-label jiben_left">所在地址：</label>
-
-            <div class="col-sm-8 jiben_right">
-                <input type="text" class="form-control" id="inputEmail3" name="endAddress" placeholder="请填入详细地址，省市县不需要重复填写">
-            </div>
-        </div>
-        <div class="form-group">
-            <label for="inputEmail3" class="col-sm-4 control-label jiben_left">手机：</label>
-
-            <div class="col-sm-4 jiben_right">
-                <input type="text" class="form-control" id="inputEmail3" name="endPhone" placeholder="联系电话和手机必填一项">
-            </div>
-        </div>
-        <div class="form-group">
-            <label for="inputEmail3" class="col-sm-4 control-label jiben_left">联系电话：</label>
-
-            <div class="col-sm-1 pad_select">
-                <input type="text" class="form-control min_fifty" id="inputEmail3" name="endTel" placeholder="区号">
-            </div>
-            <div class="pull-left pad_p">
-                <span>-</span>
-            </div>
-            <div class="col-sm-2 pad_select">
-                <input type="text" class="form-control min_hundred" id="inputEmail3" name="endTel" placeholder="电话号">
-            </div>
-            <div class="pull-left pad_p">
-                <span>-</span>
-            </div>
-            <div class="col-sm-1 pad_select">
-                <input type="text" class="form-control min_fifty" id="inputEmail3" name="endTel" placeholder="分机号">
-            </div>
-        </div>
-
-        <div class="form-group">
-            <label for="inputEmail3" class="col-lg-4 col-md-4 col-sm-4 control-label jiben_left">信息有效期：</label>
-
-            <div class="col-lg-8 col-md-8 col-sm-8 jiben_right">
-                <div class="pad_select w80 pull-left">
-                    <div class="radio">
-                        <label>
-                            <input type="radio" id="optionsRadios1" name="valid" value="1" class="radio" checked>长期有效
-                        </label>
-                    </div>
-                </div>
-                <div class="pad_select w70 pull-left">
-                    <div class="radio">
-                        <label>
-                            <input type="radio" id="optionsRadios2" name="valid" value="2" class="radio">1天
-                        </label>
-                    </div>
-                </div>
-                <div class="pad_select w70 pull-left">
-                    <div class="radio">
-                        <label>
-                            <input type="radio" id="optionsRadios3" name="valid" value="3" class="radio">7天
-                        </label>
-                    </div>
-                </div>
-                <div class="pad_select w70 pull-left">
-                    <div class="radio">
-                        <label>
-                            <input type="radio" id="optionsRadios4" name="valid" value="4" class="radio">15天
-                        </label>
-                    </div>
-                </div>
-                <div class="pad_select w70 pull-left">
-                    <div class="radio">
-                        <label>
-                            <input type="radio" id="optionsRadios5" name="valid" value="5" class="radio">1个月
-                        </label>
-                    </div>
-                </div>
-                <div class="pad_select w70 pull-left">
-                    <div class="radio">
-                        <label>
-                            <input type="radio" id="optionsRadios6" name="valid" value="6" class="radio">6个月
-                        </label>
-                    </div>
-                </div>
-                <div class="pad_select w70 pull-left">
-                    <div class="radio">
-                        <label>
-                            <input type="radio" id="optionsRadios7" name="valid" value="7" class="radio">1年
-                        </label>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="form-group">
-            <label class="col-lg-4 col-md-4 col-sm-4 control-label jiben_left">专线图片：</label>
-
-            <div class="col-lg-8 col-md-8 col-sm-8 jiben_right">
-                <input type="file" id="exampleInputFile" name="image">
-            </div>
-        </div>
-        <div class="form-group">
-            <div class="col-sm-1 col-sm-offset-4">
-                <button type="submit" class="btn btn-info btn_detail">发布</button>
-            </div>
-            <div class="col-sm-1">
-                <button type="reset" class="btn btn-default btn_detail">重置</button>
-            </div>
-        </div>
-        <div class="clearfix"></div>
-            <div class="form-group">
-                <div class="col-sm-1 col-sm-offset-4">
-                    <button type="submit" class="btn btn-info btn_detail">发布</button>
-                </div>
-                <div class="col-sm-1">
-                    <button type="reset" class="btn btn-default btn_detail">重置</button>
-                </div>
-            </div>
-        </form>
-        <div class="clearfix"></div>
     </div>
+</div>
+<div class="form-group">
+    <label for="inputEmail3" class="col-lg-4 col-sm-4 control-label jiben_left"><span class="text_red">*</span>
+        到达城市：</label>
+
+    <div class="col-lg-8 col-sm-8 jiben_right">
+        <div class="w100 pull-left">
+            <select id="eProvinceCode" name="eProvinceCode" class="form-control min_hundred w100">
+            </select>
+        </div>
+        <div class="w100 pull-left ln_margin">
+            <select id="eCityCode" name="eCityCode" class="form-control min_hundred w100">
+            </select>
+        </div>
+        <div class="w150 pull-left ln_margin">
+            <select id="eAreaCode" name="eAreaCode" class="form-control min_hundred w150">
+            </select>
+        </div>
+    </div>
+</div>
+<div class="form-group">
+    <label for="inputEmail3" class="col-lg-4 col-sm-4 control-label jiben_left"><span class="text_red">*</span>
+        重货价格：</label>
+
+    <div class="col-lg-8 col-sm-8 jiben_right">
+        <input type="text" class="form-control w20 inputinline" id="heavyCargoPrice" name="heavyCargoPrice" value="0" required/>元/吨
+        <small>0表示面议</small>
+    </div>
+</div>
+
+<div class="form-group">
+    <label for="inputEmail3" class="col-lg-4 col-sm-4 control-label jiben_left"><span class="text_red">*</span>
+        泡货价格：</label>
+
+    <div class="col-lg-8 col-sm-8 jiben_right">
+        <input type="text" class="form-control w20 inputinline" id="foamGoodsPrice" name="foamGoodsPrice" value="0" required/>元/公斤
+        <small>0表示面议</small>
+    </div>
+</div>
+<div class="form-group">
+    <label for="inputEmail3" class="col-lg-4 col-md-4 col-sm-4 control-label jiben_left">专线类型：</label>
+
+    <div class="col-lg-4 col-md-4 col-sm-4 jiben_right">
+        <% if(locals.line_type){
+            var index = 0;
+                line_type.forEach(function(lineType){
+        %>
+        <div class="pad_select w75 pull-left">
+            <div class="radio">
+                <label>
+                    <% if(index == 0){ %>
+                    <input type="radio" name="lineTypeCode" class="radio" value="<%= lineType.id %>"
+                           checked="checked"/><%= lineType.name %>
+                    <% }else{ %>
+                    <input type="radio" name="lineTypeCode" class="radio"
+                           value="<%= lineType.id %>"/><%= lineType.name %>
+                    <% } %>
+                </label>
+            </div>
+        </div>
+        <%
+            index++;
+        });
+        } %>
+    </div>
+</div>
+<div class="form-group">
+    <label for="inputEmail3" class="col-lg-4 col-md-4 col-sm-4 control-label jiben_left">运输方式：</label>
+
+    <div class="col-lg-3 col-md-3 col-sm-3 jiben_right w300">
+        <select name="modeTransportCode" class="form-control min_hundred w300">
+            <% if(locals.mode_transport){
+                var index = 0;
+                    mode_transport.forEach(function(modeTransport){
+            %>
+            <option value="<%= modeTransport.id %>"><%= modeTransport.name %></option>
+            <% })} %>
+        </select>
+    </div>
+</div>
+<div class="form-group">
+    <label for="inputEmail3" class="col-lg-4 col-md-4 col-sm-4 control-label jiben_left">是否直达：</label>
+
+    <div class="col-lg-4 col-md-4 col-sm-4 jiben_right">
+        <div class="pad_select w75 pull-left">
+            <div class="radio">
+                <label>
+                    <input type="radio" id="optionsRadios3" name="isDirect" class="radio" value="1" checked>直达
+                </label>
+            </div>
+        </div>
+        <div class="pad_select w75 pull-left">
+            <div class="radio">
+                <label>
+                    <input type="radio" id="optionsRadios4" name="isDirect" class="radio" value="0">中转
+                </label>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="form-group">
+    <label for="inputEmail3" class="col-lg-4 col-md-4 col-sm-4 control-label jiben_left">发车班次：</label>
+
+    <div class="col-lg-8 col-md-8 col-sm-8 jiben_right">
+        <div class="pad_select w75 pull-left">
+            <div class="radio">
+                <label>
+                    <input type="radio" id="optionsRadios3" name="isFrozen" class="radio" value="1" checked>不固定
+                </label>
+            </div>
+        </div>
+        <div class="pad_select w80 pull-left">
+            <div class="radio">
+                <label>
+                    <input type="radio" id="optionsRadios4" name="isFrozen" class="radio" value="0">固定班车
+                </label>
+            </div>
+        </div>
+        <div class="col-xs-5 pad_select">
+            <div class="radio">每<input type="number" id="optionsRadios4" name="transRateDay" placeholder="number"
+                                       class="w40" value="1">天<input type="number" id="optionsRadios4"
+                                                                     name="transRateNumber" placeholder="number"
+                                                                     class="w40" value="1">班
+            </div>
+        </div>
+    </div>
+</div>
+<div class="form-group">
+    <label for="inputEmail3" class="col-lg-4 col-md-4 col-sm-4 control-label jiben_left">运输货物：</label>
+
+    <div class="col-lg-8 col-md-8 col-sm-8 jiben_right">
+
+        <% if(locals.line_goods_type){
+            var index = 0;
+                line_goods_type.forEach(function(lineGoodsType){
+        %>
+        <% if(index == 0){ %>
+        <label class="checkbox-inline">
+            <input type="checkbox" name="lineGoodsType" value="<%= lineGoodsType.id %>" class="radio"
+                   checked> <%= lineGoodsType.name %>
+        </label>
+        <% }else{ %>
+        <label class="checkbox-inline">
+            <input type="checkbox" name="lineGoodsType" value="<%= lineGoodsType.id %>"
+                   class="radio"> <%= lineGoodsType.name %>
+        </label>
+        <% } %>
+        <%
+            index++;
+        });
+        } %>
+    </div>
+</div>
+<div class="form-group">
+    <label for="inputEmail3" class="col-lg-4 col-md-4 col-sm-4 control-label jiben_left">在途时间：</label>
+
+    <div class="col-lg-8 col-md-8 col-sm-8 jiben_right">
+        <% if(locals.trans_time){
+            var index = 0;
+                trans_time.forEach(function(transTime){
+        %>
+        <% if(index == 0){ %>
+        <div class="pad_select w70 pull-left">
+            <div class="radio">
+                <label>
+                    <input type="radio" name="transTime" class="radio" value="<%= transTime.id %>"
+                           checked><%= transTime.name %>
+                </label>
+            </div>
+        </div>
+        <% }else{ %>
+        <div class="pad_select w70 pull-left">
+            <div class="radio">
+                <label>
+                    <input type="radio" name="transTime" class="radio" value="<%= transTime.id %>"><%= transTime.name %>
+                </label>
+            </div>
+        </div>
+        <% } %>
+        <%
+            index++;
+        });
+        } %>
+    </div>
+</div>
+<div class="form-group">
+    <label for="inputEmail3" class="col-lg-4 col-md-4 col-sm-4 control-label jiben_left">附加说明：</label>
+
+    <div class="col-lg-8 col-md-8 col-sm-8 jiben_right">
+        <textarea name="freeText" class="form-control" maxlength="500" rows="3"></textarea>
+        <small>(限制500字符)</small>
+    </div>
+</div>
+<div class="form-group">
+    <label for="inputEmail3" class="col-lg-4 col-md-4 col-sm-4 control-label jiben_left"><span class="text_red">*</span>起始地联系人：</label>
+
+    <div class="col-lg-3 col-md-3 col-sm-3 jiben_right">
+        <input type="text" class="form-control" id="inputEmail6" name="startContact" placeholder="请填写联系人">
+    </div>
+</div>
+
+<div class="form-group ">
+    <label for="inputEmail3" class="col-sm-4 control-label jiben_left"><span class="text_red">*</span> 所在地址：</label>
+
+    <div class="col-sm-8 jiben_right">
+        <input type="text" class="form-control" id="inputEmail3" name="startAddress" placeholder="请填入详细地址，省市县不需要重复填写">
+    </div>
+</div>
+<div class="form-group">
+    <label for="inputEmail3" class="col-sm-4 control-label jiben_left"><span class="text_red">*</span> 手机：</label>
+
+    <div class="col-sm-4 jiben_right">
+        <input type="text" class="form-control" id="inputEmail3" name="startPhone" placeholder="联系电话和手机必填一项">
+    </div>
+</div>
+<div class="form-group">
+    <label for="inputEmail3" class="col-sm-4 control-label jiben_left">联系电话：</label>
+
+    <div class="col-sm-1 pad_select">
+        <input type="text" class="form-control min_fifty" id="inputEmail3" name="startTel" placeholder="区号">
+    </div>
+    <div class="pull-left pad_p">
+        <span>-</span>
+    </div>
+    <div class="col-sm-2 pad_select">
+        <input type="text" class="form-control min_hundred" id="inputEmail3" name="startTel" placeholder="电话号">
+    </div>
+    <div class="pull-left pad_p">
+        <span>-</span>
+    </div>
+    <div class="col-sm-1 pad_select">
+        <input type="text" class="form-control min_fifty" id="inputEmail3" name="startTel" placeholder="分机号">
+    </div>
+</div>
+<div class="form-group">
+    <label for="inputEmail3" class="col-lg-4 col-md-4 col-sm-4 control-label jiben_left">到达地联系人：</label>
+
+    <div class="col-lg-3 col-md-3 col-sm-3 jiben_right">
+        <input type="text" class="form-control" id="inputEmail6" name="endContact" placeholder="请填写联系人">
+    </div>
+</div>
+
+<div class="form-group ">
+    <label for="inputEmail3" class="col-sm-4 control-label jiben_left">所在地址：</label>
+
+    <div class="col-sm-8 jiben_right">
+        <input type="text" class="form-control" id="inputEmail3" name="endAddress" placeholder="请填入详细地址，省市县不需要重复填写">
+    </div>
+</div>
+<div class="form-group">
+    <label for="inputEmail3" class="col-sm-4 control-label jiben_left">手机：</label>
+
+    <div class="col-sm-4 jiben_right">
+        <input type="text" class="form-control" id="inputEmail3" name="endPhone" placeholder="联系电话和手机必填一项">
+    </div>
+</div>
+<div class="form-group">
+    <label for="inputEmail3" class="col-sm-4 control-label jiben_left">联系电话：</label>
+
+    <div class="col-sm-1 pad_select">
+        <input type="text" class="form-control min_fifty" id="inputEmail3" name="endTel" placeholder="区号">
+    </div>
+    <div class="pull-left pad_p">
+        <span>-</span>
+    </div>
+    <div class="col-sm-2 pad_select">
+        <input type="text" class="form-control min_hundred" id="inputEmail3" name="endTel" placeholder="电话号">
+    </div>
+    <div class="pull-left pad_p">
+        <span>-</span>
+    </div>
+    <div class="col-sm-1 pad_select">
+        <input type="text" class="form-control min_fifty" id="inputEmail3" name="endTel" placeholder="分机号">
+    </div>
+</div>
+
+<div class="form-group">
+    <label for="inputEmail3" class="col-lg-4 col-md-4 col-sm-4 control-label jiben_left">信息有效期：</label>
+
+    <div class="col-lg-8 col-md-8 col-sm-8 jiben_right">
+        <% if(locals.validate_type){
+            var index = 0;
+                validate_type.forEach(function(validateType){
+        %>
+        <% if(index == 0){ %>
+        <div class="pad_select w75 pull-left">
+            <div class="radio">
+                <label>
+                    <input type="radio" name="valid" value="<%= validateType.id %>" class="radio" checked><%= validateType.name %>
+                </label>
+            </div>
+        </div>
+        <% }else{ %>
+        <div class="pad_select w75 pull-left">
+            <div class="radio">
+                <label>
+                    <input type="radio" name="valid" value="<%= validateType.id %>" class="radio"><%= validateType.name %>
+                </label>
+            </div>
+        </div>
+        <% } %>
+        <%
+            index++;
+        });
+        } %>
+    </div>
+</div>
+<div class="form-group">
+    <label class="col-lg-4 col-md-4 col-sm-4 control-label jiben_left">专线图片：</label>
+
+    <div class="col-lg-8 col-md-8 col-sm-8 jiben_right">
+        <input type="file" id="exampleInputFile" name="image">
+    </div>
+</div>
+<input type="hidden" id="sProvince" name="sProvince"/>
+<input type="hidden" id="sCity" name="sCity"/>
+<input type="hidden" id="sArea" name="sArea"/>
+<input type="hidden" id="eProvince" name="eProvince"/>
+<input type="hidden" id="eCity" name="eCity"/>
+<input type="hidden" id="eArea" name="eArea"/>
+<div class="clearfix"></div>
+<div class="form-group">
+    <div class="col-sm-1 col-sm-offset-4">
+        <button type="submit" class="btn btn-info btn_detail">发布</button>
+    </div>
+    <div class="col-sm-1">
+        <button type="reset" class="btn btn-default btn_detail">重置</button>
+    </div>
+</div>
+</form>
+</div>
 </div>
 <script src="/js/jquery.provincesCity.js" type="text/javascript"></script>
 <script src="/js/core/city.js" type="text/javascript"></script>
+<script src="/js/jquery.validate.min.js" type="text/javascript"></script>
 <script>
     //调用插件
     $(function () {
-        $.ProvinceCity('sProvinceCode', 'sCityCode', 'sAreaCode');
-        $.ProvinceCity('eProvinceCode', 'eCityCode', 'eAreaCode');
+        $.ProvinceCity('sProvinceCode', 'sCityCode', 'sAreaCode',function(selectProvince,selectCity,selectArea){
+            $("#sProvince").val(selectProvince);
+            $("#sCity").val(selectCity);
+            $("#sArea").val(selectArea);
+        });
+        $.ProvinceCity('eProvinceCode', 'eCityCode', 'eAreaCode',function(selectProvince,selectCity,selectArea){
+            $("#eProvince").val(selectProvince);
+            $("#eCity").val(selectCity);
+            $("#eArea").val(selectArea);
+        });
+
+        $('#line-form').validate();
     });
 </script>

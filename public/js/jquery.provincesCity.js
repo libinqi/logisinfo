@@ -7,7 +7,7 @@
  */
 (function ($) {
     $.extend({
-        ProvinceCity: function (province_id, city_id, area_id) {
+        ProvinceCity: function (province_id, city_id, area_id, callback) {
             var _self = this;
             //定义3个默认值
 //            _self.data("province", ["请选择省", "请选择省"]);
@@ -35,25 +35,34 @@
                 if (index1 == 0) {	//当选择的为 “请选择” 时
                     $sel2.append("<option value=''>请选择市</option>");
                     $sel3.append("<option value=''>请选择区/县</option>");
+
+                    if (callback)callback('', '', '');
                 } else {
-                    var cities=getCitiesByParentCode($($sel1).val());
+                    var cities = getCitiesByParentCode($($sel1).val());
                     $.each(cities, function (index, data) {
                         $sel2.append("<option value='" + data.code + "'>" + data.name + "</option>");
                     });
-                    $.each(getAreasByParentCode(cities[0].code) , function (index, data) {
+                    $.each(getAreasByParentCode(cities[0].code), function (index, data) {
                         $sel3.append("<option value='" + data.code + "'>" + data.name + "</option>");
-                    })
+                    });
                 }
-            }).change();
+            }).change(function () {
+                    if (callback)callback($($sel1).find("option:selected").text(), $($sel2).find("option:selected").text(), $($sel3).find("option:selected").text());
+                });
             //1级城市联动 控制
             var index2 = "";
             $sel2.change(function () {
                 $sel3[0].options.length = 0;
                 index2 = this.selectedIndex;
-                var cities=getAreasByParentCode($($sel2).val());
+                var cities = getAreasByParentCode($($sel2).val());
                 $.each(cities, function (index, data) {
                     $sel3.append("<option value='" + data.code + "'>" + data.name + "</option>");
                 })
+            }).change(function () {
+                    if (callback)callback($($sel1).find("option:selected").text(), $($sel2).find("option:selected").text(), $($sel3).find("option:selected").text());
+                });
+            $sel3.change(function () {
+                if (callback)callback($($sel1).find("option:selected").text(), $($sel2).find("option:selected").text(), $($sel3).find("option:selected").text());
             });
         }
     });
