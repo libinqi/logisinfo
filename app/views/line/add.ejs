@@ -32,11 +32,11 @@
 
     <div class="col-lg-8 col-sm-8 jiben_right">
         <div class="w100 pull-left">
-            <select id="sProvinceCode" name="sProvinceCode" class="form-control min_hundred w100">
+            <select id="sProvinceCode" name="sProvinceCode" class="form-control min_hundred w100" required>
             </select>
         </div>
         <div class="w100 pull-left ln_margin">
-            <select id="sCityCode" name="sCityCode" class="form-control min_hundred w100">
+            <select id="sCityCode" name="sCityCode" class="form-control min_hundred w100" required>
             </select>
         </div>
         <div class="w150 pull-left ln_margin">
@@ -51,11 +51,11 @@
 
     <div class="col-lg-8 col-sm-8 jiben_right">
         <div class="w100 pull-left">
-            <select id="eProvinceCode" name="eProvinceCode" class="form-control min_hundred w100">
+            <select id="eProvinceCode" name="eProvinceCode" class="form-control min_hundred w100" required>
             </select>
         </div>
         <div class="w100 pull-left ln_margin">
-            <select id="eCityCode" name="eCityCode" class="form-control min_hundred w100">
+            <select id="eCityCode" name="eCityCode" class="form-control min_hundred w100" required>
             </select>
         </div>
         <div class="w150 pull-left ln_margin">
@@ -241,7 +241,7 @@
     <label for="inputEmail3" class="col-lg-4 col-md-4 col-sm-4 control-label jiben_left"><span class="text_red">*</span>起始地联系人：</label>
 
     <div class="col-lg-3 col-md-3 col-sm-3 jiben_right">
-        <input type="text" class="form-control" id="inputEmail6" name="startContact" placeholder="请填写联系人">
+        <input type="text" class="form-control" id="inputEmail6" name="startContact" placeholder="请填写联系人" required>
     </div>
 </div>
 
@@ -249,14 +249,14 @@
     <label for="inputEmail3" class="col-sm-4 control-label jiben_left"><span class="text_red">*</span> 所在地址：</label>
 
     <div class="col-sm-8 jiben_right">
-        <input type="text" class="form-control" id="inputEmail3" name="startAddress" placeholder="请填入详细地址，省市县不需要重复填写">
+        <input type="text" class="form-control" id="inputEmail3" name="startAddress" placeholder="请填入详细地址，省市县不需要重复填写" required>
     </div>
 </div>
 <div class="form-group">
     <label for="inputEmail3" class="col-sm-4 control-label jiben_left"><span class="text_red">*</span> 手机：</label>
 
     <div class="col-sm-4 jiben_right">
-        <input type="text" class="form-control" id="inputEmail3" name="startPhone" placeholder="联系电话和手机必填一项">
+        <input type="text" class="form-control" id="inputEmail3" name="startPhone" placeholder="联系电话和手机必填一项" required>
     </div>
 </div>
 <div class="form-group">
@@ -352,6 +352,25 @@
     </div>
 </div>
 <div class="form-group">
+    <label for="inputEmail3" class="col-lg-4 col-md-4 col-sm-4 control-label jiben_left">发布状态：</label>
+    <div class="col-lg-8 col-md-8 col-sm-8 jiben_right">
+        <div class="pad_select w80 pull-left">
+            <div class="radio">
+                <label>
+                    <input type="radio" name="status" value="1" class="radio" checked>发布
+                </label>
+            </div>
+        </div>
+        <div class="pad_select w80 pull-left">
+            <div class="radio">
+                <label>
+                    <input type="radio" name="status" value="0" class="radio">不发布
+                </label>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="form-group">
     <label class="col-lg-4 col-md-4 col-sm-4 control-label jiben_left">专线图片：</label>
 
     <div class="col-lg-8 col-md-8 col-sm-8 jiben_right">
@@ -383,19 +402,15 @@
 <div class="info yulan">
     <div class="info_item">
         <div class="info_title">
-            <div class="w210 ln_padding pull-left">
-                <span class="pull-left">湖南长沙</span><span class="zhida"><img src="/images/wangfan.png" /></span><span class="pull-left">江西南昌(直达)</span>
+            <div class="w410 ln_padding pull-left">
+                <span id="per_scity" class="pull-left">未选择</span><span class="zhida"><img src="/images/wangfan.png" /></span><span id="per_ecity" class="pull-left">未选择</span><span id="per_line_type" class="pull-left">(直达)</span>
                 <span class="clearfix"></span>
             </div>
-            <div class="w100 pull-left"><small>最新订单：<span class="text-primary">5</span></small></div>
-            <div class="w200 pull-left"><small>更新时间：2013-15-12 5:20</small></div>
-            <div class="w100 pull-left">
+            <!--<div class="w100 pull-left"><small>最新订单：<span class="text-primary">5</span></small></div>-->
+            <!--<div class="w200 pull-left"><small>更新时间：2013-15-12 5:20</small></div>-->
+            <div class="w200 pull-left">
                 <small class="dropdown">状态：
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">已发布 <b class="caret"></b></a>
-                    <ul class="dropdown-menu nav_bigdropdown">
-                        <li><a href="#">已发布</a></li>
-                        <li><a href="#">未发布</a></li>
-                    </ul>
+                    <a href="#" id="per_status" class="dropdown-toggle" data-toggle="dropdown">已发布</a>
                 </small>
             </div>
             <div class="chaozuo pull-right">
@@ -409,17 +424,17 @@
                 <a href="#"><img id="perview_image" src="/images/no-line.jpg" width="135" height="100"></a>
             </div>
             <div class="pull-left w305 tn_padding rn_padding ln_padding lianxi">
-                <p>始发地址：高桥物流园B区302</p>
-                <p>联系方式：<span class="text-primary">13878782588    张先生</span></p>
-                <p>到达地址：银燕物流基地12栋17号</p>
-                <p>联系方式：<span class="text-primary">13878782588   刘先生</span></p>
+                <p>始发地址：<span id="per_startAddress" class="pull-left">未填写</span></p>
+                <p>联系方式：<span id="per_startPhone" class="text-primary">未填写</span><span id="per_startTel" class="text-primary">/未填写</span><span id="per_startContact" class="text-primary">    未填写</span></p>
+                <p>到达地址：<span id="per_endAddress" class="pull-left">未填写</span></p>
+                <p>联系方式<span id="per_endPhone" class="text-primary">未填写</span><span id="per_endTel" class="text-primary">/未填写</span><span id="per_endContact" class="text-primary">    未填写</span></p>
             </div>
             <div class="pull-left w135 ln_padding tn_padding xijie">
-                <div class="w65 text-right pull-left">重货价格：</div><div class="pull-left">面议</div>
-                <div class="w65 text-right pull-left">泡货价格：</div><div class="pull-left">面议</div>
-                <span class="w65 text-right pull-left">货重：</span><div class="pull-left">10吨</div>
-                <span class="w65 text-right pull-left">发车班次：</span><div class="pull-left">不固定</div>
-                <span class="w65 text-right pull-left">在途时间：</span><div class="pull-left">2天</div>
+                <div class="w65 text-right pull-left">重货价格：</div><div id="per_heavyCargoPrice" class="pull-left">面议</div>
+                <div class="w65 text-right pull-left">泡货价格：</div><div id="per_foamGoodsPrice" class="pull-left">面议</div>
+                <span class="w65 text-right pull-left">运输方式：</span><div id="per_modeTransport" class="pull-left">公路运输</div>
+                <span class="w65 text-right pull-left">发车班次：</span><div id="per_transRate" class="pull-left">不固定</div>
+                <span class="w65 text-right pull-left">在途时间：</span><div id="per_transTime" class="pull-left">1天</div>
             </div>
             <div class="pull-right w80 tl_padding">
                 <input class="btn btn-block" type="button" value="查看">

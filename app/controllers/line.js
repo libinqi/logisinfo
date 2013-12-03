@@ -48,7 +48,7 @@ var validate_type = [
 
 module.exports = {
     index: function (req, res, next) {
-        req.models.line.all(function (err, lines) {
+        req.models.line.find().order('-updatedAt').all(function (err, lines) {
             if (err) {
                 if (err.code == orm.ErrorCodes.NOT_FOUND) {
                     res.send(404, "没有任何专线信息");
