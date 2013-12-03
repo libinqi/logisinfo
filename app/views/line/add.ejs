@@ -1,3 +1,5 @@
+<link rel="stylesheet" href="/css/jquery.fileupload.css">
+
 <div class="container w1002 tn_margin" id="qiye">
 
 <div class="col-lg-2 col-md-2 col-sm-2 left_bar">
@@ -353,7 +355,12 @@
     <label class="col-lg-4 col-md-4 col-sm-4 control-label jiben_left">专线图片：</label>
 
     <div class="col-lg-8 col-md-8 col-sm-8 jiben_right">
-        <input type="file" id="exampleInputFile" name="image">
+        <span class="btn btn-success fileinput-button">
+        <i class="glyphicon glyphicon-plus"></i>
+        <span>选择上传的图片</span>
+        <!-- The file input field used as target for the file upload widget -->
+        <input id="fileupload" type="file" name="files[]" multiple>
+        </span>
     </div>
 </div>
 <input type="hidden" id="sProvince" name="sProvince"/>
@@ -362,6 +369,7 @@
 <input type="hidden" id="eProvince" name="eProvince"/>
 <input type="hidden" id="eCity" name="eCity"/>
 <input type="hidden" id="eArea" name="eArea"/>
+<input type="hidden" id="line_image" name="image"/>
 <div class="clearfix"></div>
 <div class="form-group">
     <div class="col-sm-1 col-sm-offset-4">
@@ -371,12 +379,64 @@
         <button type="reset" class="btn btn-default btn_detail">重置</button>
     </div>
 </div>
+<h4 class="text-primary">发布预览</h4>
+<div class="info yulan">
+    <div class="info_item">
+        <div class="info_title">
+            <div class="w210 ln_padding pull-left">
+                <span class="pull-left">湖南长沙</span><span class="zhida"><img src="/images/wangfan.png" /></span><span class="pull-left">江西南昌(直达)</span>
+                <span class="clearfix"></span>
+            </div>
+            <div class="w100 pull-left"><small>最新订单：<span class="text-primary">5</span></small></div>
+            <div class="w200 pull-left"><small>更新时间：2013-15-12 5:20</small></div>
+            <div class="w100 pull-left">
+                <small class="dropdown">状态：
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">已发布 <b class="caret"></b></a>
+                    <ul class="dropdown-menu nav_bigdropdown">
+                        <li><a href="#">已发布</a></li>
+                        <li><a href="#">未发布</a></li>
+                    </ul>
+                </small>
+            </div>
+            <div class="chaozuo pull-right">
+                <div class="shouqi pull-left"><a href="#"><img src="/images/shouqi.png"></a></div>
+                <div class="delet pull-right"><a href="#"><img src="/images/delet.png"></a></div>
+            </div>
+            <div class="clearfix"></div>
+        </div>
+        <div class="info_content">
+            <div class=" pull-left w145 tn_padding ln_padding bn_padding">
+                <a href="#"><img id="perview_image" src="/images/no-line.jpg" width="135" height="100"></a>
+            </div>
+            <div class="pull-left w305 tn_padding rn_padding ln_padding lianxi">
+                <p>始发地址：高桥物流园B区302</p>
+                <p>联系方式：<span class="text-primary">13878782588    张先生</span></p>
+                <p>到达地址：银燕物流基地12栋17号</p>
+                <p>联系方式：<span class="text-primary">13878782588   刘先生</span></p>
+            </div>
+            <div class="pull-left w135 ln_padding tn_padding xijie">
+                <div class="w65 text-right pull-left">重货价格：</div><div class="pull-left">面议</div>
+                <div class="w65 text-right pull-left">泡货价格：</div><div class="pull-left">面议</div>
+                <span class="w65 text-right pull-left">货重：</span><div class="pull-left">10吨</div>
+                <span class="w65 text-right pull-left">发车班次：</span><div class="pull-left">不固定</div>
+                <span class="w65 text-right pull-left">在途时间：</span><div class="pull-left">2天</div>
+            </div>
+            <div class="pull-right w80 tl_padding">
+                <input class="btn btn-block" type="button" value="查看">
+                <input class="btn btn-block tn_margin" type="button" value="修改">
+            </div>
+            <div class="clearfix"></div>
+        </div>
+    </div>
+</div>
 </form>
 </div>
 </div>
 <script src="/js/jquery.provincesCity.js" type="text/javascript"></script>
 <script src="/js/core/city.js" type="text/javascript"></script>
 <script src="/js/jquery.validate.min.js" type="text/javascript"></script>
+<script src="/js/jquery.ui.widget.js"></script>
+<script src="/js/jquery.fileupload.js"></script>
 <script>
     //调用插件
     $(function () {
@@ -392,5 +452,27 @@
         });
 
         $('#line-form').validate();
+
+        // Change this to the location of your server-side upload handler:
+        var url = 'http://localhost:3001/upload/line';
+
+        $('#fileupload').fileupload({
+            url: url,
+            dataType: 'json',
+            done: function (e, data) {
+                $.each(data.result.files, function (index, file) {
+                    $('#perview_image').attr("src",file.url);
+                    $('#line_image').val(file.url);
+                });
+            },
+            progressall: function (e, data) {
+                var progress = parseInt(data.loaded / data.total * 100, 10);
+                $('#progress .progress-bar').css(
+                        'width',
+                        progress + '%'
+                );
+            }
+        }).prop('disabled', !$.support.fileInput)
+                .parent().addClass($.support.fileInput ? undefined : 'disabled');
     });
 </script>
