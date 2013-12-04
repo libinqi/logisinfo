@@ -37,6 +37,7 @@ module.exports = function (orm, db) {
             endPhone: {type: 'text'},
             valid: {type: 'text'},
             expiryDate: {type: 'date'},
+            isDeleted: {type: 'number'},
             status: {type: 'number'},
             freeText: {type: 'text'},
             eId: {type: 'text'},//关联企业的uuid
@@ -92,6 +93,7 @@ module.exports = function (orm, db) {
                         endPhone: this.endPhone,
                         valid: this.valid,
                         expiryDate: moment().format('YYYY-MM-DD HH:mm:ss'),
+                        isDeleted: 0,//0:不删除，1:删除
                         status: 1,//0:不发布，1:发布
                         freeText: this.freeText,
                         eId: this.eId,

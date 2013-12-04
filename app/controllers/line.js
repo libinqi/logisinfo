@@ -48,7 +48,7 @@ var validate_type = [
 
 module.exports = {
     index: function (req, res, next) {
-        req.models.line.find().order('-updatedAt').all(function (err, lines) {
+        req.models.line.find({'isDeleted': 0}).order('-updatedAt').all(function (err, lines) {
             if (err) {
                 if (err.code == orm.ErrorCodes.NOT_FOUND) {
                     res.send(404, "没有任何专线信息");
@@ -63,13 +63,13 @@ module.exports = {
                 if (!line.image) {
                     line.image = "/images/no-line.jpg";
                 }
-                if (line.heavyCargoPrice=="" || line.heavyCargoPrice == "0") {
+                if (line.heavyCargoPrice == "" || line.heavyCargoPrice == "0") {
                     line.heavyCargoPrice = "面议";
                 }
                 else {
                     line.heavyCargoPrice = line.heavyCargoPrice + "元/吨";
                 }
-                if (line.foamGoodsPrice=="" || line.foamGoodsPrice == "0") {
+                if (line.foamGoodsPrice == "" || line.foamGoodsPrice == "0") {
                     line.foamGoodsPrice = "面议";
                 }
                 else {
@@ -107,10 +107,21 @@ module.exports = {
         lineEntity.lineType = _.find(line_type, {'id': lineEntity.lineTypeCode}).name;
         lineEntity.modeTransport = _.find(mode_transport, {'id': lineEntity.modeTransportCode}).name;
         if (_.isArray(lineEntity.lineGoodsType))lineEntity.lineGoodsType = lineEntity.lineGoodsType.join(",");
-        lineEntity.startTel = lineEntity.startTel.join("-");
-        if (lineEntity.startTel.substring(lineEntity.startTel.length - 1, lineEntity.startTel.length) == "-") lineEntity.startTel = lineEntity.startTel.substr(0, lineEntity.startTel.length - 1);
-        lineEntity.endTel = lineEntity.endTel.join("-");
-        if (lineEntity.endTel.substring(lineEntity.endTel.length - 1, lineEntity.endTel.length) == "-") lineEntity.endTel = lineEntity.endTel.substr(0, lineEntity.endTel.length - 1);
+
+        if(lineEntity.startTel1)
+            lineEntity.startTel+=lineEntity.startTel1;
+        if(lineEntity.startTel2)
+            lineEntity.startTel+="-"+lineEntity.startTel2;
+        if(lineEntity.startTel3)
+            lineEntity.startTel+="-"+lineEntity.startTel3;
+
+        if(lineEntity.endTel1)
+            lineEntity.endTel+=lineEntity.endTel1;
+        if(lineEntity.endTel2)
+            lineEntity.endTel+="-"+lineEntity.endTel2;
+        if(lineEntity.endTel3)
+            lineEntity.endTel+="-"+lineEntity.endTel3;
+
         var day = _.find(validate_type, {'id': lineEntity.valid}).day;
         lineEntity.expiryDate = moment().add('d', day).format('YYYY-MM-DD HH:mm:ss');
         req.models.line.create(lineEntity, function (err, line) {
@@ -172,12 +183,11 @@ module.exports = {
                         return next(err);
                     }
                 }
-                res.redirect('/line/' + line.id);
+                res.redirect('/line');
             });
         });
     },
     remove: function (req, res, next) {
-        console.log('deleted');
         req.models.line.get(req.params.id, function (err, line) {
             if (err) {
                 if (Array.isArray(err)) {
@@ -186,7 +196,8 @@ module.exports = {
                     return next(err);
                 }
             }
-            line.remove(function (err) {
+            line.isDeleted=1;
+            line.save(line,function (err) {
                 if (err) {
                     if (Array.isArray(err)) {
                         return res.send(200, { errors: helpers.formatErrors(err) });

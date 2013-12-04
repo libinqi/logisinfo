@@ -247,3 +247,10 @@ h1,h2,h3,h4,h5,h6{font-family:"微软雅黑", "黑体",Arial, Helvetica, sans-se
 @media (min-width: 1020px) {
     .container{width:1002px; padding:0px;}
 }
+
+.form-horizontal label.error,label.error{
+    color: #ff0000;
+    margin-left: 10px;
+    width: auto;
+    display: inline;
+}

@@ -25,6 +25,11 @@
         </h4>
     </div>
 </div>
+<div id="error_container" class="col-lg-12 col-md-12 col-sm-12" style="display: none">
+    <div id="error_content" class="line_search tn_padding bn_padding ln_padding bn_margin">
+        <!--<label id="error" class="error"></label>-->
+    </div>
+</div>
 <form id="line-form" class="form-horizontal" action="/line" method="POST">
 <div class="form-group">
     <label for="inputEmail3" class="col-lg-4 col-sm-4 control-label jiben_left"><span class="text_red">*</span>
@@ -32,11 +37,11 @@
 
     <div class="col-lg-8 col-sm-8 jiben_right">
         <div class="w100 pull-left">
-            <select id="sProvinceCode" name="sProvinceCode" class="form-control min_hundred w100" required>
+            <select id="sProvinceCode" name="sProvinceCode" class="form-control min_hundred w100">
             </select>
         </div>
         <div class="w100 pull-left ln_margin">
-            <select id="sCityCode" name="sCityCode" class="form-control min_hundred w100" required>
+            <select id="sCityCode" name="sCityCode" class="form-control min_hundred w100">
             </select>
         </div>
         <div class="w150 pull-left ln_margin">
@@ -51,11 +56,11 @@
 
     <div class="col-lg-8 col-sm-8 jiben_right">
         <div class="w100 pull-left">
-            <select id="eProvinceCode" name="eProvinceCode" class="form-control min_hundred w100" required>
+            <select id="eProvinceCode" name="eProvinceCode" class="form-control min_hundred w100">
             </select>
         </div>
         <div class="w100 pull-left ln_margin">
-            <select id="eCityCode" name="eCityCode" class="form-control min_hundred w100" required>
+            <select id="eCityCode" name="eCityCode" class="form-control min_hundred w100">
             </select>
         </div>
         <div class="w150 pull-left ln_margin">
@@ -69,7 +74,7 @@
         重货价格：</label>
 
     <div class="col-lg-8 col-sm-8 jiben_right">
-        <input type="text" class="form-control w20 inputinline" id="heavyCargoPrice" name="heavyCargoPrice" value="0" required/>元/吨
+        <input type="text" class="form-control w20 inputinline" id="heavyCargoPrice" name="heavyCargoPrice" value="0"/>元/吨
         <small>0表示面议</small>
     </div>
 </div>
@@ -79,7 +84,7 @@
         泡货价格：</label>
 
     <div class="col-lg-8 col-sm-8 jiben_right">
-        <input type="text" class="form-control w20 inputinline" id="foamGoodsPrice" name="foamGoodsPrice" value="0" required/>元/公斤
+        <input type="text" class="form-control w20 inputinline" id="foamGoodsPrice" name="foamGoodsPrice" value="0"/>元/公斤
         <small>0表示面议</small>
     </div>
 </div>
@@ -114,7 +119,7 @@
     <label for="inputEmail3" class="col-lg-4 col-md-4 col-sm-4 control-label jiben_left">运输方式：</label>
 
     <div class="col-lg-3 col-md-3 col-sm-3 jiben_right w300">
-        <select name="modeTransportCode" class="form-control min_hundred w300">
+        <select id="modeTransportCode" name="modeTransportCode" class="form-control min_hundred w300">
             <% if(locals.mode_transport){
                 var index = 0;
                     mode_transport.forEach(function(modeTransport){
@@ -163,10 +168,10 @@
             </div>
         </div>
         <div class="col-xs-5 pad_select">
-            <div class="radio">每<input type="number" id="optionsRadios4" name="transRateDay" placeholder="number"
-                                       class="w40" value="1">天<input type="number" id="optionsRadios4"
+            <div class="radio">每<input type="number" id="transRateDay" name="transRateDay" placeholder="number"
+                                       class="w40" value="1" min="1" max="31">天<input type="number" id="transRateNumber"
                                                                      name="transRateNumber" placeholder="number"
-                                                                     class="w40" value="1">班
+                                                                     class="w40" value="1" min="1">班
             </div>
         </div>
     </div>
@@ -210,6 +215,7 @@
             <div class="radio">
                 <label>
                     <input type="radio" name="transTime" class="radio" value="<%= transTime.id %>"
+                           text="<%= transTime.name %>"
                            checked><%= transTime.name %>
                 </label>
             </div>
@@ -218,7 +224,8 @@
         <div class="pad_select w70 pull-left">
             <div class="radio">
                 <label>
-                    <input type="radio" name="transTime" class="radio" value="<%= transTime.id %>"><%= transTime.name %>
+                    <input type="radio" name="transTime" class="radio" value="<%= transTime.id %>"
+                           text="<%= transTime.name %>"><%= transTime.name %>
                 </label>
             </div>
         </div>
@@ -241,7 +248,7 @@
     <label for="inputEmail3" class="col-lg-4 col-md-4 col-sm-4 control-label jiben_left"><span class="text_red">*</span>起始地联系人：</label>
 
     <div class="col-lg-3 col-md-3 col-sm-3 jiben_right">
-        <input type="text" class="form-control" id="inputEmail6" name="startContact" placeholder="请填写联系人" required>
+        <input type="text" class="form-control" id="startContact" name="startContact" placeholder="请填写联系人" required>
     </div>
 </div>
 
@@ -249,40 +256,44 @@
     <label for="inputEmail3" class="col-sm-4 control-label jiben_left"><span class="text_red">*</span> 所在地址：</label>
 
     <div class="col-sm-8 jiben_right">
-        <input type="text" class="form-control" id="inputEmail3" name="startAddress" placeholder="请填入详细地址，省市县不需要重复填写" required>
+        <input type="text" class="form-control" id="startAddress" name="startAddress" placeholder="请填入详细地址，省市县不需要重复填写">
     </div>
 </div>
 <div class="form-group">
     <label for="inputEmail3" class="col-sm-4 control-label jiben_left"><span class="text_red">*</span> 手机：</label>
 
     <div class="col-sm-4 jiben_right">
-        <input type="text" class="form-control" id="inputEmail3" name="startPhone" placeholder="联系电话和手机必填一项" required>
+        <input type="text" class="form-control" id="startPhone" name="startPhone" maxlength="11" placeholder="联系的手机号码"
+               required>
     </div>
 </div>
 <div class="form-group">
     <label for="inputEmail3" class="col-sm-4 control-label jiben_left">联系电话：</label>
 
     <div class="col-sm-1 pad_select">
-        <input type="text" class="form-control min_fifty" id="inputEmail3" name="startTel" placeholder="区号">
+        <input type="text" class="form-control min_fifty" id="startTel1" name="startTel1" maxlength="4"
+               placeholder="区号">
     </div>
     <div class="pull-left pad_p">
         <span>-</span>
     </div>
     <div class="col-sm-2 pad_select">
-        <input type="text" class="form-control min_hundred" id="inputEmail3" name="startTel" placeholder="电话号">
+        <input type="text" class="form-control min_hundred" id="startTel2" name="startTel2" maxlength="8"
+               placeholder="电话号">
     </div>
     <div class="pull-left pad_p">
         <span>-</span>
     </div>
     <div class="col-sm-1 pad_select">
-        <input type="text" class="form-control min_fifty" id="inputEmail3" name="startTel" placeholder="分机号">
+        <input type="text" class="form-control min_fifty" id="startTel3" name="startTel3" maxlength="4"
+               placeholder="分机号">
     </div>
 </div>
 <div class="form-group">
     <label for="inputEmail3" class="col-lg-4 col-md-4 col-sm-4 control-label jiben_left">到达地联系人：</label>
 
     <div class="col-lg-3 col-md-3 col-sm-3 jiben_right">
-        <input type="text" class="form-control" id="inputEmail6" name="endContact" placeholder="请填写联系人">
+        <input type="text" class="form-control" id="endContact" name="endContact" placeholder="请填写联系人">
     </div>
 </div>
 
@@ -290,33 +301,33 @@
     <label for="inputEmail3" class="col-sm-4 control-label jiben_left">所在地址：</label>
 
     <div class="col-sm-8 jiben_right">
-        <input type="text" class="form-control" id="inputEmail3" name="endAddress" placeholder="请填入详细地址，省市县不需要重复填写">
+        <input type="text" class="form-control" id="endAddress" name="endAddress" placeholder="请填入详细地址，省市县不需要重复填写">
     </div>
 </div>
 <div class="form-group">
     <label for="inputEmail3" class="col-sm-4 control-label jiben_left">手机：</label>
 
     <div class="col-sm-4 jiben_right">
-        <input type="text" class="form-control" id="inputEmail3" name="endPhone" placeholder="联系电话和手机必填一项">
+        <input type="text" class="form-control" id="endPhone" name="endPhone" maxlength="11" placeholder="联系的手机号码">
     </div>
 </div>
 <div class="form-group">
     <label for="inputEmail3" class="col-sm-4 control-label jiben_left">联系电话：</label>
 
     <div class="col-sm-1 pad_select">
-        <input type="text" class="form-control min_fifty" id="inputEmail3" name="endTel" placeholder="区号">
+        <input type="text" class="form-control min_fifty" id="endTel1" name="endTel1" maxlength="4" placeholder="区号">
     </div>
     <div class="pull-left pad_p">
         <span>-</span>
     </div>
     <div class="col-sm-2 pad_select">
-        <input type="text" class="form-control min_hundred" id="inputEmail3" name="endTel" placeholder="电话号">
+        <input type="text" class="form-control min_hundred" id="endTel2" name="endTel2" maxlength="8" placeholder="电话号">
     </div>
     <div class="pull-left pad_p">
         <span>-</span>
     </div>
     <div class="col-sm-1 pad_select">
-        <input type="text" class="form-control min_fifty" id="inputEmail3" name="endTel" placeholder="分机号">
+        <input type="text" class="form-control min_fifty" id="endTel3" name="endTel3" maxlength="4" placeholder="分机号">
     </div>
 </div>
 
@@ -332,7 +343,8 @@
         <div class="pad_select w75 pull-left">
             <div class="radio">
                 <label>
-                    <input type="radio" name="valid" value="<%= validateType.id %>" class="radio" checked><%= validateType.name %>
+                    <input type="radio" name="valid" value="<%= validateType.id %>" class="radio"
+                           checked><%= validateType.name %>
                 </label>
             </div>
         </div>
@@ -340,7 +352,8 @@
         <div class="pad_select w75 pull-left">
             <div class="radio">
                 <label>
-                    <input type="radio" name="valid" value="<%= validateType.id %>" class="radio"><%= validateType.name %>
+                    <input type="radio" name="valid" value="<%= validateType.id %>"
+                           class="radio"><%= validateType.name %>
                 </label>
             </div>
         </div>
@@ -353,15 +366,16 @@
 </div>
 <div class="form-group">
     <label for="inputEmail3" class="col-lg-4 col-md-4 col-sm-4 control-label jiben_left">发布状态：</label>
+
     <div class="col-lg-8 col-md-8 col-sm-8 jiben_right">
-        <div class="pad_select w80 pull-left">
+        <div class="pad_select w75 pull-left">
             <div class="radio">
                 <label>
                     <input type="radio" name="status" value="1" class="radio" checked>发布
                 </label>
             </div>
         </div>
-        <div class="pad_select w80 pull-left">
+        <div class="pad_select w75 pull-left">
             <div class="radio">
                 <label>
                     <input type="radio" name="status" value="0" class="radio">不发布
@@ -389,6 +403,7 @@
 <input type="hidden" id="eCity" name="eCity"/>
 <input type="hidden" id="eArea" name="eArea"/>
 <input type="hidden" id="line_image" name="image"/>
+
 <div class="clearfix"></div>
 <div class="form-group">
     <div class="col-sm-1 col-sm-offset-4">
@@ -399,12 +414,15 @@
     </div>
 </div>
 <h4 class="text-primary">发布预览</h4>
+
 <div class="info yulan">
     <div class="info_item">
         <div class="info_title">
-            <div class="w410 ln_padding pull-left">
-                <span id="per_scity" class="pull-left">未选择</span><span class="zhida"><img src="/images/wangfan.png" /></span><span id="per_ecity" class="pull-left">未选择</span><span id="per_line_type" class="pull-left">(直达)</span>
-                <span class="clearfix"></span>
+            <div class="w450 ln_padding pull-left">
+                <span id="per_scity" class="pull-left">未选择</span>
+                <span class="zhida"><img id="per_line_type" src="/images/zhida.png"/></span>
+                <span id="per_ecity" class="pull-left">未选择</span>
+                <span id="per_is_direct" class="pull-left">(直达)</span>
             </div>
             <!--<div class="w100 pull-left"><small>最新订单：<span class="text-primary">5</span></small></div>-->
             <!--<div class="w200 pull-left"><small>更新时间：2013-15-12 5:20</small></div>-->
@@ -424,17 +442,32 @@
                 <a href="#"><img id="perview_image" src="/images/no-line.jpg" width="135" height="100"></a>
             </div>
             <div class="pull-left w305 tn_padding rn_padding ln_padding lianxi">
-                <p>始发地址：<span id="per_startAddress" class="pull-left">未填写</span></p>
-                <p>联系方式：<span id="per_startPhone" class="text-primary">未填写</span><span id="per_startTel" class="text-primary">/未填写</span><span id="per_startContact" class="text-primary">    未填写</span></p>
-                <p>到达地址：<span id="per_endAddress" class="pull-left">未填写</span></p>
-                <p>联系方式<span id="per_endPhone" class="text-primary">未填写</span><span id="per_endTel" class="text-primary">/未填写</span><span id="per_endContact" class="text-primary">    未填写</span></p>
+                <p>始发地址：<span id="per_startAddress">未填写</span></p>
+
+                <p>联系方式：<span id="per_startPhone" class="text-primary">未填写</span>
+                    <span id="per_startTel" class="text-primary">/未填写</span>
+                    <span id="per_startContact" class="text-primary">    未填写</span></p>
+
+                <p>到达地址：<span id="per_endAddress">未填写</span></p>
+
+                <p>联系方式：<span id="per_endPhone" class="text-primary">未填写</span>
+                    <span id="per_endTel" class="text-primary">/未填写</span>
+                    <span id="per_endContact" class="text-primary">    未填写</span></p>
             </div>
             <div class="pull-left w135 ln_padding tn_padding xijie">
-                <div class="w65 text-right pull-left">重货价格：</div><div id="per_heavyCargoPrice" class="pull-left">面议</div>
-                <div class="w65 text-right pull-left">泡货价格：</div><div id="per_foamGoodsPrice" class="pull-left">面议</div>
-                <span class="w65 text-right pull-left">运输方式：</span><div id="per_modeTransport" class="pull-left">公路运输</div>
-                <span class="w65 text-right pull-left">发车班次：</span><div id="per_transRate" class="pull-left">不固定</div>
-                <span class="w65 text-right pull-left">在途时间：</span><div id="per_transTime" class="pull-left">1天</div>
+                <div class="w65 text-right pull-left">重货价格：</div>
+                <div id="per_heavyCargoPrice" class="pull-left">面议</div>
+                <div class="w65 text-right pull-left">泡货价格：</div>
+                <div id="per_foamGoodsPrice" class="pull-left">面议</div>
+                <span class="w65 text-right pull-left">运输方式：</span>
+
+                <div id="per_modeTransport" class="pull-left">公路运输</div>
+                <span class="w65 text-right pull-left">发车班次：</span>
+
+                <div id="per_transRate" class="pull-left">不固定</div>
+                <span class="w65 text-right pull-left">在途时间：</span>
+
+                <div id="per_transTime" class="pull-left">1天</div>
             </div>
             <div class="pull-right w80 tl_padding">
                 <input class="btn btn-block" type="button" value="查看">
@@ -453,41 +486,255 @@
 <script src="/js/jquery.ui.widget.js"></script>
 <script src="/js/jquery.fileupload.js"></script>
 <script>
-    //调用插件
-    $(function () {
-        $.ProvinceCity('sProvinceCode', 'sCityCode', 'sAreaCode',function(selectProvince,selectCity,selectArea){
-            $("#sProvince").val(selectProvince);
-            $("#sCity").val(selectCity);
-            $("#sArea").val(selectArea);
-        });
-        $.ProvinceCity('eProvinceCode', 'eCityCode', 'eAreaCode',function(selectProvince,selectCity,selectArea){
-            $("#eProvince").val(selectProvince);
-            $("#eCity").val(selectCity);
-            $("#eArea").val(selectArea);
-        });
-
-        $('#line-form').validate();
-
-        // Change this to the location of your server-side upload handler:
-        var url = 'http://localhost:3001/upload/line';
-
-        $('#fileupload').fileupload({
-            url: url,
-            dataType: 'json',
-            done: function (e, data) {
-                $.each(data.result.files, function (index, file) {
-                    $('#perview_image').attr("src",file.url);
-                    $('#line_image').val(file.url);
-                });
-            },
-            progressall: function (e, data) {
-                var progress = parseInt(data.loaded / data.total * 100, 10);
-                $('#progress .progress-bar').css(
-                        'width',
-                        progress + '%'
-                );
-            }
-        }).prop('disabled', !$.support.fileInput)
-                .parent().addClass($.support.fileInput ? undefined : 'disabled');
+//调用插件
+$(function () {
+    $.ProvinceCity('sProvinceCode', 'sCityCode', 'sAreaCode', function (selectProvince, selectCity, selectArea) {
+        $("#sProvince").val(selectProvince);
+        $("#sCity").val(selectCity);
+        $("#sArea").val(selectArea);
+        $("#per_scity").html(selectProvince + selectCity);
     });
+    $.ProvinceCity('eProvinceCode', 'eCityCode', 'eAreaCode', function (selectProvince, selectCity, selectArea) {
+        $("#eProvince").val(selectProvince);
+        $("#eCity").val(selectCity);
+        $("#eArea").val(selectArea);
+        $("#per_ecity").html(selectProvince + selectCity);
+    });
+
+    $("input[name='lineTypeCode']").each(function () {
+        $(this).click(function () {
+            var lineType = $(this).val();
+            $("#per_line_type").attr("src", (lineType == 1 ? "/images/zhida.png" : "/images/wangfan.png"));
+        });
+    });
+
+    $("input[name='isDirect']").each(function () {
+        $(this).click(function () {
+            var isDirect = $(this).val();
+            $("#per_is_direct").html("(" + (isDirect == 1 ? "直达" : "中转") + ")");
+        });
+    });
+
+    $("input[name='status']").each(function () {
+        $(this).click(function () {
+            var status = $(this).val();
+            $("#per_status").html((status == 1 ? "已发布" : "未发布"));
+        });
+    });
+
+
+    $("#heavyCargoPrice").blur(function () {
+        var heavyCargoPrice = $(this).val();
+        if (heavyCargoPrice == 0)
+            $("#per_heavyCargoPrice").html("面议");
+        else
+            $("#per_heavyCargoPrice").html(heavyCargoPrice);
+    });
+
+    $("#foamGoodsPrice").blur(function () {
+        var foamGoodsPrice = $(this).val();
+        if (foamGoodsPrice == 0)
+            $("#per_foamGoodsPrice").html("面议");
+        else
+            $("#per_foamGoodsPrice").html(foamGoodsPrice);
+    });
+
+    $("#modeTransportCode").change(function () {
+        var selectedIndex = $(this)[0].selectedIndex;
+        $("#per_modeTransport").html($(this)[0].options[selectedIndex].text);
+    });
+
+    $("input[name='isFrozen']").each(function () {
+        $(this).click(function () {
+            var isFrozen = $(this).val();
+            if (isFrozen == 1) {
+                $("#per_transRate").html("不固定");
+            }
+            else {
+                $("#per_transRate").html("每" + $("#transRateDay").val() + "天" + $("#transRateNumber").val() + "班");
+            }
+        });
+    });
+
+    $("#transRateDay").change(function () {
+        var isFrozen = $("input[name='isFrozen']:checked").val();
+        if (isFrozen == 0)
+            $("#per_transRate").html("每" + $("#transRateDay").val() + "天" + $("#transRateNumber").val() + "班");
+    });
+
+    $("#transRateNumber").change(function () {
+        var isFrozen = $("input[name='isFrozen']:checked").val();
+        if (isFrozen == 0)
+            $("#per_transRate").html("每" + $("#transRateDay").val() + "天" + $("#transRateNumber").val() + "班");
+    });
+
+
+    $("input[name='transTime']").each(function () {
+        $(this).click(function () {
+            var transTime = $(this).attr("text");
+            $("#per_transTime").html(transTime);
+        });
+    });
+
+    jQuery.validator.setDefaults({
+        debug: true
+    });
+    jQuery.validator.messages.required = "";
+    $('#line-form').validate({
+        rules: {
+            sProvinceCode: "required",
+//                sCityCode:"required",
+            eProvinceCode: "required",
+//                eCityCode:"required",
+            heavyCargoPrice: {
+                required: true,
+                number: true,
+                min: 0
+            },
+            foamGoodsPrice: {
+                required: true,
+                number: true,
+                min: 0
+            },
+            lineGoodsType: "required",
+            startContact: "required",
+            startAddress: "required",
+            startPhone: {
+                required: true,
+                number: true,
+                minlength: 11
+            },
+            startTel1: {
+                number: true,
+                minlength: 3,
+                maxlength: 4
+            },
+            startTel2: {
+                number: true,
+                minlength: 7,
+                maxlength: 8
+            },
+            startTel3: {
+                number: true
+            },
+            endPhone: {
+                number: true,
+                minlength: 11
+            },
+            endTel1: {
+                number: true,
+                minlength: 3,
+                maxlength: 4
+            },
+            endTel2: {
+                number: true,
+                minlength: 7,
+                maxlength: 8
+            },
+            endTel3: {
+                number: true
+            }
+        },
+        messages: {
+            sProvinceCode: "出发城市必选",
+            eProvinceCode: "到达城市必选",
+            heavyCargoPrice: {
+                required: "重货价格必填",
+                number: "价格必须为数字",
+                min: "价格不能少于0"
+            },
+            foamGoodsPrice: {
+                required: "泡货价格必填",
+                number: "价格必须为数字",
+                min: "价格不能少于0"
+            },
+            lineGoodsType: "运输货物必选",
+            startContact: "联系人不能为空",
+            startAddress: "所在地址不能为空",
+            startPhone: {
+                required: "手机号码不能为空",
+                number: "手机号码必须为数字",
+                minlength: "手机号码长度为11位"
+            },
+            startTel1: {
+                number: "区号必须为数字",
+                minlength: "区号长度最少为3位",
+                maxlength: "区号长度最长为4位"
+            },
+            startTel2: {
+                number: "电话号码必须为数字",
+                minlength: "电话号码长度最少为7位",
+                maxlength: "电话号码长度最长为8位"
+            },
+            startTel3: {
+                number: "分机号码必须为数字"
+            },
+            endPhone: {
+                number: "手机号码必须为数字",
+                minlength: "手机号码长度为11位"
+            },
+            endTel1: {
+                number: "区号必须为数字",
+                minlength: "区号长度最少为3位",
+                maxlength: "区号长度最长为4位"
+            },
+            endTel2: {
+                number: "电话号码必须为数字",
+                minlength: "电话号码长度最少为7位",
+                maxlength: "电话号码长度最长为8位"
+            },
+            endTel3: {
+                number: "分机号码必须为数字"
+            }
+        },
+//            invalidHandler: function(event, validator) {
+//                // 'this' refers to the form
+//                var errors = validator.numberOfInvalids();
+//                if (errors) {
+//                    var message ='You missed ' + errors + ' fields. They have been highlighted';
+//                    $("#error").html(validator.errorList[0].message);
+//                    $("#error_container").show();
+//                } else {
+//                    $("#error_container").hide();
+//                }
+//            },
+//            showErrors: function (errorMap, errorList) {
+//                var errors = this.numberOfInvalids();
+//                if (errors && errorList) {
+//                    $("#error").html(errorList[0].message);
+//                    $("#error_container").show();
+//                } else {
+//                    $("#error_container").hide();
+//                }
+//            },
+        highlight: function (element) {
+            $(element).closest('.control-group').removeClass('success').addClass('error');
+        },
+        submitHandler: function () {
+            $("#error_container").hide();
+        }
+    });
+
+    // Change this to the location of your server-side upload handler:
+    var url = 'http://localhost:3001/upload/line';
+
+    $('#fileupload').fileupload({
+        url: url,
+        dataType: 'json',
+        done: function (e, data) {
+            $.each(data.result.files, function (index, file) {
+                $('#perview_image').attr("src", file.url);
+                $('#line_image').val(file.url);
+            });
+        },
+        progressall: function (e, data) {
+            var progress = parseInt(data.loaded / data.total * 100, 10);
+            $('#progress .progress-bar').css(
+                    'width',
+                    progress + '%'
+            );
+        }
+    }).prop('disabled', !$.support.fileInput)
+            .parent().addClass($.support.fileInput ? undefined : 'disabled');
+});
 </script>

@@ -12,5 +12,6 @@ module.exports = function (app) {
         app.get('/line/:id', controllers.line.show);
         app.get('/line/edit/:id', controllers.line.edit);
         app.post('/line/:id', controllers.line.update);
+        app.get('/line/delete/:id', controllers.line.remove);
         app.post('/line/delete/:id', controllers.line.remove);
 };

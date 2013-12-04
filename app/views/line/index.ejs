@@ -73,19 +73,19 @@
             });
         </script>
         <div class="col-lg-12 col-dm-12 col-sm-12 info tn_margin">
-            <% if(locals.lines){
+            <% if(locals.lines && locals.lines.length){
                     lines.forEach(function(line){
             %>
             <div class="info_item">
                 <div class="info_title">
                     <div class="w310 ln_padding pull-left">
-                        <span class="pull-left"><%= line.sProvince+line.sCity %></span>
+                        <span class="pull-left"><%= line.sProvince + line.sCity %></span>
                         <% if(line.lineTypeCode == 1){ %>
                         <span class="zhida"><img src="images/zhida.png"/></span>
-                        <span class="pull-left"><%= line.eProvince+line.eCity %>(直达)</span>
+                        <span class="pull-left"><%= line.eProvince + line.eCity %>(直达)</span>
                         <% }else{ %>
                         <span class="zhida"><img src="images/wangfan.png"/></span>
-                        <span class="pull-left"><%= line.eProvince+line.eCity %>(往返)</span>
+                        <span class="pull-left"><%= line.eProvince + line.eCity %>(往返)</span>
                         <% } %>
                         <span class="clearfix"></span>
                     </div>
@@ -107,7 +107,8 @@
                     </div>
                     <div class="chaozuo pull-right">
                         <div class="shouqi pull-left"><a href="#"><img src="images/shouqi.png"></a></div>
-                        <div class="delet pull-right"><a href="#"><img src="images/delet.png"></a></div>
+                        <div class="delet pull-right"><a href="/line/delete/<%= line.id %>"><img src="images/delet.png"></a>
+                        </div>
                     </div>
                     <div class="clearfix"></div>
                 </div>
@@ -128,18 +129,18 @@
                     </div>
                     <div class="pull-left w145 ln_padding tn_padding xijie">
                         <div class="w65 text-right pull-left">重货价格：</div>
-                        <div class="pull-left"><%=line.heavyCargoPrice%></div>
+                        <div class="pull-left"><%= line.heavyCargoPrice %></div>
                         <div class="w65 text-right pull-left">泡货价格：</div>
-                        <div class="pull-left"><%=line.foamGoodsPrice%></div>
+                        <div class="pull-left"><%= line.foamGoodsPrice %></div>
                         <span class="w65 text-right pull-left">运输方式：</span>
 
-                        <div class="pull-left"><%=line.modeTransport%></div>
+                        <div class="pull-left"><%= line.modeTransport %></div>
                         <span class="w65 text-right pull-left">发车班次：</span>
 
-                        <div class="pull-left"><%=line.transRate%></div>
+                        <div class="pull-left"><%= line.transRate %></div>
                         <span class="w65 text-right pull-left">在途时间：</span>
 
-                        <div class="pull-left"><%=line.transTime%></div>
+                        <div class="pull-left"><%= line.transTime %></div>
                     </div>
                     <div class="pull-right w80 tl_padding">
                         <input class="btn btn-info" type="button" value="查看">
@@ -148,36 +149,41 @@
                     <div class="clearfix"></div>
                 </div>
             </div>
-            <% })} %>
-
-            <div class="col-lg-5 col-sm-offset-4">
-                <ul class="pagination">
-                    <li class="disabled">
-                        <a href="#">«</a>
-                    </li>
-                    <li class="active">
-                        <a href="#">
-                            1
-                            <span class="sr-only">(current)</span>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="#">2</a>
-                    </li>
-                    <li>
-                        <a href="#">3</a>
-                    </li>
-                    <li>
-                        <a href="#">4</a>
-                    </li>
-                    <li>
-                        <a href="#">5</a>
-                    </li>
-                    <li>
-                        <a href="#">»</a>
-                    </li>
-                </ul>
+            <% })}else{ %>
+            <div class="info_item">
+                <div class="col-lg-12 tl_padding bl_padding text-danger text-center">您还没有发布信息哦，<a href="/line/add">赶快去发布信息</a>
+                </div>
             </div>
+            <% } %>
+
+            <!--<div class="col-lg-5 col-sm-offset-4">-->
+            <!--<ul class="pagination">-->
+            <!--<li class="disabled">-->
+            <!--<a href="#">«</a>-->
+            <!--</li>-->
+            <!--<li class="active">-->
+            <!--<a href="#">-->
+            <!--1-->
+            <!--<span class="sr-only">(current)</span>-->
+            <!--</a>-->
+            <!--</li>-->
+            <!--<li>-->
+            <!--<a href="#">2</a>-->
+            <!--</li>-->
+            <!--<li>-->
+            <!--<a href="#">3</a>-->
+            <!--</li>-->
+            <!--<li>-->
+            <!--<a href="#">4</a>-->
+            <!--</li>-->
+            <!--<li>-->
+            <!--<a href="#">5</a>-->
+            <!--</li>-->
+            <!--<li>-->
+            <!--<a href="#">»</a>-->
+            <!--</li>-->
+            <!--</ul>-->
+            <!--</div>-->
         </div>
     </div>
 </div>
@@ -186,9 +192,9 @@
 <script type="text/javascript">
     //调用插件
     $(function () {
-        $.ProvinceCity('sProvince', 'sCity', 'sArea',function(selectProvince,selectCity,selectArea){
+        $.ProvinceCity('sProvince', 'sCity', 'sArea', function (selectProvince, selectCity, selectArea) {
         });
-        $.ProvinceCity('eProvince', 'eCity', 'eArea',function(selectProvince,selectCity,selectArea){
+        $.ProvinceCity('eProvince', 'eCity', 'eArea', function (selectProvince, selectCity, selectArea) {
         });
     });
 </script>
