@@ -58,8 +58,8 @@ module.exports = {
             }
             lines.forEach(function (line) {
                 line.updatedAt = moment(line.updatedAt).format('YYYY-MM-DD HH:mm:ss');
-                line.status = line.status == "1" ? "已发布" : "未发布";
-                line.transTime = _.find(trans_time, {'id': line.transTime}).name;
+                line.statusText = line.status == "1" ? "已发布" : "未发布";
+                line.transTimeText = _.find(trans_time, {'id': line.transTime}).name;
                 if (!line.image) {
                     line.image = "/images/no-line.jpg";
                 }
@@ -82,10 +82,9 @@ module.exports = {
                     line.transRate = "每" + line.transRateDay + "天" + line.transRateNumber + "班";
                 }
                 if (line.startTel)
-                    line.startPhone += "/" + line.startTel;
+                    line.startTel += "/" + line.startTel;
                 if (line.endTel)
-                    line.endPhone += "/" + line.endTel;
-
+                    line.endTel += "/" + line.endTel;
             });
             res.render('line/index', { lines: lines });
         });
@@ -108,19 +107,13 @@ module.exports = {
         lineEntity.modeTransport = _.find(mode_transport, {'id': lineEntity.modeTransportCode}).name;
         if (_.isArray(lineEntity.lineGoodsType))lineEntity.lineGoodsType = lineEntity.lineGoodsType.join(",");
 
-        if(lineEntity.startTel1)
-            lineEntity.startTel+=lineEntity.startTel1;
-        if(lineEntity.startTel2)
-            lineEntity.startTel+="-"+lineEntity.startTel2;
-        if(lineEntity.startTel3)
-            lineEntity.startTel+="-"+lineEntity.startTel3;
-
-        if(lineEntity.endTel1)
-            lineEntity.endTel+=lineEntity.endTel1;
-        if(lineEntity.endTel2)
-            lineEntity.endTel+="-"+lineEntity.endTel2;
-        if(lineEntity.endTel3)
-            lineEntity.endTel+="-"+lineEntity.endTel3;
+        if(!lineEntity.endContact&&!lineEntity.endAddress&&!lineEntity.endPhone&&!lineEntity.endTel)
+        {
+            lineEntity.endContact=lineEntity.startContact;
+            lineEntity.endAddress=lineEntity.startAddress;
+            lineEntity.endPhone=lineEntity.startPhone;
+            lineEntity.endTel=lineEntity.startTel;
+        }
 
         var day = _.find(validate_type, {'id': lineEntity.valid}).day;
         lineEntity.expiryDate = moment().add('d', day).format('YYYY-MM-DD HH:mm:ss');
@@ -162,6 +155,55 @@ module.exports = {
             line.expiryDate = moment(line.expiryDate).format('YYYY-MM-DD HH:mm:ss');
             line.createdAt = moment(line.createdAt).format('YYYY-MM-DD HH:mm:ss');
             line.updatedAt = moment(line.updatedAt).format('YYYY-MM-DD HH:mm:ss');
+            line.statusText = line.status == "1" ? "已发布" : "未发布";
+            line.transTimeText = _.find(trans_time, {'id': line.transTime}).name;
+            if (!line.image) {
+                line.image = "/images/no-line.jpg";
+            }
+            if (line.heavyCargoPrice == "" || line.heavyCargoPrice == "0") {
+                line.heavyCargoPriceText = "面议";
+            }
+            else {
+                line.heavyCargoPriceText = line.heavyCargoPrice + "元/吨";
+            }
+            if (line.foamGoodsPrice == "" || line.foamGoodsPrice == "0") {
+                line.foamGoodsPriceText = "面议";
+            }
+            else {
+                line.foamGoodsPriceText = line.foamGoodsPrice + "元/公斤"
+            }
+            if (line.isFrozen == "1") {
+                line.transRate = "不固定";
+            }
+            else {
+                line.transRate = "每" + line.transRateDay + "天" + line.transRateNumber + "班";
+            }
+            if (line.startTel){
+                var startTels=line.startTel.join("-");
+                for(var i=1;i<=startTels.length;i++)
+                {
+                    if(i==1)
+                       line.startTel1=startTels[i];
+                    if(i==2)
+                       line.startTel2=startTels[i];
+                    if(i==3)
+                       line.startTel3=startTels[i];
+                }
+                line.startTel += "/" + line.startTel;
+            }
+            if (line.endTel){
+                var endTels=line.startTel.join("-");
+                for(var i=1;i<=endTels.length;i++)
+                {
+                    if(i==1)
+                        line.endTel1=endTels[i];
+                    if(i==2)
+                        line.endTel2=endTels[i];
+                    if(i==3)
+                        line.endTel3=endTels[i];
+                }
+                line.endTel += "/" + line.endTel;
+            }
             res.render('line/edit', {params: req.params, line: line, line_type: line_type, line_goods_type: line_goods_type, trans_time: trans_time, mode_transport: mode_transport, validate_type: validate_type});
         });
     },
@@ -174,8 +216,25 @@ module.exports = {
                     return next(err);
                 }
             }
-            req.body.updatedAt = new Date();
-            line.save(req.body, function (err) {
+            var lineEntity = _.merge(line, req.body);
+            lineEntity.updaterId = "123456";
+            lineEntity.updatedAt = moment().format('YYYY-MM-DD HH:mm:ss');
+            lineEntity.lineType = _.find(line_type, {'id': lineEntity.lineTypeCode}).name;
+            lineEntity.modeTransport = _.find(mode_transport, {'id': lineEntity.modeTransportCode}).name;
+            if (_.isArray(lineEntity.lineGoodsType))lineEntity.lineGoodsType = lineEntity.lineGoodsType.join(",");
+
+            if(!lineEntity.endContact&&!lineEntity.endAddress&&!lineEntity.endPhone&&!lineEntity.endTel)
+            {
+                lineEntity.endContact=lineEntity.startContact;
+                lineEntity.endAddress=lineEntity.startAddress;
+                lineEntity.endPhone=lineEntity.startPhone;
+                lineEntity.endTel=lineEntity.startTel;
+            }
+
+            var day = _.find(validate_type, {'id': lineEntity.valid}).day;
+            lineEntity.expiryDate = moment().add('d', day).format('YYYY-MM-DD HH:mm:ss');
+            console.log(lineEntity);
+            line.save(lineEntity, function (err) {
                 if (err) {
                     if (Array.isArray(err)) {
                         return res.send(200, { errors: helpers.formatErrors(err) });

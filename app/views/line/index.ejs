@@ -81,11 +81,15 @@
                     <div class="w310 ln_padding pull-left">
                         <span class="pull-left"><%= line.sProvince + line.sCity %></span>
                         <% if(line.lineTypeCode == 1){ %>
-                        <span class="zhida"><img src="images/zhida.png"/></span>
-                        <span class="pull-left"><%= line.eProvince + line.eCity %>(直达)</span>
+                        <span class="zhida"><img src="/images/zhida.png"/></span>
                         <% }else{ %>
-                        <span class="zhida"><img src="images/wangfan.png"/></span>
-                        <span class="pull-left"><%= line.eProvince + line.eCity %>(往返)</span>
+                        <span class="zhida"><img src="/images/wangfan.png"/></span>
+                        <% } %>
+                        <span id="per_ecity" class="pull-left"><%= line.eProvince + line.eCity %></span>
+                        <% if(line.isDirect == 1){ %>
+                        <span id="per_is_direct" class="pull-left">(直达)</span>
+                        <% }else{ %>
+                        <span id="per_is_direct" class="pull-left">(中转)</span>
                         <% } %>
                         <span class="clearfix"></span>
                     </div>
@@ -98,7 +102,7 @@
                     <div class="w100 pull-left">
                         <small class="dropdown">状态：
                             <a href="#" class="dropdown-toggle"
-                               data-toggle="dropdown"><%= line.status %> <b class="caret"></b></a>
+                               data-toggle="dropdown"><%= line.statusText %> <b class="caret"></b></a>
                             <ul class="dropdown-menu nav_bigdropdown">
                                 <li><a href="#">已发布</a></li>
                                 <li><a href="#">未发布</a></li>
@@ -117,15 +121,18 @@
                         <a href="#"><img src="<%= line.image %>" width="135" height="100"></a>
                     </div>
                     <div class="pull-left w350 tn_padding rn_padding ln_padding lianxi">
-                        <p>始发地址：<%= line.startAddress %></p>
+                        <p>始发地址：<span><%= line.startAddress %></span></p>
 
-                        <p>联系方式：<span
-                                    class="text-primary"><%= line.startPhone %>    <%= line.startContact %></span>
-                        </p>
+                        <p>联系方式：<span class="text-primary"><%= line.startPhone %></span>
+                            <span class="text-primary"><%= line.startTel %></span>
+                            <span class="text-primary">    <%= line.startContact %></span></p>
 
-                        <p>到达地址：<%= line.endAddress %></p>
+                        <p>到达地址：<span><%= line.startAddress %></span></p>
 
-                        <p>联系方式：<span class="text-primary"><%= line.endPhone %>    <%= line.endContact %></span></p>
+                        <p>联系方式：<span class="text-primary"><%= line.endPhone %></span>
+                            <span class="text-primary"><%= line.startTel %></span>
+                            <span class="text-primary">    <%= line.startContact %></span></p>
+
                     </div>
                     <div class="pull-left w145 ln_padding tn_padding xijie">
                         <div class="w65 text-right pull-left">重货价格：</div>
@@ -140,11 +147,11 @@
                         <div class="pull-left"><%= line.transRate %></div>
                         <span class="w65 text-right pull-left">在途时间：</span>
 
-                        <div class="pull-left"><%= line.transTime %></div>
+                        <div class="pull-left"><%= line.transTimeText %></div>
                     </div>
                     <div class="pull-right w80 tl_padding">
-                        <input class="btn btn-info" type="button" value="查看">
-                        <input class="btn btn-warning tn_margin" type="button" value="修改">
+                        <a href="#" class="btn btn-info">查看</a>
+                        <a href="/line/edit/<%= line.id %> " class="btn btn-warning tn_margin">修改</a>
                     </div>
                     <div class="clearfix"></div>
                 </div>
