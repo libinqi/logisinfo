@@ -288,21 +288,21 @@
 
         <div class="col-sm-1 pad_select">
             <input type="text" class="form-control min_fifty" id="startTel1" name="startTel1" maxlength="4"
-                   placeholder="区号" value="<%line.startTel1%>">
+                   placeholder="区号" value="<%=line.startTel1%>">
         </div>
         <div class="pull-left pad_p">
             <span>-</span>
         </div>
         <div class="col-sm-2 pad_select">
             <input type="text" class="form-control min_hundred" id="startTel2" name="startTel2" maxlength="8"
-                   placeholder="电话号" value="<%line.startTel2%>">
+                   placeholder="电话号" value="<%=line.startTel2%>">
         </div>
         <div class="pull-left pad_p">
             <span>-</span>
         </div>
         <div class="col-sm-1 pad_select">
             <input type="text" class="form-control min_fifty" id="startTel3" name="startTel3" maxlength="4"
-                   placeholder="分机号" value="<%line.startTel3%>">
+                   placeholder="分机号" value="<%=line.startTel3%>">
         </div>
     </div>
     <div class="form-group">
@@ -331,19 +331,19 @@
         <label for="inputEmail3" class="col-sm-4 control-label jiben_left">联系电话：</label>
 
         <div class="col-sm-1 pad_select">
-            <input type="text" class="form-control min_fifty" id="endTel1" name="endTel1" maxlength="4" placeholder="区号" value="<%line.endTel1%>">
+            <input type="text" class="form-control min_fifty" id="endTel1" name="endTel1" maxlength="4" placeholder="区号" value="<%=line.endTel1%>">
         </div>
         <div class="pull-left pad_p">
             <span>-</span>
         </div>
         <div class="col-sm-2 pad_select">
-            <input type="text" class="form-control min_hundred" id="endTel2" name="endTel2" maxlength="8" placeholder="电话号" value="<%line.endTel2%>">
+            <input type="text" class="form-control min_hundred" id="endTel2" name="endTel2" maxlength="8" placeholder="电话号" value="<%=line.endTel2%>">
         </div>
         <div class="pull-left pad_p">
             <span>-</span>
         </div>
         <div class="col-sm-1 pad_select">
-            <input type="text" class="form-control min_fifty" id="endTel3" name="endTel3" maxlength="4" placeholder="分机号" value="<%line.endTel3%>">
+            <input type="text" class="form-control min_fifty" id="endTel3" name="endTel3" maxlength="4" placeholder="分机号" value="<%=line.endTel3%>">
         </div>
     </div>
 
@@ -454,7 +454,7 @@
     <div class="info yulan">
         <div class="info_item">
             <div class="info_title">
-                <div class="w310 ln_padding pull-left">
+                <div class="w350 ln_padding pull-left">
                     <span id="per_scity" class="pull-left"><%= line.sProvince + line.sCity %></span>
                     <% if(line.lineTypeCode == 1){ %>
                     <span class="zhida"><img id="per_line_type" src="/images/zhida.png"/></span>
@@ -472,7 +472,7 @@
                 <div class="w200 pull-left">
                     <small>更新时间：<%= line.updatedAt %></small>
                 </div>
-                <div class="w200 pull-left">
+                <div class="w150 pull-left">
                     <small class="dropdown">状态：
                         <a href="#" id="per_status" class="dropdown-toggle"
                            data-toggle="dropdown"><%= line.statusText %> </a>
@@ -480,7 +480,7 @@
                 </div>
 
                 <div class="chaozuo pull-right">
-                    <div class="shouqi pull-left"><a href="#"><img src="/images/shouqi.png"></a></div>
+                    <!--<div class="shouqi pull-left"><a href="#"><img src="/images/shouqi.png"></a></div>-->
                     <div class="delet pull-right"><a href="#"><img src="/images/delet.png"></a></div>
                 </div>
                 <div class="clearfix"></div>
@@ -489,20 +489,20 @@
                 <div class=" pull-left w145 tn_padding ln_padding bn_padding">
                     <a href="#"><img id="perview_image" src="<%= line.image %>" width="135" height="100"></a>
                 </div>
-                <div class="pull-left w305 tn_padding rn_padding ln_padding lianxi">
+                <div class="pull-left w350 tn_padding rn_padding ln_padding lianxi">
                     <p>始发地址：<span id="per_startAddress"><%= line.startAddress %></span></p>
 
                     <p>联系方式：<span id="per_startPhone" class="text-primary"><%= line.startPhone %></span>
-                        <span id="per_startTel" class="text-primary">/<%= line.startTel %></span>
+                        <span id="per_startTel" class="text-primary"><%= line.startTelText %></span>
                         <span id="per_startContact" class="text-primary">    <%= line.startContact %></span></p>
 
-                    <p>到达地址：<span id="per_endAddress"><%= line.startAddress %></span></p>
+                    <p>到达地址：<span id="per_endAddress"><%= line.endAddress %></span></p>
 
                     <p>联系方式：<span id="per_endPhone" class="text-primary"><%= line.endPhone %></span>
-                        <span id="per_endTel" class="text-primary">/<%= line.startTel %></span>
-                        <span id="per_endContact" class="text-primary">    <%= line.startContact %></span></p>
+                        <span id="per_endTel" class="text-primary"><%= line.endTelText %></span>
+                        <span id="per_endContact" class="text-primary">    <%= line.endContact %></span></p>
                 </div>
-                <div class="pull-left w145 ln_padding tn_padding xijie">
+                <div class="pull-left w150 ln_padding tn_padding xijie">
                     <div class="w65 text-right pull-left">重货价格：</div>
                     <div id="per_heavyCargoPrice" class="pull-left"><%= line.heavyCargoPriceText %></div>
                     <div class="w65 text-right pull-left">泡货价格：</div>
@@ -660,7 +660,7 @@
             if(startTel)
             {
                 if(startTel.substr(0,1)=="-")
-                    startTel=startTel.substr(1,startTel.length-2);
+                    startTel=startTel.substr(1,startTel.length-1);
             }
 
             $("#startTel").val(startTel);
@@ -682,7 +682,7 @@
             if(startTel)
             {
                 if(startTel.substr(0,1)=="-")
-                    startTel=startTel.substr(1,startTel.length-2);
+                    startTel=startTel.substr(1,startTel.length-1);
             }
 
             $("#startTel").val(startTel);
@@ -704,7 +704,7 @@
             if(startTel)
             {
                 if(startTel.substr(0,1)=="-")
-                    startTel=startTel.substr(1,startTel.length-2);
+                    startTel=startTel.substr(1,startTel.length-1);
             }
 
             $("#startTel").val(startTel);
@@ -740,10 +740,10 @@
             if(endTel)
             {
                 if(endTel.substr(0,1)=="-")
-                    endTel=endTel.substr(1,endTel.length-2);
+                    endTel=endTel.substr(1,endTel.length-1);
             }
 
-            $("#endTel").html(endTel);
+            $("#endTel").val(endTel);
             $("#per_endTel").html("/"+endTel);
         });
         $("#endTel2").change(function(){
@@ -762,10 +762,10 @@
             if(endTel)
             {
                 if(endTel.substr(0,1)=="-")
-                    endTel=endTel.substr(1,endTel.length-2);
+                    endTel=endTel.substr(1,endTel.length-1);
             }
 
-            $("#endTel").html(endTel);
+            $("#endTel").val(endTel);
             $("#per_endTel").html("/"+endTel);
         });
         $("#endTel3").change(function(){
@@ -784,10 +784,10 @@
             if(endTel)
             {
                 if(endTel.substr(0,1)=="-")
-                    endTel=endTel.substr(1,endTel.length-2);
+                    endTel=endTel.substr(1,endTel.length-1);
             }
 
-            $("#endTel").html(endTel);
+            $("#endTel").val(endTel);
             $("#per_endTel").html("/"+endTel);
         });
 

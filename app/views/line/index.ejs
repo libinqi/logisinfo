@@ -19,37 +19,55 @@
             <div class="col-lg-12 col-md-12 col-sm-12 pad_topbot_change">
                 <h4 class="lh h4_line">
                     <div class="w120 pull-left ts_padding">专线信息</div>
-                    <% if(status){
+                    <%
+                    function removeURLParameter(url, parameter) {
+                        var urlparts = url.split('?');
+                        if (urlparts.length >= 2) {
+                            var prefix = encodeURIComponent(parameter) + '=';
+                            var pars = urlparts[1].split(/[&;]/g);
+                            for (var i = pars.length; i-- > 0;)
+                                if (pars[i].lastIndexOf(prefix, 0) !== -1)
+                                    pars.splice(i, 1);
+                            url = urlparts[0] + '?' + pars.join('&');
+                            return url;
+                        } else {
+                            return url;
+                        }
+                    }
+                    base = removeURLParameter(base, 'status');
+                    var base_url = base + (base.indexOf('?') < 0 ? '?' : '&') + 'status=';
+
+                            if(status){
                             if(status == 2)
                     {
                     %>
                     <div class="third_nav"><a href="/line">全部信息</a></div>
-                    <div class="third_nav third_hover"><a href="/line?status=2">已发布</a></div>
-                    <div class="third_nav"><a href="/line?status=1">未发布</a></div>
+                    <div class="third_nav third_hover"><a href="<%= base_url %>2">已发布</a></div>
+                    <div class="third_nav"><a href="<%= base_url %>1">未发布</a></div>
                     <%
                     }
                     else if(status == 1)
                     {
                     %>
                     <div class="third_nav"><a href="/line">全部信息</a></div>
-                    <div class="third_nav"><a href="/line?status=2">已发布</a></div>
-                    <div class="third_nav third_hover"><a href="/line?status=1">未发布</a></div>
+                    <div class="third_nav"><a href="<%= base_url %>2">已发布</a></div>
+                    <div class="third_nav third_hover"><a href="<%= base_url %>1">未发布</a></div>
                     <%
                     }
                     else
                     {
                     %>
                     <div class="third_nav third_hover"><a href="/line">全部信息</a></div>
-                    <div class="third_nav"><a href="/line?status=2">已发布</a></div>
-                    <div class="third_nav"><a href="/line?status=1">未发布</a></div>
+                    <div class="third_nav"><a href="<%= base_url %>2">已发布</a></div>
+                    <div class="third_nav"><a href="<%= base_url %>1">未发布</a></div>
                     <%
                     }
                     }else
                     {
                     %>
                     <div class="third_nav third_hover"><a href="/line">全部信息</a></div>
-                    <div class="third_nav"><a href="/line?status=2">已发布</a></div>
-                    <div class="third_nav"><a href="/line?status=1">未发布</a></div>
+                    <div class="third_nav"><a href="<%= base_url %>2">已发布</a></div>
+                    <div class="third_nav"><a href="<%= base_url %>1">未发布</a></div>
                     <%
                     } %>
 
@@ -90,7 +108,8 @@
                             </select>
                         </div>
                     </div>
-                    <div class="pull-left w100"><input type="button" value="搜索" class="btn btn-success btn-sm" onclick="search()"/></div>
+                    <div class="pull-left w100"><input type="button" value="搜索" class="btn btn-success btn-sm"
+                                                       onclick="search()"/></div>
                 </form>
                 <div class="clearfix"></div>
             </div>
@@ -113,12 +132,18 @@
                 pages: pages,
                 base: base
             }) %>
-            <% }else{ %>
+            <% }else{
+                    if(base == "/line" || base == "/line/"){ %>
             <div class="info_item">
                 <div class="col-lg-12 tl_padding bl_padding text-danger text-center">您还没有发布信息哦，<a href="/line/add">赶快去发布信息</a>
                 </div>
             </div>
-            <% } %>
+            <% }else{ %>
+            <div class="info_item">
+                <div class="col-lg-12 tl_padding bl_padding text-danger text-center">对不起，没有找到适合您的信息
+                </div>
+            </div>
+            <% } } %>
         </div>
     </div>
 </div>
@@ -133,13 +158,23 @@
     //调用插件
     $(function () {
         $.ProvinceCity('sProvince', 'sCity', 'sArea', function (selectProvince, selectCity, selectArea) {
-//            $("#sProvince").val(selectProvince);
-//            $("#sCity").val(selectCity);
         });
         $.ProvinceCity('eProvince', 'eCity', 'eArea', function (selectProvince, selectCity, selectArea) {
-//            $("#eProvince").val(selectProvince);
-//            $("#eCity").val(selectCity);
         });
+
+        var sProvince = '<%=sProvince%>';
+        var sCity = '<%=sCity%>';
+        var eProvince = '<%=eProvince%>';
+        var eCity = '<%=eCity%>';
+
+        if (sProvince && sProvince != 'undefined')
+            $("#sProvince").val(sProvince).change();
+        if (sCity && sCity != 'undefined')
+            $("#sCity").val(sCity).change();
+        if (eProvince && eProvince != 'undefined')
+            $("#eProvince").val(eProvince).change();
+        if (eCity && eCity != 'undefined')
+            $("#eCity").val(eCity).change();
     });
 
     function search() {

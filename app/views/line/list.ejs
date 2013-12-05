@@ -3,7 +3,7 @@ lines.forEach(function(line){
 %>
 <div class="info_item">
     <div class="info_title">
-        <div class="w310 ln_padding pull-left">
+        <div class="w350 ln_padding pull-left">
             <span class="pull-left"><%= line.sProvince + line.sCity %></span>
             <% if(line.lineTypeCode == 1){ %>
             <span class="zhida"><img src="/images/zhida.png"/></span>
@@ -29,18 +29,23 @@ lines.forEach(function(line){
                 <a href="#" class="dropdown-toggle"
                    data-toggle="dropdown"><%= line.statusText %> <b class="caret"></b></a>
                 <ul class="dropdown-menu nav_bigdropdown">
-                    <li><a href="#">已发布</a></li>
-                    <li><a href="#">未发布</a></li>
+                    <li><a href="/line/change_status/<%= line.id %>?status=2">已发布</a></li>
+                    <li><a href="/line/change_status/<%= line.id %>?status=1">未发布</a></li>
                 </ul>
             </small>
         </div>
+
         <div class="chaozuo pull-right">
-            <div class="shouqi pull-left"><a href="#"><img src="images/shouqi.png"></a></div>
-            <div class="delet pull-right"><a href="/line/delete/<%= line.id %>"><img src="images/delet.png"></a>
+            <!--<div class="shouqi pull-left"><a href="#"><img src="images/shouqi.png"></a></div>-->
+            <div class="delet pull-right">
+                <!--<a href="/line/delete/<%= line.id %>"><img src="images/delet.png"></a>-->
+                <a href="javascript:void(0)" onclick="deleteLine('<%= line.id %>');return false;"><img
+                            src="images/delet.png"></a>
             </div>
         </div>
         <div class="clearfix"></div>
     </div>
+
     <div class="info_content">
         <div class=" pull-left w145 tn_padding ln_padding bn_padding">
             <a href="#"><img src="<%= line.image %>" width="135" height="100"></a>
@@ -100,7 +105,7 @@ lines.forEach(function(line){
                     return url;
                 }
             }
-            base=removeURLParameter(base,'page');
+            base = removeURLParameter(base, 'page');
             var base_url = base + (base.indexOf('?') < 0 ? '?' : '&') + 'page=';
         %>
         <% if (current_page == 1) { %>
@@ -138,7 +143,7 @@ lines.forEach(function(line){
     </ul>
 </div>
 </div>
-<script>
+<script type="text/javascript">
     $(document).ready(function () {
         var $nav = $('.pagination');
         var current_page = $nav.attr('current_page');
@@ -155,3 +160,37 @@ lines.forEach(function(line){
     });
 </script>
 <% } %>
+<!-- Modal -->
+<div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog"  style="margin-top:200px;">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title" id="myModalLabel">删除专线</h4>
+            </div>
+            <div class="modal-body">
+                您确定要删除此条专线吗？
+            </div>
+            <div class="modal-footer">
+                <a id="btn_delete" href="#" class="btn btn-primary btn-info">确定</a>
+                <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+            </div>
+        </div>
+        <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('body').on('hidden', '.modal', function () {
+            $(this).removeData('modal');
+        });
+    });
+
+    function deleteLine(lineId) {
+        $('#deleteModal').modal('show').on('shown.bs.modal',function () {
+            $("#btn_delete").attr('href', '/line/delete/' + lineId);
+        });
+    }
+</script>

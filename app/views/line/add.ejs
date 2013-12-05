@@ -435,7 +435,7 @@
                 </small>
             </div>
             <div class="chaozuo pull-right">
-                <div class="shouqi pull-left"><a href="#"><img src="/images/shouqi.png"></a></div>
+                <!--<div class="shouqi pull-left"><a href="#"><img src="/images/shouqi.png"></a></div>-->
                 <div class="delet pull-right"><a href="#"><img src="/images/delet.png"></a></div>
             </div>
             <div class="clearfix"></div>
@@ -444,7 +444,7 @@
             <div class=" pull-left w145 tn_padding ln_padding bn_padding">
                 <a href="#"><img id="perview_image" src="/images/no-line.jpg" width="135" height="100"></a>
             </div>
-            <div class="pull-left w305 tn_padding rn_padding ln_padding lianxi">
+            <div class="pull-left w350 tn_padding rn_padding ln_padding lianxi">
                 <p>始发地址：<span id="per_startAddress">未填写</span></p>
 
                 <p>联系方式：<span id="per_startPhone" class="text-primary">未填写</span>
@@ -607,7 +607,7 @@ $(function () {
         if(startTel)
         {
             if(startTel.substr(0,1)=="-")
-                startTel=startTel.substr(1,startTel.length-2);
+                startTel=startTel.substr(1,startTel.length-1);
         }
 
         $("#startTel").val(startTel);
@@ -629,7 +629,7 @@ $(function () {
         if(startTel)
         {
             if(startTel.substr(0,1)=="-")
-                startTel=startTel.substr(1,startTel.length-2);
+                startTel=startTel.substr(1,startTel.length-1);
         }
 
         $("#startTel").val(startTel);
@@ -651,7 +651,7 @@ $(function () {
         if(startTel)
         {
             if(startTel.substr(0,1)=="-")
-                startTel=startTel.substr(1,startTel.length-2);
+                startTel=startTel.substr(1,startTel.length-1);
         }
 
         $("#startTel").val(startTel);
@@ -687,10 +687,10 @@ $(function () {
         if(endTel)
         {
             if(endTel.substr(0,1)=="-")
-                endTel=endTel.substr(1,endTel.length-2);
+                endTel=endTel.substr(1,endTel.length-1);
         }
 
-        $("#endTel").html(endTel);
+        $("#endTel").val(endTel);
         $("#per_endTel").html("/"+endTel);
     });
     $("#endTel2").change(function(){
@@ -709,10 +709,10 @@ $(function () {
         if(endTel)
         {
             if(endTel.substr(0,1)=="-")
-                endTel=endTel.substr(1,endTel.length-2);
+                endTel=endTel.substr(1,endTel.length-1);
         }
 
-        $("#endTel").html(endTel);
+        $("#endTel").val(endTel);
         $("#per_endTel").html("/"+endTel);
     });
     $("#endTel3").change(function(){
@@ -731,10 +731,10 @@ $(function () {
         if(endTel)
         {
             if(endTel.substr(0,1)=="-")
-                endTel=endTel.substr(1,endTel.length-2);
+                endTel=endTel.substr(1,endTel.length-1);
         }
 
-        $("#endTel").html(endTel);
+        $("#endTel").val(endTel);
         $("#per_endTel").html("/"+endTel);
     });
 

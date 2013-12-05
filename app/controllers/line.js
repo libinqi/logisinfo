@@ -2,7 +2,7 @@
 var helpers = require('./_helpers');
 var orm = require('orm');
 var moment = require('moment');
-require('../../public/js/core/line_dict');
+var settings = require('../../config/settings');
 var line_type = [
     {"id": "1", "name": "单程"},
     {"id": "2", "name": "往返"}
@@ -50,7 +50,7 @@ module.exports = {
     index: function (req, res, next) {
         var status = Number(req.query.status) || "";
         var page = Number(req.query.page) || 1;
-        var limit = 5;
+        var limit = settings.list_count;
         var pages = 0;
 
         var opt = {};
@@ -58,16 +58,14 @@ module.exports = {
         if (_.isNumber(status))
             opt.status = status - 1;
 
-        if(!_.isEmpty(req.query.sProvince))
-            opt.sProvinceCode=req.query.sProvince;
-        if(!_.isEmpty(req.query.sCity))
-            opt.sCityCode=req.query.sCity;
-        if(!_.isEmpty(req.query.eProvince))
-            opt.eProvinceCode=req.query.eProvince;
-        if(!_.isEmpty(req.query.eCity))
-            opt.eCityCode=req.query.eCity;
-
-        console.log(opt);
+        if (!_.isEmpty(req.query.sProvince))
+            opt.sProvinceCode = req.query.sProvince;
+        if (!_.isEmpty(req.query.sCity))
+            opt.sCityCode = req.query.sCity;
+        if (!_.isEmpty(req.query.eProvince))
+            opt.eProvinceCode = req.query.eProvince;
+        if (!_.isEmpty(req.query.eCity))
+            opt.eCityCode = req.query.eCity;
 
         req.models.line.count(opt, function (error, count) {
             pages = Math.ceil(count / limit);
@@ -107,9 +105,9 @@ module.exports = {
                     line.transRate = "每" + line.transRateDay + "天" + line.transRateNumber + "班";
                 }
                 if (line.startTel)
-                    line.startTel = "/" + line.startTel;
+                    line.startTel = "/ " + line.startTel;
                 if (line.endTel)
-                    line.endTel = "/" + line.endTel;
+                    line.endTel = "/ " + line.endTel;
             });
             res.render('line/index', {
                 lines: lines,
@@ -117,7 +115,11 @@ module.exports = {
                 list_line_count: limit,
                 pages: pages,
                 status: status,
-                base:req.url
+                base: req.url,
+                sProvince: req.query.sProvince,
+                sCity: req.query.sCity,
+                eProvince: req.query.eProvince,
+                eCity: req.query.eCity
             });
         });
     },
@@ -209,30 +211,40 @@ module.exports = {
             else {
                 line.transRate = "每" + line.transRateDay + "天" + line.transRateNumber + "班";
             }
+
+            line.startTel1 = "";
+            line.startTel2 = "";
+            line.startTel3 = "";
+            line.startTelText = "";
             if (line.startTel) {
-                var startTels = line.startTel.join("-");
-                for (var i = 1; i <= startTels.length; i++) {
-                    if (i == 1)
+                var startTels = line.startTel.split("-");
+                for (var i = 0; i < startTels.length; i++) {
+                    if (i == 0)
                         line.startTel1 = startTels[i];
-                    if (i == 2)
+                    if (i == 1)
                         line.startTel2 = startTels[i];
-                    if (i == 3)
+                    if (i == 2)
                         line.startTel3 = startTels[i];
                 }
-                line.startTel += "/" + line.startTel;
+                line.startTelText = "/ " + line.startTel;
             }
+            line.endTel1 = "";
+            line.endTel2 = "";
+            line.endTel3 = "";
+            line.endTelText = "";
             if (line.endTel) {
-                var endTels = line.startTel.join("-");
-                for (var i = 1; i <= endTels.length; i++) {
-                    if (i == 1)
+                var endTels = line.endTel.split("-");
+                for (var i = 0; i < endTels.length; i++) {
+                    if (i == 0)
                         line.endTel1 = endTels[i];
-                    if (i == 2)
+                    if (i == 1)
                         line.endTel2 = endTels[i];
-                    if (i == 3)
+                    if (i == 2)
                         line.endTel3 = endTels[i];
                 }
-                line.endTel += "/" + line.endTel;
+                line.endTelText = "/ " + line.endTel;
             }
+
             res.render('line/edit', {params: req.params, line: line, line_type: line_type, line_goods_type: line_goods_type, trans_time: trans_time, mode_transport: mode_transport, validate_type: validate_type});
         });
     },
@@ -295,5 +307,37 @@ module.exports = {
                 res.redirect('/line');
             });
         });
+    },
+    change_status: function (req, res, next) {
+        var status = Number(req.query.status) || "";
+        if (_.isNumber(status)) {
+            status = status - 1;
+            req.models.line.get(req.params.id, function (err, line) {
+                if (err) {
+                    if (Array.isArray(err)) {
+                        return res.send(200, { errors: helpers.formatErrors(err) });
+                    } else {
+                        return next(err);
+                    }
+                }
+                line.status = status;
+                line.updaterId = "123456";
+                line.updatedAt = moment().format('YYYY-MM-DD HH:mm:ss');
+
+                line.save(line, function (err) {
+                    if (err) {
+                        if (Array.isArray(err)) {
+                            return res.send(200, { errors: helpers.formatErrors(err) });
+                        } else {
+                            return next(err);
+                        }
+                    }
+                    res.redirect(req.headers.referer);
+                });
+            });
+        }
+        else {
+            res.redirect(req.headers.referer);
+        }
     }
 };
