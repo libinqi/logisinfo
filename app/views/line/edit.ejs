@@ -309,7 +309,7 @@
         <label for="inputEmail3" class="col-lg-4 col-md-4 col-sm-4 control-label jiben_left">到达地联系人：</label>
 
         <div class="col-lg-3 col-md-3 col-sm-3 jiben_right">
-            <input type="text" class="form-control" id="endContact" name="endContact" placeholder="请填写联系人" value="<%=line.startContact%>">
+            <input type="text" class="form-control" id="endContact" name="endContact" placeholder="请填写联系人" value="<%=line.endContact%>">
         </div>
     </div>
 
@@ -317,14 +317,14 @@
         <label for="inputEmail3" class="col-sm-4 control-label jiben_left">所在地址：</label>
 
         <div class="col-sm-8 jiben_right">
-            <input type="text" class="form-control" id="endAddress" name="endAddress" placeholder="请填入详细地址，省市县不需要重复填写"  value="<%=line.startAddress%>">
+            <input type="text" class="form-control" id="endAddress" name="endAddress" placeholder="请填入详细地址，省市县不需要重复填写"  value="<%=line.endAddress%>">
         </div>
     </div>
     <div class="form-group">
         <label for="inputEmail3" class="col-sm-4 control-label jiben_left">手机：</label>
 
         <div class="col-sm-4 jiben_right">
-            <input type="text" class="form-control" id="endPhone" name="endPhone" maxlength="11" placeholder="联系的手机号码"  value="<%=line.startPhone%>">
+            <input type="text" class="form-control" id="endPhone" name="endPhone" maxlength="11" placeholder="联系的手机号码"  value="<%=line.endPhone%>">
         </div>
     </div>
     <div class="form-group">
@@ -454,7 +454,7 @@
     <div class="info yulan">
         <div class="info_item">
             <div class="info_title">
-                <div class="w450 ln_padding pull-left">
+                <div class="w310 ln_padding pull-left">
                     <span id="per_scity" class="pull-left"><%= line.sProvince + line.sCity %></span>
                     <% if(line.lineTypeCode == 1){ %>
                     <span class="zhida"><img id="per_line_type" src="/images/zhida.png"/></span>
@@ -502,7 +502,7 @@
                         <span id="per_endTel" class="text-primary">/<%= line.startTel %></span>
                         <span id="per_endContact" class="text-primary">    <%= line.startContact %></span></p>
                 </div>
-                <div class="pull-left w135 ln_padding tn_padding xijie">
+                <div class="pull-left w145 ln_padding tn_padding xijie">
                     <div class="w65 text-right pull-left">重货价格：</div>
                     <div id="per_heavyCargoPrice" class="pull-left"><%= line.heavyCargoPriceText %></div>
                     <div class="w65 text-right pull-left">泡货价格：</div>

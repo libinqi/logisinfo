@@ -48,7 +48,32 @@ var validate_type = [
 
 module.exports = {
     index: function (req, res, next) {
-        req.models.line.find({'isDeleted': 0}).order('-updatedAt').all(function (err, lines) {
+        var status = Number(req.query.status) || "";
+        var page = Number(req.query.page) || 1;
+        var limit = 5;
+        var pages = 0;
+
+        var opt = {};
+        opt.isDeleted = 0;
+        if (_.isNumber(status))
+            opt.status = status - 1;
+
+        if(!_.isEmpty(req.query.sProvince))
+            opt.sProvinceCode=req.query.sProvince;
+        if(!_.isEmpty(req.query.sCity))
+            opt.sCityCode=req.query.sCity;
+        if(!_.isEmpty(req.query.eProvince))
+            opt.eProvinceCode=req.query.eProvince;
+        if(!_.isEmpty(req.query.eCity))
+            opt.eCityCode=req.query.eCity;
+
+        console.log(opt);
+
+        req.models.line.count(opt, function (error, count) {
+            pages = Math.ceil(count / limit);
+        });
+
+        req.models.line.find(opt).offset((page - 1) * limit).limit(limit).order('-updatedAt').all(function (err, lines) {
             if (err) {
                 if (err.code == orm.ErrorCodes.NOT_FOUND) {
                     res.send(404, "没有任何专线信息");
@@ -82,11 +107,18 @@ module.exports = {
                     line.transRate = "每" + line.transRateDay + "天" + line.transRateNumber + "班";
                 }
                 if (line.startTel)
-                    line.startTel += "/" + line.startTel;
+                    line.startTel = "/" + line.startTel;
                 if (line.endTel)
-                    line.endTel += "/" + line.endTel;
+                    line.endTel = "/" + line.endTel;
             });
-            res.render('line/index', { lines: lines });
+            res.render('line/index', {
+                lines: lines,
+                current_page: page,
+                list_line_count: limit,
+                pages: pages,
+                status: status,
+                base:req.url
+            });
         });
     },
     add: function (req, res, next) {
@@ -107,12 +139,11 @@ module.exports = {
         lineEntity.modeTransport = _.find(mode_transport, {'id': lineEntity.modeTransportCode}).name;
         if (_.isArray(lineEntity.lineGoodsType))lineEntity.lineGoodsType = lineEntity.lineGoodsType.join(",");
 
-        if(!lineEntity.endContact&&!lineEntity.endAddress&&!lineEntity.endPhone&&!lineEntity.endTel)
-        {
-            lineEntity.endContact=lineEntity.startContact;
-            lineEntity.endAddress=lineEntity.startAddress;
-            lineEntity.endPhone=lineEntity.startPhone;
-            lineEntity.endTel=lineEntity.startTel;
+        if (_.isEmpty(lineEntity.endContact) && _.isEmpty(lineEntity.endAddress) && _.isEmpty(lineEntity.endPhone) && _.isEmpty(lineEntity.endTel)) {
+            lineEntity.endContact = lineEntity.startContact;
+            lineEntity.endAddress = lineEntity.startAddress;
+            lineEntity.endPhone = lineEntity.startPhone;
+            lineEntity.endTel = lineEntity.startTel;
         }
 
         var day = _.find(validate_type, {'id': lineEntity.valid}).day;
@@ -178,29 +209,27 @@ module.exports = {
             else {
                 line.transRate = "每" + line.transRateDay + "天" + line.transRateNumber + "班";
             }
-            if (line.startTel){
-                var startTels=line.startTel.join("-");
-                for(var i=1;i<=startTels.length;i++)
-                {
-                    if(i==1)
-                       line.startTel1=startTels[i];
-                    if(i==2)
-                       line.startTel2=startTels[i];
-                    if(i==3)
-                       line.startTel3=startTels[i];
+            if (line.startTel) {
+                var startTels = line.startTel.join("-");
+                for (var i = 1; i <= startTels.length; i++) {
+                    if (i == 1)
+                        line.startTel1 = startTels[i];
+                    if (i == 2)
+                        line.startTel2 = startTels[i];
+                    if (i == 3)
+                        line.startTel3 = startTels[i];
                 }
                 line.startTel += "/" + line.startTel;
             }
-            if (line.endTel){
-                var endTels=line.startTel.join("-");
-                for(var i=1;i<=endTels.length;i++)
-                {
-                    if(i==1)
-                        line.endTel1=endTels[i];
-                    if(i==2)
-                        line.endTel2=endTels[i];
-                    if(i==3)
-                        line.endTel3=endTels[i];
+            if (line.endTel) {
+                var endTels = line.startTel.join("-");
+                for (var i = 1; i <= endTels.length; i++) {
+                    if (i == 1)
+                        line.endTel1 = endTels[i];
+                    if (i == 2)
+                        line.endTel2 = endTels[i];
+                    if (i == 3)
+                        line.endTel3 = endTels[i];
                 }
                 line.endTel += "/" + line.endTel;
             }
@@ -216,6 +245,7 @@ module.exports = {
                     return next(err);
                 }
             }
+            console.log(req.body);
             var lineEntity = _.merge(line, req.body);
             lineEntity.updaterId = "123456";
             lineEntity.updatedAt = moment().format('YYYY-MM-DD HH:mm:ss');
@@ -223,17 +253,15 @@ module.exports = {
             lineEntity.modeTransport = _.find(mode_transport, {'id': lineEntity.modeTransportCode}).name;
             if (_.isArray(lineEntity.lineGoodsType))lineEntity.lineGoodsType = lineEntity.lineGoodsType.join(",");
 
-            if(!lineEntity.endContact&&!lineEntity.endAddress&&!lineEntity.endPhone&&!lineEntity.endTel)
-            {
-                lineEntity.endContact=lineEntity.startContact;
-                lineEntity.endAddress=lineEntity.startAddress;
-                lineEntity.endPhone=lineEntity.startPhone;
-                lineEntity.endTel=lineEntity.startTel;
+            if (_.isEmpty(lineEntity.endContact) && _.isEmpty(lineEntity.endAddress) && _.isEmpty(lineEntity.endPhone) && _.isEmpty(lineEntity.endTel)) {
+                lineEntity.endContact = lineEntity.startContact;
+                lineEntity.endAddress = lineEntity.startAddress;
+                lineEntity.endPhone = lineEntity.startPhone;
+                lineEntity.endTel = lineEntity.startTel;
             }
 
             var day = _.find(validate_type, {'id': lineEntity.valid}).day;
             lineEntity.expiryDate = moment().add('d', day).format('YYYY-MM-DD HH:mm:ss');
-            console.log(lineEntity);
             line.save(lineEntity, function (err) {
                 if (err) {
                     if (Array.isArray(err)) {
@@ -255,8 +283,8 @@ module.exports = {
                     return next(err);
                 }
             }
-            line.isDeleted=1;
-            line.save(line,function (err) {
+            line.isDeleted = 1;
+            line.save(line, function (err) {
                 if (err) {
                     if (Array.isArray(err)) {
                         return res.send(200, { errors: helpers.formatErrors(err) });
