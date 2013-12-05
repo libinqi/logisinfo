@@ -104,9 +104,9 @@ module.exports = {
                 else {
                     line.transRate = "每" + line.transRateDay + "天" + line.transRateNumber + "班";
                 }
-                if (line.startTel)
+                if (line.startPhone&&line.startTel)
                     line.startTel = "/ " + line.startTel;
-                if (line.endTel)
+                if (line.endPhone&&line.endTel)
                     line.endTel = "/ " + line.endTel;
             });
             res.render('line/index', {
@@ -212,36 +212,12 @@ module.exports = {
                 line.transRate = "每" + line.transRateDay + "天" + line.transRateNumber + "班";
             }
 
-            line.startTel1 = "";
-            line.startTel2 = "";
-            line.startTel3 = "";
             line.startTelText = "";
-            if (line.startTel) {
-                var startTels = line.startTel.split("-");
-                for (var i = 0; i < startTels.length; i++) {
-                    if (i == 0)
-                        line.startTel1 = startTels[i];
-                    if (i == 1)
-                        line.startTel2 = startTels[i];
-                    if (i == 2)
-                        line.startTel3 = startTels[i];
-                }
+            if (line.startPhone&&line.startTel) {
                 line.startTelText = "/ " + line.startTel;
             }
-            line.endTel1 = "";
-            line.endTel2 = "";
-            line.endTel3 = "";
             line.endTelText = "";
-            if (line.endTel) {
-                var endTels = line.endTel.split("-");
-                for (var i = 0; i < endTels.length; i++) {
-                    if (i == 0)
-                        line.endTel1 = endTels[i];
-                    if (i == 1)
-                        line.endTel2 = endTels[i];
-                    if (i == 2)
-                        line.endTel3 = endTels[i];
-                }
+            if (line.endPhone&&line.endTel) {
                 line.endTelText = "/ " + line.endTel;
             }
 
@@ -257,7 +233,6 @@ module.exports = {
                     return next(err);
                 }
             }
-            console.log(req.body);
             var lineEntity = _.merge(line, req.body);
             lineEntity.updaterId = "123456";
             lineEntity.updatedAt = moment().format('YYYY-MM-DD HH:mm:ss');
