@@ -3,48 +3,7 @@ var helpers = require('./_helpers');
 var orm = require('orm');
 var moment = require('moment');
 var settings = require('../../config/settings');
-var line_type = [
-    {"id": "1", "name": "单程"},
-    {"id": "2", "name": "往返"}
-];
-var line_goods_type = [
-    {"id": "1", "name": "不限"},
-    {"id": "2", "name": "普通货物"},
-    {"id": "3", "name": "大件货物"},
-    {"id": "4", "name": "鲜活易腐"},
-    {"id": "5", "name": "危险货物"},
-    {"id": "6", "name": "贵重货物"},
-    {"id": "7", "name": "保温冷藏"},
-    {"id": "8", "name": "搬家货物"}
-];
-var trans_time = [
-    {"id": "1", "name": "1天"},
-    {"id": "2", "name": "2天"},
-    {"id": "3", "name": "3天"},
-    {"id": "4", "name": "4天"},
-    {"id": "5", "name": "5天"},
-    {"id": "6", "name": "5天以上"}
-];
-var mode_transport = [
-    {"id": "1", "name": "公路运输"},
-    {"id": "2", "name": "海上运输"},
-    {"id": "3", "name": "铁路运输"},
-    {"id": "4", "name": "航空运输"},
-    {"id": "5", "name": "邮件运输"},
-    {"id": "6", "name": "多式联运"},
-    {"id": "7", "name": "固定设施运输"},
-    {"id": "8", "name": "内河运输"},
-    {"id": "9", "name": "其它运输"}
-];
-var validate_type = [
-    {"id": "1", "name": "长期有效", "day": 3650},
-    {"id": "2", "name": "1天", "day": 1},
-    {"id": "3", "name": "7天", "day": 7},
-    {"id": "4", "name": "15天", "day": 15},
-    {"id": "5", "name": "1个月", "day": 30},
-    {"id": "6", "name": "半年", "day": 182},
-    {"id": "7", "name": "1年", "day": 365}
-];
+var info_dict = require('../../util/info_dict');
 
 module.exports = {
     index: function (req, res, next) {
@@ -67,64 +26,56 @@ module.exports = {
         if (!_.isEmpty(req.query.eCity))
             opt.eCityCode = req.query.eCity;
 
-        req.models.line.count(opt, function (err, count) {
+        req.models.goods.count(opt, function (err, count) {
             if (err) {
                 if (err.code == orm.ErrorCodes.NOT_FOUND) {
-                    pages=0;
-                } else {
-                    return next(err);
-                }
-            }
-            else
-            {
-                pages = Math.ceil(count / limit);
-            }
-        });
-
-        req.models.line.find(opt).offset((page - 1) * limit).limit(limit).order('-updatedAt').all(function (err, lines) {
-            if (err) {
-                if (err.code == orm.ErrorCodes.NOT_FOUND) {
-//                    res.send(404, "没有任何专线信息");
-                    lines = [];
                     pages = 0;
                 } else {
                     return next(err);
                 }
             }
-            lines.forEach(function (line) {
-                line.updatedAt = moment(line.updatedAt).format('YYYY-MM-DD HH:mm:ss');
-                line.statusText = line.status == "1" ? "已发布" : "未发布";
-                line.transTimeText = _.find(trans_time, {'id': line.transTime}).name;
-                if (!line.image) {
-                    line.image = "/images/no-line.jpg";
+            else {
+                pages = Math.ceil(count / limit);
+            }
+        });
+
+        req.models.goods.find(opt).offset((page - 1) * limit).limit(limit).order('-updatedAt').all(function (err, goodsList) {
+            if (err) {
+                if (err.code == orm.ErrorCodes.NOT_FOUND) {
+                    goodsList = [];
+                    pages = 0;
+                } else {
+                    return next(err);
                 }
-                if (line.heavyCargoPrice == "" || line.heavyCargoPrice == "0") {
-                    line.heavyCargoPrice = "面议";
+            }
+            goodsList.forEach(function (goods) {
+                goods.updatedAt = moment(line.updatedAt).format('YYYY-MM-DD HH:mm:ss').fromNow();
+                if (!goods.image) {
+                    goods.image = "/images/no-line.jpg";
                 }
-                else {
-                    line.heavyCargoPrice = line.heavyCargoPrice + "元/吨";
+                if (goods.phone && goods.tel)
+                    goods.tel = "/ " + goods.tel;
+
+                //货物描述
+                goods.infoText = goods.sProvince + goods.sCity + "→" + goods.eProvince + goods.eCity;
+                if (goods.weight) {
+                    goods.infoText += ",有" + goods.weight + (goods.unit == 0 ? "方" : "吨");
+                    goods.infoText += _.find(info_dict.goods_type, {'id': goods.goodsTypeCode}).name;
                 }
-                if (line.foamGoodsPrice == "" || line.foamGoodsPrice == "0") {
-                    line.foamGoodsPrice = "面议";
-                }
-                else {
-                    line.foamGoodsPrice = line.foamGoodsPrice + "元/公斤"
-                }
-                if (line.isFrozen == "1") {
-                    line.transRate = "不固定";
-                }
-                else {
-                    line.transRate = "每" + line.transRateDay + "天" + line.transRateNumber + "班";
-                }
-                if (line.startPhone && line.startTel)
-                    line.startTel = "/ " + line.startTel;
-                if (line.endPhone && line.endTel)
-                    line.endTel = "/ " + line.endTel;
+
+                //车辆需求
+                goods.infoText += ",求" + goods.vehicleLength + "米" + _.find(info_dict.vehicle_type, {'id': goods.vehicleTypeCode}).name;
+                if (goods.vehicleCount > 0)
+                    goods.infoText += goods.vehicleCount + "辆";
+
+                //补充说明
+                if (goods.freeText)
+                    goods.infoText += "," + goods.freeText;
             });
-            res.render('line/index', {
-                lines: lines,
+            res.render('goods/index', {
+                goodsList: goodsList,
                 current_page: page,
-                list_line_count: limit,
+                list_count: limit,
                 pages: pages,
                 status: status,
                 base: req.url,
@@ -136,11 +87,11 @@ module.exports = {
         });
     },
     add: function (req, res, next) {
-        var line = _.mapValues(new req.models.line().serialize(), function (val) {
+        var goods = _.mapValues(new req.models.goods().serialize(), function (val) {
             if (_.isNull(val))return "";
             return val;
         });
-        res.render('line/add', {params: req.params, line: line, line_type: line_type, line_goods_type: line_goods_type, trans_time: trans_time, mode_transport: mode_transport, validate_type: validate_type});
+        res.render('goods/add', {params: req.params, goods: goods, goods_type: info_dict.goods_type, vehicle_type: info_dict.vehicle_type, loading_time: info_dict.loading_time,validate_type: info_dict.validate_type});
     },
     create: function (req, res, next) {
         var lineEntity = _.merge(new req.models.line().serialize(), req.body);

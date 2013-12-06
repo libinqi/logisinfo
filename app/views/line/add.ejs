@@ -2,21 +2,8 @@
 
 <div class="container w1002 tn_margin" id="qiye">
 
-<div class="col-lg-2 col-md-2 col-sm-2 left_bar">
-    <h4>信息共享</h4>
-    <ul class="sub_nav">
-        <li class="li_hover">
-            <!--<span class="badge pull-right"><a class="wide_font" href="#">42</a></span>-->
-            <a href="/line">专线信息</a>
-        </li>
-        <li><a href="#">仓库信息</a></li>
-        <li><a href="#">港口信息</a></li>
-        <li><a href="#">货场信息</a></li>
-        <li><a href="#">货源信息</a></li>
-        <li><a href="#">车源信息</a></li>
-        <li><a href="#">铁路信息</a></li>
-    </ul>
-</div>
+<%-partial("layouts/info_nav",{current_url:"/line/add"})%>
+
 <div class="col-lg-10 col-md-10 col-sm-10 youce">
 <div class="bg_pale_yellow">
     <div class="col-md-12 pad_topbot_change">
@@ -411,7 +398,7 @@
         </div>
         <div class="info_content">
             <div class=" pull-left w145 tn_padding ln_padding bn_padding">
-                <a href="#"><img id="perview_image" src="/images/no-line.jpg" width="135" height="100"></a>
+                <a href="#"><img id="per_image" src="/images/no-line.jpg" width="135" height="100"></a>
             </div>
             <div class="pull-left w350 tn_padding rn_padding ln_padding lianxi">
                 <p>始发地址：<span id="per_startAddress">未填写</span></p>
@@ -698,7 +685,7 @@ $(function () {
         dataType: 'json',
         done: function (e, data) {
             $.each(data.result.files, function (index, file) {
-                $('#perview_image').attr("src", file.url);
+                $('#per_image').attr("src", file.url);
                 $('#line_image').val(file.url);
             });
         },

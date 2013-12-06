@@ -1,0 +1,35 @@
+<div class="col-lg-2 col-md-2 col-sm-2 left_bar">
+    <h4>信息共享</h4>
+    <ul class="sub_nav" current_url="<%= current_url %>">
+        <li>
+            <!--<span class="badge pull-right"><a class="wide_font" href="#">42</a></span>-->
+            <a href="/line">专线信息</a>
+        </li>
+        <li><a href="/store">仓库信息</a></li>
+        <!--<li><a href="#">港口信息</a></li>-->
+        <!--<li><a href="#">货场信息</a></li>-->
+        <li><a href="/goods">货源信息</a></li>
+        <li><a href="/vehicle">车源信息</a></li>
+        <!--<li><a href="#">铁路信息</a></li>-->
+    </ul>
+</div>
+<script type="text/javascript">
+    $(document).ready(function () {
+        var $nav = $('.sub_nav');
+        var current_url = $nav.attr('current_url');
+        if (current_url) {
+            $nav.find('li').each(function () {
+                var $li = $(this);
+                var $a = $li.find('a');
+                if (current_url.indexOf($a.attr("href")) >= 0) {
+                    $li.addClass('li_hover');
+                }
+            });
+        }
+        else
+        {
+            var $li=  $nav.find('li')[0];
+            $li.addClass('li_hover');
+        }
+    });
+</script>

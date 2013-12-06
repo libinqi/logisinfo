@@ -67,26 +67,14 @@ module.exports = {
         if (!_.isEmpty(req.query.eCity))
             opt.eCityCode = req.query.eCity;
 
-        req.models.line.count(opt, function (err, count) {
-            if (err) {
-                if (err.code == orm.ErrorCodes.NOT_FOUND) {
-                    pages=0;
-                } else {
-                    return next(err);
-                }
-            }
-            else
-            {
-                pages = Math.ceil(count / limit);
-            }
+        req.models.line.count(opt, function (error, count) {
+            pages = Math.ceil(count / limit);
         });
 
         req.models.line.find(opt).offset((page - 1) * limit).limit(limit).order('-updatedAt').all(function (err, lines) {
             if (err) {
                 if (err.code == orm.ErrorCodes.NOT_FOUND) {
-//                    res.send(404, "没有任何专线信息");
-                    lines = [];
-                    pages = 0;
+                    res.send(404, "没有任何专线信息");
                 } else {
                     return next(err);
                 }
@@ -116,9 +104,9 @@ module.exports = {
                 else {
                     line.transRate = "每" + line.transRateDay + "天" + line.transRateNumber + "班";
                 }
-                if (line.startPhone && line.startTel)
+                if (line.startPhone&&line.startTel)
                     line.startTel = "/ " + line.startTel;
-                if (line.endPhone && line.endTel)
+                if (line.endPhone&&line.endTel)
                     line.endTel = "/ " + line.endTel;
             });
             res.render('line/index', {
@@ -225,11 +213,11 @@ module.exports = {
             }
 
             line.startTelText = "";
-            if (line.startPhone && line.startTel) {
+            if (line.startPhone&&line.startTel) {
                 line.startTelText = "/ " + line.startTel;
             }
             line.endTelText = "";
-            if (line.endPhone && line.endTel) {
+            if (line.endPhone&&line.endTel) {
                 line.endTelText = "/ " + line.endTel;
             }
 

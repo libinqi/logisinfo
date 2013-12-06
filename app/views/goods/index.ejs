@@ -1,68 +1,22 @@
 <div class="container w1002 tn_margin" id="qiye">
-    <%-partial("layouts/info_nav",{current_url:"/line"})%>
+
+    <%-partial("layouts/info_nav",{current_url:"/goods"})%>
+
     <div class="col-lg-10 col-md-10 col-sm-10 youce">
         <div class="bg_pale_yellow">
             <div class="col-lg-12 col-md-12 col-sm-12 pad_topbot_change">
                 <h4 class="lh h4_line">
-                    <div class="w120 pull-left ts_padding">专线信息</div>
-                    <%
-                    function removeURLParameter(url, parameter) {
-                        var urlparts = url.split('?');
-                        if (urlparts.length >= 2) {
-                            var prefix = encodeURIComponent(parameter) + '=';
-                            var pars = urlparts[1].split(/[&;]/g);
-                            for (var i = pars.length; i-- > 0;)
-                                if (pars[i].lastIndexOf(prefix, 0) !== -1)
-                                    pars.splice(i, 1);
-                            url = urlparts[0] + '?' + pars.join('&');
-                            return url;
-                        } else {
-                            return url;
-                        }
-                    }
-                    base = removeURLParameter(base, 'status');
-                    var base_url = base + (base.indexOf('?') < 0 ? '?' : '&') + 'status=';
+                    <div class="w120 pull-left ts_padding">货源信息</div>
 
-                            if(status){
-                            if(status == 2)
-                    {
-                    %>
-                    <div class="third_nav"><a href="/line">全部信息</a></div>
-                    <div class="third_nav third_hover"><a href="<%= base_url %>2">已发布</a></div>
-                    <div class="third_nav"><a href="<%= base_url %>1">未发布</a></div>
-                    <%
-                    }
-                    else if(status == 1)
-                    {
-                    %>
-                    <div class="third_nav"><a href="/line">全部信息</a></div>
-                    <div class="third_nav"><a href="<%= base_url %>2">已发布</a></div>
-                    <div class="third_nav third_hover"><a href="<%= base_url %>1">未发布</a></div>
-                    <%
-                    }
-                    else
-                    {
-                    %>
-                    <div class="third_nav third_hover"><a href="/line">全部信息</a></div>
-                    <div class="third_nav"><a href="<%= base_url %>2">已发布</a></div>
-                    <div class="third_nav"><a href="<%= base_url %>1">未发布</a></div>
-                    <%
-                    }
-                    }else
-                    {
-                    %>
-                    <div class="third_nav third_hover"><a href="/line">全部信息</a></div>
-                    <div class="third_nav"><a href="<%= base_url %>2">已发布</a></div>
-                    <div class="third_nav"><a href="<%= base_url %>1">未发布</a></div>
-                    <%
-                    } %>
+                    <div class="third_nav"><a href="/goods/all">所有信息</a></div>
+                    <div class="third_nav third_hover"><a href="/goods">我的信息</a></div>
 
-                    <a href="/line/add" class="btn pull-right btn-info btn-sm">发布专线</a>
+                    <a href="/goods/add" class="btn pull-right btn-info btn-sm">发布货源</a>
                 </h4>
             </div>
         </div>
         <div class="col-lg-12 col-md-12 col-sm-12">
-            <div class="line_search">
+            <div class="goods_search">
                 <form class="navbar-form navbar-left" role="search">
                     <div class="w280 pull-left">
                         <div class="w60 pull-left ts_padding">出发地：</div>
@@ -109,19 +63,19 @@
             });
         </script>
         <div class="col-lg-12 col-dm-12 col-sm-12 info tn_margin">
-            <% if(locals.lines && locals.lines.length){
+            <% if(locals.goodsList && locals.goodsList.length){
             %>
-            <%- partial('line/list', {
-                lines: lines,
+            <%- partial('goods/list', {
+                goodsList: goodsList,
                 current_page: current_page,
-                list_line_count: list_line_count,
+                list_count: list_count,
                 pages: pages,
                 base: base
             }) %>
             <% }else{
-                    if(base == "/line" || base == "/line/"){ %>
+                    if(base == "/goods" || base == "/goods/"){ %>
             <div class="info_item">
-                <div class="col-lg-12 tl_padding bl_padding text-danger text-center">您还没有发布信息哦，<a href="/line/add">赶快去发布信息</a>
+                <div class="col-lg-12 tl_padding bl_padding text-danger text-center">您还没有发布信息哦，<a href="/goods/add">赶快去发布信息</a>
                 </div>
             </div>
             <% }else{ %>
@@ -185,7 +139,7 @@
         if (url) {
             if (url.substr(0, 1) == "&")
                 url = url.substr(1, url.length - 1);
-            window.location.href = "/line?" + url;
+            window.location.href = "/goods?" + url;
         }
     }
 </script>
