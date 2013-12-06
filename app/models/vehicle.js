@@ -17,11 +17,10 @@ module.exports = function (orm, db) {
             image: {type: 'text'},
             vehicleNumber: {type: 'text'},
             loadWeight: {type: 'text'},
+            unit: {type: 'number'},
             vehicleLength: {type: 'number'},
             vehicleTypeCode: {type: 'text', required: true},
             vehicleType: {type: 'text', required: true},
-            goodsTypeCode: {type: 'text', required: true},
-            goodsType: {type: 'text', required: true},
             referPrice: {type: 'number'},
             referPriceFlag: {type: 'number'},
             loadingTime: {type: 'text'},
@@ -66,11 +65,10 @@ module.exports = function (orm, db) {
                         image: this.image,
                         vehicleNumber: this.vehicleNumber,
                         loadWeight: this.loadWeight,
+                        unit: 1, //0: 方 1:吨
                         vehicleLength: this.vehicleLength,
                         vehicleTypeCode: this.vehicleTypeCode,
                         vehicleType: this.vehicleType,
-                        goodsTypeCode: this.goodsTypeCode,
-                        goodsType: this.goodsType,
                         loadingTime: this.loadingTime,
                         referPrice: 0, //0:电询
                         referPriceFlag: 1, //0:元/方  1:元/吨

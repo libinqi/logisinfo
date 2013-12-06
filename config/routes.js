@@ -2,10 +2,6 @@
 
 module.exports = function (app) {
     app.get('/', controllers.home.index);
-    app.get('/message', controllers.message.list);
-    app.post('/message', controllers.message.create);
-    app.get('/message/:id', controllers.message.get);
-    app.post('/message/:messageId/comment', controllers.comment.create);
     app.get('/line', controllers.line.index);
     app.get('/line/add', controllers.line.add);
     app.post('/line', controllers.line.create);
@@ -21,6 +17,11 @@ module.exports = function (app) {
     app.get('/goods/:id', controllers.goods.show);
     app.get('/goods/edit/:id', controllers.goods.edit);
     app.post('/goods/:id', controllers.goods.update);
-    app.get('/goods/delete/:id', controllers.goods.remove);
-    app.get('/goods/change_status/:id', controllers.goods.change_status);
+
+    app.get('/vehicle', controllers.vehicle.index);
+    app.get('/vehicle/add', controllers.vehicle.add);
+    app.post('/vehicle', controllers.vehicle.create);
+    app.get('/vehicle/:id', controllers.vehicle.show);
+    app.get('/vehicle/edit/:id', controllers.vehicle.edit);
+    app.post('/vehicle/:id', controllers.vehicle.update);
 };

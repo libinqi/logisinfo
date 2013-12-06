@@ -35,6 +35,9 @@
             <select id="sAreaCode" name="sAreaCode" class="form-control min_hundred w150">
             </select>
         </div>
+        <div class="w100 pull-left">
+            <label for="sProvinceCode" class="error"></label>
+        </div>
     </div>
 </div>
 <div class="form-group">
@@ -53,6 +56,9 @@
         <div class="w150 pull-left ln_margin">
             <select id="eAreaCode" name="eAreaCode" class="form-control min_hundred w150">
             </select>
+        </div>
+        <div class="w100 pull-left">
+            <label for="eProvinceCode" class="error"></label>
         </div>
     </div>
 </div>
@@ -77,6 +83,9 @@
 
     <div class="col-lg-8 col-sm-8 jiben_right">
         <input type="text" class="form-control w20 inputinline" id="weight" name="weight" min="1" placeholder="0"> 吨
+        <div class="w100">
+            <label for="weight" class="error"></label>
+        </div>
     </div>
 </div>
 <div class="form-group">
@@ -84,6 +93,9 @@
 
     <div class="col-sm-1 pad_select">
         <input type="text" class="form-control min_fifty" id="vehicleLength" name="vehicleLength" placeholder="0">
+        <div class="w150 pull-left">
+            <label for="vehicleLength" class="error"></label>
+        </div>
     </div>
     <div class="pull-left pad_p">
         <span>米</span>
@@ -107,12 +119,15 @@
     <div class="pull-left pad_p">
         <span>辆</span>
     </div>
+    <div class="w200 pull-left">
+        <label for="vehicleCount" class="error"></label>
+    </div>
 </div>
 <div class="form-group">
     <label for="inputEmail3" class="col-lg-4 col-md-4 col-sm-4 control-label jiben_left">特殊说明：</label>
 
     <div class="col-lg-8 col-md-8 col-sm-8 jiben_right">
-        <textarea class="form-control" id="freeText" name="freeText" rows="3"></textarea>
+        <textarea class="form-control" id="freeText" name="freeText" maxlength="500" rows="3"></textarea>
         <small>(限制500字符)如有特殊的需求，如货物是危险品、有人押车、卸货地禁区等需要车辆提前了解的重要信息</small>
     </div>
 </div>
@@ -121,6 +136,9 @@
 
     <div class="col-lg-3 col-md-3 col-sm-3 jiben_right">
         <input type="text" class="form-control" id="contact" name="contact" placeholder="请填写联系人">
+    </div>
+    <div class="w150 pull-left">
+        <label for="contact" class="error"></label>
     </div>
 </div>
 <div class="form-group">
@@ -215,26 +233,26 @@
         } %>
     </div>
 </div>
-<div class="form-group">
-    <label for="inputEmail3" class="col-lg-4 col-md-4 col-sm-4 control-label jiben_left">发布状态：</label>
+<!--<div class="form-group">-->
+    <!--<label for="inputEmail3" class="col-lg-4 col-md-4 col-sm-4 control-label jiben_left">发布状态：</label>-->
 
-    <div class="col-lg-8 col-md-8 col-sm-8 jiben_right">
-        <div class="pad_select w75 pull-left">
-            <div class="radio">
-                <label>
-                    <input type="radio" name="status" value="1" class="radio" checked>发布
-                </label>
-            </div>
-        </div>
-        <div class="pad_select w75 pull-left">
-            <div class="radio">
-                <label>
-                    <input type="radio" name="status" value="0" class="radio">不发布
-                </label>
-            </div>
-        </div>
-    </div>
-</div>
+    <!--<div class="col-lg-8 col-md-8 col-sm-8 jiben_right">-->
+        <!--<div class="pad_select w75 pull-left">-->
+            <!--<div class="radio">-->
+                <!--<label>-->
+                    <!--<input type="radio" name="status" value="1" class="radio" checked>发布-->
+                <!--</label>-->
+            <!--</div>-->
+        <!--</div>-->
+        <!--<div class="pad_select w75 pull-left">-->
+            <!--<div class="radio">-->
+                <!--<label>-->
+                    <!--<input type="radio" name="status" value="0" class="radio">不发布-->
+                <!--</label>-->
+            <!--</div>-->
+        <!--</div>-->
+    <!--</div>-->
+<!--</div>-->
 <div class="form-group">
     <label class="col-lg-4 col-md-4 col-sm-4 control-label jiben_left">货物图片：</label>
 
@@ -272,13 +290,11 @@
         <div class="info_content">
             <div class=" pull-left w145 tn_padding ln_padding bn_padding">
                 <a href="#"><img id="per_image" src="/images/no-line.jpg" width="135" height="100"></a>
-
-                <div class="w145 text-center"><a href="#">益阳湘运物流</a></div>
             </div>
             <div class="pull-left w400 tn_padding rn_padding ln_padding lianxi">
-                <p><strong id="per_scity">未选择</strong>→<strong id="per_ecity">未选择</strong><strong
+                <p><a href="#"><strong id="per_scity">未选择</strong>→<strong id="per_ecity">未选择</strong><strong
                             id="per_goodsWeight"></strong><strong id="per_goodsVehicle"></strong><strong
-                            id="per_freeText"></strong></p>
+                            id="per_freeText"></strong></a></p>
 
                 <p>联系方式：<span id="per_phone" class="text-primary">未填写</span>
                     <span id="per_tel" class="text-primary">/未填写</span>
@@ -291,9 +307,9 @@
             </div>
             <div class="pull-left w220 ln_padding tn_padding xijie">
                 <div class="w65 text-right pull-left">货物类型：</div>
-                <div id="per_goodsType" class="pull-left xijie_xinxi">未选择</div>
+                <div id="per_goodsType" class="pull-left xijie_xinxi">普货</div>
                 <div class="w65 text-right pull-left">装货时间：</div>
-                <div id="per_loadingTime" class="pull-left xijie_xinxi">未选择</div>
+                <div id="per_loadingTime" class="pull-left xijie_xinxi">随时</div>
                 <span class="w65 text-right pull-left">货重：</span>
 
                 <div id="per_weight" class="pull-left xijie_xinxi">未填写</div>
@@ -418,18 +434,17 @@ $(function () {
     });
 
     $("#freeText").on("change", function () {
-        var freeText=$(this).val();
+        var freeText = $(this).val();
 
-        if(freeText)
-        {
-            $("#per_freeText").html(","+freeText);
+        if (freeText) {
+            $("#per_freeText").html("," + freeText);
         }
     });
 
     $("input[name='loadingTime']").each(function () {
         $(this).click(function () {
             var parent = $(this).parent();
-                $("#per_loadingTime").html(parent.text());
+            $("#per_loadingTime").html(parent.text());
         });
     });
 
@@ -447,93 +462,85 @@ $(function () {
         $("#per_tel").html("/" + tel);
     });
 
-//    $.validator.addMethod("isMobile", function (value, element) {
-//        var length = value.length;
-//        var mobile = /^(13[0-9]|15[012356789]|18[0236789]|14[57])[0-9]{8}$/;
-//        return this.optional(element) || (length == 11 && mobile.test(value));
-//    }, "手机号码格式正不正确");
-//
-//    $.validator.addMethod("isTel", function (value, element) {
-//        var tel = /^(0[0-9]{2,3}\-)?([2-9][0-9]{6,7})+(\-[0-9]{1,4})?$/;
-//        return this.optional(element) || (tel.test(value));
-//    }, "电话号码格式不正确");
-//
-//    $('#line-form').validate({
-//        rules: {
-//            sProvinceCode: "required",
-////                sCityCode:"required",
-//            eProvinceCode: "required",
-////                eCityCode:"required",
-//            heavyCargoPrice: {
-//                required: true,
-//                number: true,
-//                min: 0
-//            },
-//            foamGoodsPrice: {
-//                required: true,
-//                number: true,
-//                min: 0
-//            },
-//            lineGoodsType: "required",
-//            startContact: "required",
-//            startAddress: "required",
-//            startPhone: {
-//                number: true,
-//                minlength: 11
-//            },
-//            endPhone: {
-//                number: true,
-//                minlength: 11
-//            },
-//            startPhone: "isMobile",
-//            endPhone: "isMobile",
-//            startTel: "isTel",
-//            endTel: "isTel"
-//        },
-//        messages: {
-//            sProvinceCode: "出发城市必选",
-//            eProvinceCode: "到达城市必选",
-//            heavyCargoPrice: {
-//                required: "重货价格必填",
-//                number: "价格必须为数字",
-//                min: "价格不能少于0"
-//            },
-//            foamGoodsPrice: {
-//                required: "泡货价格必填",
-//                number: "价格必须为数字",
-//                min: "价格不能少于0"
-//            },
-//            lineGoodsType: "运输货物必选",
-//            startContact: "联系人不能为空",
-//            startAddress: "所在地址不能为空",
-//            startPhone: {
-//                required: "手机号码不能为空",
-//                number: "手机号码必须为数字",
-//                minlength: "手机号码长度为11位"
-//            },
-//            endPhone: {
-//                number: "手机号码必须为数字",
-//                minlength: "手机号码长度为11位"
-//            }
-//        },
-//        highlight: function (element) {
-//            $(element).closest('.control-group').removeClass('success').addClass('error');
-//        },
-//        submitHandler: function (form) {
-//            if ($("#startPhone").val() == "" && $("#startTel").val() == "") {
-//                $("#startPhone").focus();
-//                return false;
-//            }
-//            if ($("#endPhone").val() == "" && $("#endTel").val() == "") {
-//                $("#endPhone").focus();
-//                return false;
-//            }
-//            form.submit();
-//        }
-//    });
+    $.validator.addMethod("isMobile", function (value, element) {
+        var length = value.length;
+        var mobile = /^(13[0-9]|15[012356789]|18[0236789]|14[57])[0-9]{8}$/;
+        return this.optional(element) || (length == 11 && mobile.test(value));
+    }, "手机号码格式正不正确");
+
+    $.validator.addMethod("isTel", function (value, element) {
+        var tel = /^(0[0-9]{2,3}\-)?([2-9][0-9]{6,7})+(\-[0-9]{1,4})?$/;
+        return this.optional(element) || (tel.test(value));
+    }, "电话号码格式不正确");
+
+    $('#goods-form').validate({
+        rules: {
+            sProvinceCode: "required",
+            eProvinceCode: "required",
+            weight: {
+                required: true,
+                number: true,
+                min: 1
+            },
+            vehicleLength: {
+                required: true,
+                number: true,
+                min: 2
+            },
+            vehicleCount: {
+                required: true,
+                number: true,
+                min: 1
+            },
+            goodsTypeCode: "required",
+            contact: "required",
+            phone: {
+                number: true,
+                minlength: 11
+            },
+            phone: "isMobile",
+            tel: "isTel"
+        },
+        messages: {
+            sProvinceCode: "出发城市必选",
+            eProvinceCode: "到达城市必选",
+            weight: {
+                required: "货物重量必填",
+                number: "货物重量为数字",
+                min: "货物重量不能少于0"
+            },
+            vehicleLength: {
+                required: "车长必填",
+                number: "车长必须为数字",
+                min: "车长不能少于2米"
+            },
+            vehicleCount: {
+                required: "求车辆数必填",
+                number: "求车辆数必须为数字",
+                min: "求车辆数不能少于1"
+            },
+            goodsTypeCode: "货物类型必选",
+            contact: "联系人不能为空",
+            phone: {
+                required: "手机号码不能为空",
+                number: "手机号码必须为数字",
+                minlength: "手机号码长度为11位"
+            }
+        },
+        highlight: function (element) {
+            $(element).closest('.control-group').removeClass('success').addClass('error');
+        },
+        submitHandler: function (form) {
+            if ($("#phone").val() == "" && $("#tel").val() == "") {
+                $("#phone").focus();
+                return false;
+            }
+            form.submit();
+        }
+    });
 
     // Change this to the location of your server-side upload handler:
-    var url = 'http://localhost:3001/upload/goods_info';
+    var url = 'http://localhost:3001/upload/goods';
 
     $('#fileupload').fileupload({
         url: url,

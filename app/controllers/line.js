@@ -3,48 +3,7 @@ var helpers = require('./_helpers');
 var orm = require('orm');
 var moment = require('moment');
 var settings = require('../../config/settings');
-var line_type = [
-    {"id": "1", "name": "单程"},
-    {"id": "2", "name": "往返"}
-];
-var line_goods_type = [
-    {"id": "1", "name": "不限"},
-    {"id": "2", "name": "普通货物"},
-    {"id": "3", "name": "大件货物"},
-    {"id": "4", "name": "鲜活易腐"},
-    {"id": "5", "name": "危险货物"},
-    {"id": "6", "name": "贵重货物"},
-    {"id": "7", "name": "保温冷藏"},
-    {"id": "8", "name": "搬家货物"}
-];
-var trans_time = [
-    {"id": "1", "name": "1天"},
-    {"id": "2", "name": "2天"},
-    {"id": "3", "name": "3天"},
-    {"id": "4", "name": "4天"},
-    {"id": "5", "name": "5天"},
-    {"id": "6", "name": "5天以上"}
-];
-var mode_transport = [
-    {"id": "1", "name": "公路运输"},
-    {"id": "2", "name": "海上运输"},
-    {"id": "3", "name": "铁路运输"},
-    {"id": "4", "name": "航空运输"},
-    {"id": "5", "name": "邮件运输"},
-    {"id": "6", "name": "多式联运"},
-    {"id": "7", "name": "固定设施运输"},
-    {"id": "8", "name": "内河运输"},
-    {"id": "9", "name": "其它运输"}
-];
-var validate_type = [
-    {"id": "1", "name": "长期有效", "day": 3650},
-    {"id": "2", "name": "1天", "day": 1},
-    {"id": "3", "name": "7天", "day": 7},
-    {"id": "4", "name": "15天", "day": 15},
-    {"id": "5", "name": "1个月", "day": 30},
-    {"id": "6", "name": "半年", "day": 182},
-    {"id": "7", "name": "1年", "day": 365}
-];
+var info_dict = require('../../util/info_dict');
 
 module.exports = {
     index: function (req, res, next) {
@@ -94,7 +53,7 @@ module.exports = {
             lines.forEach(function (line) {
                 line.updatedAt = moment(line.updatedAt).format('YYYY-MM-DD HH:mm:ss');
                 line.statusText = line.status == "1" ? "已发布" : "未发布";
-                line.transTimeText = _.find(trans_time, {'id': line.transTime}).name;
+                line.transTimeText = _.find(info_dict.trans_time, {'id': line.transTime}).name;
                 if (!line.image) {
                     line.image = "/images/no-line.jpg";
                 }
@@ -140,7 +99,7 @@ module.exports = {
             if (_.isNull(val))return "";
             return val;
         });
-        res.render('line/add', {params: req.params, line: line, line_type: line_type, line_goods_type: line_goods_type, trans_time: trans_time, mode_transport: mode_transport, validate_type: validate_type});
+        res.render('line/add', {params: req.params, line: line, line_type: info_dict.line_type, line_goods_type: info_dict.line_goods_type, trans_time: info_dict.trans_time, mode_transport: info_dict.mode_transport, validate_type: info_dict.validate_type});
     },
     create: function (req, res, next) {
         var lineEntity = _.merge(new req.models.line().serialize(), req.body);
@@ -149,8 +108,8 @@ module.exports = {
         lineEntity.updaterId = "123456";
         lineEntity.updatedAt = moment().format('YYYY-MM-DD HH:mm:ss');
         lineEntity.eId = "123";
-        lineEntity.lineType = _.find(line_type, {'id': lineEntity.lineTypeCode}).name;
-        lineEntity.modeTransport = _.find(mode_transport, {'id': lineEntity.modeTransportCode}).name;
+        lineEntity.lineType = _.find(info_dict.line_type, {'id': lineEntity.lineTypeCode}).name;
+        lineEntity.modeTransport = _.find(info_dict.mode_transport, {'id': lineEntity.modeTransportCode}).name;
         if (_.isArray(lineEntity.lineGoodsType))lineEntity.lineGoodsType = lineEntity.lineGoodsType.join(",");
 
         if (_.isEmpty(lineEntity.endContact) && _.isEmpty(lineEntity.endAddress) && _.isEmpty(lineEntity.endPhone) && _.isEmpty(lineEntity.endTel)) {
@@ -201,7 +160,7 @@ module.exports = {
             line.createdAt = moment(line.createdAt).format('YYYY-MM-DD HH:mm:ss');
             line.updatedAt = moment(line.updatedAt).format('YYYY-MM-DD HH:mm:ss');
             line.statusText = line.status == "1" ? "已发布" : "未发布";
-            line.transTimeText = _.find(trans_time, {'id': line.transTime}).name;
+            line.transTimeText = _.find(info_dict.trans_time, {'id': line.transTime}).name;
             if (!line.image) {
                 line.image = "/images/no-line.jpg";
             }
@@ -233,7 +192,7 @@ module.exports = {
                 line.endTelText = "/ " + line.endTel;
             }
 
-            res.render('line/edit', {params: req.params, line: line, line_type: line_type, line_goods_type: line_goods_type, trans_time: trans_time, mode_transport: mode_transport, validate_type: validate_type});
+            res.render('line/edit', {params: req.params, line: line, line_type: info_dict.line_type, line_goods_type: info_dict.line_goods_type, trans_time: info_dict.trans_time, mode_transport: info_dict.mode_transport, validate_type: info_dict.validate_type});
         });
     },
     update: function (req, res, next) {
@@ -248,8 +207,8 @@ module.exports = {
             var lineEntity = _.merge(line, req.body);
             lineEntity.updaterId = "123456";
             lineEntity.updatedAt = moment().format('YYYY-MM-DD HH:mm:ss');
-            lineEntity.lineType = _.find(line_type, {'id': lineEntity.lineTypeCode}).name;
-            lineEntity.modeTransport = _.find(mode_transport, {'id': lineEntity.modeTransportCode}).name;
+            lineEntity.lineType = _.find(info_dict.line_type, {'id': lineEntity.lineTypeCode}).name;
+            lineEntity.modeTransport = _.find(info_dict.mode_transport, {'id': lineEntity.modeTransportCode}).name;
             if (_.isArray(lineEntity.lineGoodsType))lineEntity.lineGoodsType = lineEntity.lineGoodsType.join(",");
 
             if (_.isEmpty(lineEntity.endContact) && _.isEmpty(lineEntity.endAddress) && _.isEmpty(lineEntity.endPhone) && _.isEmpty(lineEntity.endTel)) {
@@ -259,7 +218,7 @@ module.exports = {
                 lineEntity.endTel = lineEntity.startTel;
             }
 
-            var day = _.find(validate_type, {'id': lineEntity.valid}).day;
+            var day = _.find(info_dict.validate_type, {'id': lineEntity.valid}).day;
             lineEntity.expiryDate = moment().add('d', day).format('YYYY-MM-DD HH:mm:ss');
             line.save(lineEntity, function (err) {
                 if (err) {

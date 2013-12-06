@@ -64,7 +64,7 @@ module.exports = function (orm, db) {
                         eArea: this.eArea,
                         image: this.image,
                         weight: 0,//0:货重
-                        unit: 0, //0: 方 1:吨
+                        unit: 1, //0: 方 1:吨
                         goodsTypeCode: this.goodsTypeCode,
                         goodsType: this.goodsType,
                         vehicleLength: this.vehicleLength,

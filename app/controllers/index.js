@@ -3,5 +3,6 @@
     message: require('./message'),
     comment: require('./comment'),
     line: require('./line'),
-    goods: require('./goods')
+    goods: require('./goods'),
+    vehicle: require('./vehicle')
 };
