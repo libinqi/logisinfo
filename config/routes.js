@@ -11,6 +11,15 @@ module.exports = function (app) {
     app.get('/line/delete/:id', controllers.line.remove);
     app.get('/line/change_status/:id', controllers.line.change_status);
 
+    app.get('/store', controllers.store.index);
+    app.get('/store/add', controllers.store.add);
+    app.post('/store', controllers.store.create);
+    app.get('/store/:id', controllers.store.show);
+    app.get('/store/edit/:id', controllers.store.edit);
+    app.post('/store/:id', controllers.store.update);
+    app.get('/store/delete/:id', controllers.store.remove);
+    app.get('/store/change_status/:id', controllers.store.change_status);
+
     app.get('/goods', controllers.goods.index);
     app.get('/goods/add', controllers.goods.add);
     app.post('/goods', controllers.goods.create);

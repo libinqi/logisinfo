@@ -4,5 +4,6 @@
     comment: require('./comment'),
     line: require('./line'),
     goods: require('./goods'),
-    vehicle: require('./vehicle')
+    vehicle: require('./vehicle'),
+    store: require('./store')
 };

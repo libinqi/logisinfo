@@ -158,3 +158,23 @@ exports.loading_time = [
     {"id": "4", "name": "后天"},
     {"id": "5", "name": "至少3天后"}
 ];
+
+exports.store_type=[
+    {"id": "1", "name": "普通"},
+    {"id": "2", "name": "综合"},
+    {"id": "3", "name": "保税"},
+    {"id": "4", "name": "冷藏"},
+    {"id": "5", "name": "恒温"},
+    {"id": "6", "name": "危险品"},
+    {"id": "7", "name": "立体"},
+    {"id": "8", "name": "露天"},
+    {"id": "9", "name": "货架"},
+    {"id": "10", "name": "液体"},
+    {"id": "11", "name": "堆场"},
+    {"id": "12", "name": "其它"},
+];
+
+exports.busneiss_scope=[
+    {"id": "1", "name": "自有仓库"},
+    {"id": "2", "name": "租用仓库"},
+];

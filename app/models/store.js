@@ -60,7 +60,7 @@ module.exports = function (orm, db) {
                         storeArea: this.storeArea,
                         useArea: this.useArea,
                         referPrice: 0, //0:电询
-                        referPriceFlag: 0, //0:平方/元
+                        referPriceFlag: 1, //0:元/平方/年 1:元/平方/月
                         contact: this.contact,
                         address:this.address,
                         tel: this.tel,
