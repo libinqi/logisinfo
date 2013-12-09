@@ -8,10 +8,10 @@ module.exports = function (orm, db) {
             sCity: {type: 'text', required: true},
             sAreaCode: {type: 'text'},
             sArea: {type: 'text'},
-            eProvinceCode: {type: 'text', required: true},
-            eProvince: {type: 'text', required: true},
-            eCityCode: {type: 'text', required: true},
-            eCity: {type: 'text', required: true},
+            eProvinceCode: {type: 'text'},
+            eProvince: {type: 'text'},
+            eCityCode: {type: 'text'},
+            eCity: {type: 'text'},
             eAreaCode: {type: 'text'},
             eArea: {type: 'text'},
             image: {type: 'text'},
@@ -28,15 +28,16 @@ module.exports = function (orm, db) {
             tel: {type: 'text'},
             phone: {type: 'text'},
             valid: {type: 'text'},
-            expiryDate: {type: 'date'},
+            expiryDate: {type: 'text'},
             isDeleted: {type: 'number'},
             status: {type: 'number'},
             freeText: {type: 'text'},
+            infoText: {type: 'text'},
             eId: {type: 'text'},//关联企业的uuid
             createrId: {type: 'text', required: true},//关联用户的uuid
-            createdAt: { type: 'date', required: true, time: true },
+            createdAt: { type: 'text', required: true },
             updaterId: {type: 'text'},//关联用户的uuid
-            updatedAt: { type: 'date', time: true }
+            updatedAt: { type: 'text' }
         },
         {
             hooks: {

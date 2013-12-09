@@ -29,13 +29,12 @@ module.exports = {
         req.models.line.count(opt, function (err, count) {
             if (err) {
                 if (err.code == orm.ErrorCodes.NOT_FOUND) {
-                    pages=0;
+                    pages = 0;
                 } else {
                     return next(err);
                 }
             }
-            else
-            {
+            else {
                 pages = Math.ceil(count / limit);
             }
         });
@@ -51,7 +50,7 @@ module.exports = {
                 }
             }
             lines.forEach(function (line) {
-                line.updatedAt = moment(line.updatedAt).format('YYYY-MM-DD HH:mm:ss');
+                line.updatedAt = moment(parseInt(line.updatedAt)).format('YYYY-MM-DD HH:mm:ss');
                 line.statusText = line.status == "1" ? "已发布" : "未发布";
                 line.transTimeText = _.find(info_dict.trans_time, {'id': line.transTime}).name;
                 if (!line.image) {
@@ -104,9 +103,9 @@ module.exports = {
     create: function (req, res, next) {
         var lineEntity = _.merge(new req.models.line().serialize(), req.body);
         lineEntity.createrId = "123456";
-        lineEntity.createdAt = moment().format('YYYY-MM-DD HH:mm:ss');
+        lineEntity.createdAt = new Date().getTime();
         lineEntity.updaterId = "123456";
-        lineEntity.updatedAt = moment().format('YYYY-MM-DD HH:mm:ss');
+        lineEntity.updatedAt = new Date().getTime();
         lineEntity.eId = "123";
         lineEntity.lineType = _.find(info_dict.line_type, {'id': lineEntity.lineTypeCode}).name;
         lineEntity.modeTransport = _.find(info_dict.mode_transport, {'id': lineEntity.modeTransportCode}).name;
@@ -119,8 +118,8 @@ module.exports = {
             lineEntity.endTel = lineEntity.startTel;
         }
 
-        var day = _.find(validate_type, {'id': lineEntity.valid}).day;
-        lineEntity.expiryDate = moment().add('d', day).format('YYYY-MM-DD HH:mm:ss');
+        var day = _.find(info_dict.validate_type, {'id': lineEntity.valid}).day;
+        lineEntity.expiryDate = moment().add('d', day).valueOf();
         req.models.line.create(lineEntity, function (err, line) {
             if (err) {
                 if (Array.isArray(err)) {
@@ -141,9 +140,9 @@ module.exports = {
                     return next(err);
                 }
             }
-            line.expiryDate = moment(line.expiryDate).format('YYYY-MM-DD HH:mm:ss');
-            line.createdAt = moment(line.createdAt).format('YYYY-MM-DD HH:mm:ss');
-            line.updatedAt = moment(line.updatedAt).format('YYYY-MM-DD HH:mm:ss');
+            line.expiryDate = moment(parseInt(line.expiryDate)).format('YYYY-MM-DD HH:mm:ss');
+            line.createdAt = moment(parseInt(line.createdAt)).format('YYYY-MM-DD HH:mm:ss');
+            line.updatedAt = moment(parseInt(line.updatedAt)).format('YYYY-MM-DD HH:mm:ss');
             res.render('line/show', {line: line});
         });
     },
@@ -156,9 +155,9 @@ module.exports = {
                     return next(err);
                 }
             }
-            line.expiryDate = moment(line.expiryDate).format('YYYY-MM-DD HH:mm:ss');
-            line.createdAt = moment(line.createdAt).format('YYYY-MM-DD HH:mm:ss');
-            line.updatedAt = moment(line.updatedAt).format('YYYY-MM-DD HH:mm:ss');
+            line.expiryDate = moment(parseInt(line.expiryDate)).format('YYYY-MM-DD HH:mm:ss');
+            line.createdAt = moment(parseInt(line.createdAt)).format('YYYY-MM-DD HH:mm:ss');
+            line.updatedAt = moment(parseInt(line.updatedAt)).format('YYYY-MM-DD HH:mm:ss');
             line.statusText = line.status == "1" ? "已发布" : "未发布";
             line.transTimeText = _.find(info_dict.trans_time, {'id': line.transTime}).name;
             if (!line.image) {
@@ -206,7 +205,7 @@ module.exports = {
             }
             var lineEntity = _.merge(line, req.body);
             lineEntity.updaterId = "123456";
-            lineEntity.updatedAt = moment().format('YYYY-MM-DD HH:mm:ss');
+            lineEntity.updatedAt = new Date().getTime();
             lineEntity.lineType = _.find(info_dict.line_type, {'id': lineEntity.lineTypeCode}).name;
             lineEntity.modeTransport = _.find(info_dict.mode_transport, {'id': lineEntity.modeTransportCode}).name;
             if (_.isArray(lineEntity.lineGoodsType))lineEntity.lineGoodsType = lineEntity.lineGoodsType.join(",");
@@ -219,7 +218,7 @@ module.exports = {
             }
 
             var day = _.find(info_dict.validate_type, {'id': lineEntity.valid}).day;
-            lineEntity.expiryDate = moment().add('d', day).format('YYYY-MM-DD HH:mm:ss');
+            lineEntity.expiryDate = moment().add('d', day).valueOf();
             line.save(lineEntity, function (err) {
                 if (err) {
                     if (Array.isArray(err)) {
@@ -242,6 +241,8 @@ module.exports = {
                 }
             }
             line.isDeleted = 1;
+            line.updaterId = "123456";
+            line.updatedAt = new Date().getTime();
             line.save(line, function (err) {
                 if (err) {
                     if (Array.isArray(err)) {
@@ -268,7 +269,7 @@ module.exports = {
                 }
                 line.status = status;
                 line.updaterId = "123456";
-                line.updatedAt = moment().format('YYYY-MM-DD HH:mm:ss');
+                line.updatedAt = new Date().getTime();
 
                 line.save(line, function (err) {
                     if (err) {

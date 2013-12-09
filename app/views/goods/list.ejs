@@ -6,11 +6,11 @@ goodsList.forEach(function(goods){
         <div class=" pull-left w145 tn_padding ln_padding bn_padding">
             <a href="#"><img src="<%= goods.image %>" width="135" height="100"></a>
         </div>
-        <div class="pull-left w445 tn_padding rn_padding ln_padding lianxi">
+        <div class="pull-left w440 tn_padding rn_padding ln_padding lianxi">
             <p><strong><a href="#"><%= goods.infoText %></a></strong></p>
             <p>联系方式：<span class="text-primary"><%= goods.phone %></span>
                 <span class="text-primary"><%= goods.tel %></span>
-                <span class="text-primary">    <%= goods.contact %></span>
+                <span class="text-primary"> <%= goods.contact %></span>
                 发布时间：<span class="text-primary"><%= goods.updatedAt %></span></p>
             <p><a href="#" class="btn btn-success">查看</a><a href="/goods/edit/<%= goods.id %>" class="btn btn-warning ln_margin">修改</a></p>
         </div>

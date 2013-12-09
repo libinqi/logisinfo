@@ -41,7 +41,7 @@
     </div>
 </div>
 <div class="form-group">
-    <label for="inputEmail3" class="col-lg-4 col-sm-4 control-label jiben_left"><span class="text_red">*</span>
+    <label for="inputEmail3" class="col-lg-4 col-sm-4 control-label jiben_left">
         到达城市：</label>
 
     <div class="col-lg-8 col-sm-8 jiben_right">
@@ -301,7 +301,7 @@
     <div class="info_item">
         <div class="info_content">
             <div class=" pull-left w145 tn_padding ln_padding bn_padding">
-                <a href="#"><img id="per_image" src="/images/no-line.jpg" width="135" height="100"></a>
+                <a href="#"><img id="per_image" src="/images/no-vehicle.jpg" width="135" height="100"></a>
             </div>
             <div class="pull-left w400 tn_padding rn_padding ln_padding lianxi">
                 <p><a href="#"><strong id="per_scity">未选择</strong>→<strong id="per_ecity">未选择</strong><strong
@@ -351,12 +351,24 @@
             $("#sCity").val(selectCity);
             $("#sArea").val(selectArea);
             $("#per_scity").html(selectProvince + selectCity);
+
+            if(!$("#eProvinceCode").val())
+            {
+                $("#per_ecity").html("全国");
+            }
         });
         $.ProvinceCity('eProvinceCode', 'eCityCode', 'eAreaCode', function (selectProvince, selectCity, selectArea) {
             $("#eProvince").val(selectProvince);
             $("#eCity").val(selectCity);
             $("#eArea").val(selectArea);
-            $("#per_ecity").html(selectProvince + selectCity);
+
+            if(!$("#eProvinceCode").val())
+            {
+                $("#per_ecity").html("全国");
+            }
+            else{
+                $("#per_ecity").html(selectProvince + selectCity);
+            }
         });
 
         $("#loadWeight").on("change", function () {
@@ -477,7 +489,7 @@
         $('#vehicle-form').validate({
             rules: {
                 sProvinceCode: "required",
-                eProvinceCode: "required",
+//                eProvinceCode: "required",
                 loadWeight: {
                     required: true,
                     number: true,
@@ -503,7 +515,7 @@
             },
             messages: {
                 sProvinceCode: "出发城市必选",
-                eProvinceCode: "到达城市必选",
+//                eProvinceCode: "到达城市必选",
                 loadWeight: {
                     required: "载重必填",
                     number: "载重必须为数字",

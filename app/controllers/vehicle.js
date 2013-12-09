@@ -46,38 +46,21 @@ module.exports = {
             }
             vehicles.forEach(function (vehicle) {
                 moment.lang('zh-cn');
-                vehicle.updatedAt = moment(vehicle.updatedAt).fromNow();
+                vehicle.updatedAt = moment(parseInt(vehicle.updatedAt)).fromNow();
                 if (!vehicle.image) {
-                    vehicle.image = "/images/no-line.jpg";
+                    vehicle.image = "/images/no-vehicle.jpg";
                 }
                 if (vehicle.phone && vehicle.tel)
                     vehicle.tel = "/ " + vehicle.tel;
 
-                //车辆描述
-                vehicle.infoText = "";
-                vehicle.vehicleText = "";
-                vehicle.vehicleText += vehicle.vehicleLength + "米" + _.find(info_dict.vehicle_type, {'id': vehicle.vehicleTypeCode}).name;
+                vehicle.vehicle += vehicle.vehicleLength + "米" + _.find(info_dict.vehicle_type, {'id': vehicle.vehicleTypeCode}).name;
                 if (vehicle.vehicleNumber)
-                    vehicle.vehicleText += ",车牌号" + vehicle.vehicleNumber;
+                    vehicle.vehicle += ",车牌号" + vehicle.vehicleNumber;
 
-                vehicle.vehicle = vehicle.vehicleText;
-                vehicle.vehicleText = ",有" + vehicle.vehicleText;
-                vehicle.vehicleText = vehicle.sProvince + vehicle.sCity + "→" + vehicle.eProvince + vehicle.eCity + vehicle.vehicleText;
-
-                //货物需求
-                vehicle.goodsText = "";
                 if (vehicle.loadWeight) {
-                    vehicle.goodsText += vehicle.loadWeight = vehicle.loadWeight + (vehicle.unit == 0 ? "方" : "吨");
-                    vehicle.goodsText = ",求" + vehicle.goodsText + "货";
+                    vehicle.loadWeight = vehicle.loadWeight + (vehicle.unit == 0 ? "方" : "吨");
                 }
 
-                vehicle.infoText = vehicle.vehicleText + vehicle.goodsText;
-
-                //补充说明
-                if (vehicle.freeText) {
-                    if (vehicle.freeText > 20)vehicle.freeText = vehicle.freeText.substr(0, 19);
-                    vehicle.infoText += "," + vehicle.freeText;
-                }
                 vehicle.loadingTime = _.find(info_dict.loading_time, {'id': vehicle.loadingTime}).name;
                 if (vehicle.referPrice && vehicle.referPrice != 0) {
                     vehicle.referPrice += vehicle.referPriceFlag == 0 ? "元/方" : "元/吨";
@@ -85,6 +68,8 @@ module.exports = {
                 else {
                     vehicle.referPrice = "面议";
                 }
+
+                if (vehicle.infoText > 50)vehicle.freeText = vehicle.freeText.substr(0, 49);
             });
             res.render('vehicle/index', {
                 vehicles: vehicles,
@@ -109,14 +94,43 @@ module.exports = {
     create: function (req, res, next) {
         var vehicleEntity = _.merge(new req.models.vehicle().serialize(), req.body);
         vehicleEntity.createrId = "123456";
-        vehicleEntity.createdAt = moment().format('YYYY-MM-DD HH:mm:ss');
+        vehicleEntity.createdAt = new Date().getTime();
         vehicleEntity.updaterId = "123456";
-        vehicleEntity.updatedAt = moment().format('YYYY-MM-DD HH:mm:ss');
+        vehicleEntity.updatedAt = new Date().getTime();
         vehicleEntity.eId = "123";
         vehicleEntity.vehicleType = _.find(info_dict.vehicle_type, {'id': vehicleEntity.vehicleTypeCode}).name;
 
+        //车辆描述
+        vehicleEntity.vehicleText = "";
+        vehicleEntity.vehicleText += vehicleEntity.vehicleLength + "米" + _.find(info_dict.vehicle_type, {'id': vehicleEntity.vehicleTypeCode}).name;
+        if (vehicleEntity.vehicleNumber)
+            vehicleEntity.vehicleText += ",车牌号" + vehicleEntity.vehicleNumber;
+
+        vehicleEntity.vehicleText = ",有" + vehicleEntity.vehicleText;
+        if (vehicleEntity.eProvinceCode) {
+            vehicleEntity.vehicleText = vehicleEntity.sProvince + vehicleEntity.sCity + "→" + vehicleEntity.eProvince + vehicleEntity.eCity + vehicleEntity.vehicleText;
+        }
+        else {
+            vehicleEntity.vehicleText = vehicleEntity.sProvince + vehicleEntity.sCity + "→" + "全国" + vehicleEntity.vehicleText;
+            vehicleEntity.eProvince = "";
+            vehicleEntity.eCity = "";
+        }
+
+        //货物需求
+        vehicleEntity.goodsText = "";
+        if (vehicleEntity.loadWeight) {
+            vehicleEntity.goodsText += vehicleEntity.loadWeight + (vehicleEntity.unit == 0 ? "方" : "吨");
+            vehicleEntity.goodsText = ",求" + vehicleEntity.goodsText + "货";
+        }
+
+        vehicleEntity.infoText = vehicleEntity.vehicleText + vehicleEntity.goodsText;
+
+        //补充说明
+        if (vehicleEntity.freeText)
+            vehicleEntity.infoText += "," + vehicleEntity.freeText;
+
         var day = _.find(info_dict.validate_type, {'id': vehicleEntity.valid}).day;
-        vehicleEntity.expiryDate = moment().add('d', day).format('YYYY-MM-DD HH:mm:ss');
+        vehicleEntity.expiryDate = moment().add('d', day).valueOf();
         req.models.vehicle.create(vehicleEntity, function (err, vehicle) {
             if (err) {
                 if (Array.isArray(err)) {
@@ -140,7 +154,11 @@ module.exports = {
                 }
             }
             if (!vehicle.image) {
-                vehicle.image = "/images/no-line.jpg";
+                vehicle.image = "/images/no-vehicle.jpg";
+            }
+
+            if (!vehicle.eProvinceCode) {
+                vehicle.eProvince = "全国";
             }
 
             //车辆描述
@@ -195,11 +213,38 @@ module.exports = {
             }
             var vehicleEntity = _.merge(vehicle, req.body);
             vehicleEntity.updaterId = "123456";
-            vehicleEntity.updatedAt = moment().format('YYYY-MM-DD HH:mm:ss');
+            vehicleEntity.updatedAt = new Date().getTime();
             vehicleEntity.vehicleType = _.find(info_dict.vehicle_type, {'id': vehicleEntity.vehicleTypeCode}).name;
 
+            //车辆描述
+            vehicleEntity.vehicleText = "";
+            vehicleEntity.vehicleText += vehicleEntity.vehicleLength + "米" + _.find(info_dict.vehicle_type, {'id': vehicleEntity.vehicleTypeCode}).name;
+            if (vehicleEntity.vehicleNumber)
+                vehicleEntity.vehicleText += ",车牌号" + vehicleEntity.vehicleNumber;
+
+            vehicleEntity.vehicleText = ",有" + vehicleEntity.vehicleText;
+            if (vehicleEntity.eProvinceCode) {
+                vehicleEntity.vehicleText = vehicleEntity.sProvince + vehicleEntity.sCity + "→" + vehicleEntity.eProvince + vehicleEntity.eCity + vehicleEntity.vehicleText;
+            }
+            else {
+                vehicleEntity.vehicleText = vehicleEntity.sProvince + vehicleEntity.sCity + "→" + "全国" + vehicleEntity.vehicleText;
+            }
+
+            //货物需求
+            vehicleEntity.goodsText = "";
+            if (vehicleEntity.loadWeight) {
+                vehicleEntity.goodsText += vehicleEntity.loadWeight + (vehicleEntity.unit == 0 ? "方" : "吨");
+                vehicleEntity.goodsText = ",求" + vehicleEntity.goodsText + "货";
+            }
+
+            vehicleEntity.infoText = vehicleEntity.vehicleText + vehicleEntity.goodsText;
+
+            //补充说明
+            if (vehicleEntity.freeText)
+                vehicleEntity.infoText += "," + vehicleEntity.freeText;
+
             var day = _.find(info_dict.validate_type, {'id': vehicleEntity.valid}).day;
-            vehicleEntity.expiryDate = moment().add('d', day).format('YYYY-MM-DD HH:mm:ss');
+            vehicleEntity.expiryDate = moment().add('d', day).valueOf();
             vehicle.save(vehicleEntity, function (err) {
                 if (err) {
                     if (Array.isArray(err)) {

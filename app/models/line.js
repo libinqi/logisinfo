@@ -36,15 +36,15 @@ module.exports = function (orm, db) {
             endTel: {type: 'text'},
             endPhone: {type: 'text'},
             valid: {type: 'text'},
-            expiryDate: {type: 'date'},
+            expiryDate: {type: 'text'},
             isDeleted: {type: 'number'},
             status: {type: 'number'},
             freeText: {type: 'text'},
             eId: {type: 'text'},//关联企业的uuid
             createrId: {type: 'text', required: true},//关联用户的uuid
-            createdAt: { type: 'date', required: true, time: true },
+            createdAt: { type: 'text', required: true },
             updaterId: {type: 'text'},//关联用户的uuid
-            updatedAt: { type: 'date', time: true }
+            updatedAt: { type: 'text' }
         },
         {
             hooks: {

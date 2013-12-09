@@ -41,7 +41,7 @@
     </div>
 </div>
 <div class="form-group">
-    <label for="inputEmail3" class="col-lg-4 col-sm-4 control-label jiben_left"><span class="text_red">*</span>
+    <label for="inputEmail3" class="col-lg-4 col-sm-4 control-label jiben_left">
         到达城市：</label>
 
     <div class="col-lg-8 col-sm-8 jiben_right">
@@ -66,7 +66,8 @@
     <label for="inputEmail3" class="col-sm-4 control-label jiben_left"><span class="text_red">*</span>车长/车型：</label>
 
     <div class="col-sm-1 pad_select">
-        <input type="text" class="form-control min_fifty" id="vehicleLength" name="vehicleLength" placeholder="0" value="<%=vehicle.vehicleLength%>">
+        <input type="text" class="form-control min_fifty" id="vehicleLength" name="vehicleLength" placeholder="0"
+               value="<%= vehicle.vehicleLength %>">
 
         <div class="w150 pull-left">
             <label for="vehicleLength" class="error"></label>
@@ -80,7 +81,7 @@
             <% if(locals.vehicle_type){
                 var index = 0;
                     vehicle_type.forEach(function(vehicleType){
-                if(vehicleType.id==vehicle.vehicleTypeCode){
+                    if(vehicleType.id == vehicle.vehicleTypeCode){
             %>
             <option value="<%= vehicleType.id %>" checked><%= vehicleType.name %></option>
             <% }else{
@@ -101,7 +102,7 @@
 
     <div class="col-lg-8 col-sm-8 jiben_right">
         <input type="text" class="form-control w20 inputinline" id="vehicleNumber" name="vehicleNumber"
-               placeholder="请填写车牌号" value="<%=vehicle.vehicleNumber%>"/>
+               placeholder="请填写车牌号" value="<%= vehicle.vehicleNumber %>"/>
     </div>
 </div>
 <div class="form-group">
@@ -110,7 +111,7 @@
 
     <div class="col-lg-8 col-sm-8 jiben_right">
         <input type="text" class="form-control w20 inputinline" id="loadWeight" name="loadWeight" min="1"
-               placeholder="0"  value="<%=vehicle.loadWeight%>"> 吨
+               placeholder="0" value="<%= vehicle.loadWeight %>"> 吨
         <div class="w100">
             <label for="loadWeight" class="error"></label>
         </div>
@@ -122,11 +123,11 @@
 
     <div class="col-lg-8 col-sm-8 jiben_right">
         <div class="pad_select w210 pull-left"><input type="text" class="form-control w20 inputinline" id="referPrice"
-                                                      name="referPrice" min="0" value="<%=vehicle.referPrice%>"></div>
+                                                      name="referPrice" min="0" value="<%= vehicle.referPrice %>"></div>
         <div class="pad_select w70 pull-left">
             <div class="radio">
                 <label>
-                    <input type="radio"  name="referPriceFlag" class="radio" value="1" checked>元/吨
+                    <input type="radio" name="referPriceFlag" class="radio" value="1" checked>元/吨
                 </label>
             </div>
         </div>
@@ -145,7 +146,8 @@
     <label for="inputEmail3" class="col-lg-4 col-md-4 col-sm-4 control-label jiben_left">特殊说明：</label>
 
     <div class="col-lg-8 col-md-8 col-sm-8 jiben_right">
-        <textarea class="form-control" id="freeText" name="freeText" maxlength="500" rows="3"><%=vehicle.freeText%></textarea>
+        <textarea class="form-control" id="freeText" name="freeText" maxlength="500"
+                  rows="3"><%= vehicle.freeText %></textarea>
         <small>(限制500字符)如有特殊的需求，如货物是危险品、有人押车、卸货地禁区等需要车辆提前了解的重要信息</small>
     </div>
 </div>
@@ -303,11 +305,13 @@
     <div class="info_item">
         <div class="info_content">
             <div class=" pull-left w145 tn_padding ln_padding bn_padding">
-                <a href="#"><img id="per_image" src="<%=vehicle.image%>" width="135" height="100"></a>
+                <a href="#"><img id="per_image" src="<%= vehicle.image %>" width="135" height="100"></a>
             </div>
             <div class="pull-left w400 tn_padding rn_padding ln_padding lianxi">
-                <p><a href="#"><strong id="per_scity"><%= vehicle.sProvince + vehicle.sCity %></strong>→<strong id="per_ecity"><%= vehicle.eProvince + vehicle.eCity %></strong><strong
-                                id="per_vehicleText"><%= vehicle.vehicleText %></strong><strong id="per_vehicleNumber"><%= vehicle.vehicleNumberText %></strong><strong
+                <p><a href="#"><strong id="per_scity"><%= vehicle.sProvince + vehicle.sCity %></strong>→<strong
+                                id="per_ecity"><%= vehicle.eProvince + vehicle.eCity %></strong><strong
+                                id="per_vehicleText"><%= vehicle.vehicleText %></strong><strong
+                                id="per_vehicleNumber"><%= vehicle.vehicleNumberText %></strong><strong
                                 id="per_goodsText"><%= vehicle.goodsText %></strong><strong
                                 id="per_freeText"><%= vehicle.freeText2 %></strong></a></p>
 
@@ -322,17 +326,17 @@
             </div>
             <div class="pull-left w220 ln_padding tn_padding xijie">
                 <div class="w65 text-right pull-left">车辆类型：</div>
-                <div id="per_vehicleType" class="pull-left xijie_xinxi"><%=vehicle.vehicleType%></div>
+                <div id="per_vehicleType" class="pull-left xijie_xinxi"><%= vehicle.vehicleType %></div>
                 <div class="w65 text-right pull-left">车长：</div>
-                <div id="per_vehicleLength" class="pull-left xijie_xinxi"><%=vehicle.vehicleLength%>米</div>
+                <div id="per_vehicleLength" class="pull-left xijie_xinxi"><%= vehicle.vehicleLength %>米</div>
                 <div class="w65 text-right pull-left">装货时间：</div>
-                <div id="per_loadingTime" class="pull-left xijie_xinxi"><%=vehicle.loadingTimeText%></div>
+                <div id="per_loadingTime" class="pull-left xijie_xinxi"><%= vehicle.loadingTimeText %></div>
                 <span class="w65 text-right pull-left">载重：</span>
 
-                <div id="per_loadWeight" class="pull-left xijie_xinxi"><%=vehicle.loadWeightText%></div>
+                <div id="per_loadWeight" class="pull-left xijie_xinxi"><%= vehicle.loadWeightText %></div>
                 <span class="w65 text-right pull-left">运价：</span>
 
-                <div id="per_referPrice" class="pull-left xijie_xinxi"><%=vehicle.referPriceText%></div>
+                <div id="per_referPrice" class="pull-left xijie_xinxi"><%= vehicle.referPriceText %></div>
             </div>
             <div class="clearfix"></div>
         </div>
@@ -353,21 +357,34 @@ $(function () {
         $("#sCity").val(selectCity);
         $("#sArea").val(selectArea);
         $("#per_scity").html(selectProvince + selectCity);
+        if (!$("#eProvinceCode").val()) {
+            $("#per_ecity").html("全国");
+        }
     });
     $.ProvinceCity('eProvinceCode', 'eCityCode', 'eAreaCode', function (selectProvince, selectCity, selectArea) {
         $("#eProvince").val(selectProvince);
         $("#eCity").val(selectCity);
         $("#eArea").val(selectArea);
         $("#per_ecity").html(selectProvince + selectCity);
+
+        if (!$("#eProvinceCode").val()) {
+            $("#per_ecity").html("全国");
+        }
+        else {
+            $("#per_ecity").html(selectProvince + selectCity);
+        }
     });
 
     $('#sProvinceCode').val('<%=vehicle.sProvinceCode%>').change();
     $('#sCityCode').val('<%=vehicle.sCityCode%>').change();
     $('#sAreaCode').val('<%=vehicle.sAreaCode%>').change();
 
-    $('#eProvinceCode').val('<%=vehicle.eProvinceCode%>').change();
-    $('#eCityCode').val('<%=vehicle.eCityCode%>').change();
-    $('#eAreaCode').val('<%=vehicle.eAreaCode%>').change();
+    var eProvinceCode = '<%=vehicle.eProvinceCode%>';
+    if (eProvinceCode) {
+        $('#eProvinceCode').val('<%=vehicle.eProvinceCode%>').change();
+        $('#eCityCode').val('<%=vehicle.eCityCode%>').change();
+        $('#eAreaCode').val('<%=vehicle.eAreaCode%>').change();
+    }
 
     $("input:radio[name=referPriceFlag][value=<%=vehicle.referPriceFlag%>]").prop('checked', true);
 
@@ -395,8 +412,7 @@ $(function () {
         if (referPrice && referPrice != 0) {
             $("#per_referPrice").html(referPrice + (referPriceFlag == 0 ? "元/方" : "元/吨"));
         }
-        else
-        {
+        else {
             $("#per_referPrice").html("面议");
         }
     });
@@ -409,8 +425,7 @@ $(function () {
             if (referPrice && referPrice != 0) {
                 $("#per_referPrice").html(referPrice + (referPriceFlag == 0 ? "元/方" : "元/吨"));
             }
-            else
-            {
+            else {
                 $("#per_referPrice").html("面议");
             }
         });
@@ -489,7 +504,7 @@ $(function () {
     $('#vehicle-form').validate({
         rules: {
             sProvinceCode: "required",
-            eProvinceCode: "required",
+//            eProvinceCode: "required",
             loadWeight: {
                 required: true,
                 number: true,
@@ -515,7 +530,7 @@ $(function () {
         },
         messages: {
             sProvinceCode: "出发城市必选",
-            eProvinceCode: "到达城市必选",
+//            eProvinceCode: "到达城市必选",
             loadWeight: {
                 required: "载重必填",
                 number: "载重必须为数字",

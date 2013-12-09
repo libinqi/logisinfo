@@ -11,7 +11,7 @@ module.exports = {
         var limit = settings.list_count;
         var pages = 0;
 
-        var opt = {isDeleted:0};
+        var opt = {isDeleted: 0};
 
         if (!_.isEmpty(req.query.sProvince))
             opt.sProvinceCode = req.query.sProvince;
@@ -46,41 +46,22 @@ module.exports = {
             }
             goodsList.forEach(function (goods) {
                 moment.lang('zh-cn');
-                goods.updatedAt = moment(goods.updatedAt).fromNow();
+                goods.updatedAt = moment(parseInt(goods.updatedAt)).fromNow();
                 if (!goods.image) {
-                    goods.image = "/images/no-line.jpg";
+                    goods.image = "/images/no-goods.jpg";
                 }
                 if (goods.phone && goods.tel)
                     goods.tel = "/ " + goods.tel;
 
-                //货物描述
-                goods.infoText = "";
-                goods.goodsWeightText = "";
-                if (goods.weight) {
-                    goods.goodsWeightText += goods.weight = goods.weight + (goods.unit == 0 ? "方" : "吨");
-                    goods.goodsWeightText += _.find(info_dict.goods_type, {'id': goods.goodsTypeCode}).name;
-                    goods.goodsWeightText = ",有" + goods.goodsWeightText;
-                }
-                goods.goodsWeightText = goods.sProvince + goods.sCity + "→" + goods.eProvince + goods.eCity + goods.goodsWeightText;
-
-                //车辆需求
-                goods.goodsVehicleText = "";
-                goods.goodsVehicleText += goods.vehicleLength + "米" + _.find(info_dict.vehicle_type, {'id': goods.vehicleTypeCode}).name;
+                goods.vehicle = "";
+                goods.weight = goods.weight + (goods.unit == 0 ? "方" : "吨");
+                goods.vehicle += goods.vehicleLength + "米" + _.find(info_dict.vehicle_type, {'id': goods.vehicleTypeCode}).name;
                 if (goods.vehicleCount > 0)
-                    goods.goodsVehicleText += goods.vehicleCount + "辆";
-
-                goods.vehicle = goods.goodsVehicleText;
-                goods.goodsVehicleText = ",求" + goods.goodsVehicleText;
-
-                goods.infoText = goods.goodsWeightText + goods.goodsVehicleText;
+                    goods.vehicle += goods.vehicleCount + "辆";
 
                 goods.loadingTime = _.find(info_dict.loading_time, {'id': goods.loadingTime}).name;
 
-                //补充说明
-                if (goods.freeText) {
-                    if (goods.freeText > 20)goods.freeText = goods.freeText.substr(0, 19);
-                    goods.infoText += "," + goods.freeText;
-                }
+                if (goods.infoText > 50)goods.infoText = goods.infoText.substr(0, 49);
             });
             res.render('goods/index', {
                 goodsList: goodsList,
@@ -105,15 +86,40 @@ module.exports = {
     create: function (req, res, next) {
         var goodsEntity = _.merge(new req.models.goods().serialize(), req.body);
         goodsEntity.createrId = "123456";
-        goodsEntity.createdAt = moment().format('YYYY-MM-DD HH:mm:ss');
+        goodsEntity.createdAt = moment().valueOf();
         goodsEntity.updaterId = "123456";
-        goodsEntity.updatedAt = moment().format('YYYY-MM-DD HH:mm:ss');
+        goodsEntity.updatedAt = moment().valueOf();
         goodsEntity.eId = "123";
         goodsEntity.goodsType = _.find(info_dict.goods_type, {'id': goodsEntity.goodsTypeCode}).name;
         goodsEntity.vehicleType = _.find(info_dict.vehicle_type, {'id': goodsEntity.vehicleTypeCode}).name;
 
+        //货物描述
+        goodsEntity.goodsWeightText = "";
+        if (goodsEntity.weight) {
+            goodsEntity.goodsWeightText += goodsEntity.weight + (goodsEntity.unit == 0 ? "方" : "吨");
+            goodsEntity.goodsWeightText += _.find(info_dict.goods_type, {'id': goodsEntity.goodsTypeCode}).name;
+            goodsEntity.goodsWeightText = ",有" + goodsEntity.goodsWeightText;
+        }
+        goodsEntity.goodsWeightText = goodsEntity.sProvince + goodsEntity.sCity + "→" + goodsEntity.eProvince + goodsEntity.eCity + goodsEntity.goodsWeightText;
+
+        //车辆需求
+        goodsEntity.goodsVehicleText = "";
+        goodsEntity.goodsVehicleText += goodsEntity.vehicleLength + "米" + _.find(info_dict.vehicle_type, {'id': goodsEntity.vehicleTypeCode}).name;
+        if (goodsEntity.vehicleCount > 0)
+            goodsEntity.goodsVehicleText += goodsEntity.vehicleCount + "辆";
+
+        goodsEntity.vehicle = goodsEntity.goodsVehicleText;
+        goodsEntity.goodsVehicleText = ",求" + goodsEntity.goodsVehicleText;
+
+        goodsEntity.infoText = goodsEntity.goodsWeightText + goodsEntity.goodsVehicleText;
+
+        //补充说明
+        if (goodsEntity.freeText) {
+            goodsEntity.infoText += "," + goodsEntity.freeText;
+        }
+
         var day = _.find(info_dict.validate_type, {'id': goodsEntity.valid}).day;
-        goodsEntity.expiryDate = moment().add('d', day).format('YYYY-MM-DD HH:mm:ss');
+        goodsEntity.expiryDate = moment().add('d', day).valueOf();
         req.models.goods.create(goodsEntity, function (err, goods) {
             if (err) {
                 if (Array.isArray(err)) {
@@ -137,7 +143,7 @@ module.exports = {
                 }
             }
             if (!goods.image) {
-                goods.image = "/images/no-line.jpg";
+                goods.image = "/images/no-goods.jpg";
             }
 
             //货物描述
@@ -187,12 +193,37 @@ module.exports = {
             }
             var goodsEntity = _.merge(goods, req.body);
             goodsEntity.updaterId = "123456";
-            goodsEntity.updatedAt = moment().format('YYYY-MM-DD HH:mm:ss');
+            goodsEntity.updatedAt = new Date().getTime();
             goodsEntity.goodsType = _.find(info_dict.goods_type, {'id': goodsEntity.goodsTypeCode}).name;
             goodsEntity.vehicleType = _.find(info_dict.vehicle_type, {'id': goodsEntity.vehicleTypeCode}).name;
 
+            //货物描述
+            goodsEntity.goodsWeightText = "";
+            if (goodsEntity.weight) {
+                goodsEntity.goodsWeightText += goodsEntity.weight + (goodsEntity.unit == 0 ? "方" : "吨");
+                goodsEntity.goodsWeightText += _.find(info_dict.goods_type, {'id': goodsEntity.goodsTypeCode}).name;
+                goodsEntity.goodsWeightText = ",有" + goods.goodsWeightText;
+            }
+            goodsEntity.goodsWeightText = goodsEntity.sProvince + goodsEntity.sCity + "→" + goodsEntity.eProvince + goodsEntity.eCity + goodsEntity.goodsWeightText;
+
+            //车辆需求
+            goodsEntity.goodsVehicleText = "";
+            goodsEntity.goodsVehicleText += goodsEntity.vehicleLength + "米" + _.find(info_dict.vehicle_type, {'id': goodsEntity.vehicleTypeCode}).name;
+            if (goodsEntity.vehicleCount > 0)
+                goodsEntity.goodsVehicleText += goodsEntity.vehicleCount + "辆";
+
+            goodsEntity.vehicle = goodsEntity.goodsVehicleText;
+            goodsEntity.goodsVehicleText = ",求" + goodsEntity.goodsVehicleText;
+
+            goodsEntity.infoText = goodsEntity.goodsWeightText + goodsEntity.goodsVehicleText;
+
+            //补充说明
+            if (goodsEntity.freeText) {
+                goodsEntity.infoText += "," + goodsEntity.freeText;
+            }
+
             var day = _.find(info_dict.validate_type, {'id': goodsEntity.valid}).day;
-            goodsEntity.expiryDate = moment().add('d', day).format('YYYY-MM-DD HH:mm:ss');
+            goodsEntity.expiryDate = moment().add('d', day).valueOf();
             goods.save(goodsEntity, function (err) {
                 if (err) {
                     if (Array.isArray(err)) {

@@ -55,11 +55,11 @@ module.exports = {
                 }
             }
             stores.forEach(function (store) {
-                store.updatedAt = moment(store.updatedAt).format('YYYY-MM-DD HH:mm:ss');
+                store.updatedAt = moment(parseInt(store.updatedAt)).format('YYYY-MM-DD HH:mm:ss');
                 store.statusText = store.status == "1" ? "已发布" : "未发布";
 
                 if (!store.image) {
-                    store.image = "/images/no-line.jpg";
+                    store.image = "/images/no-store.jpg";
                 }
                 if (store.referPrice == "" || store.referPrice == "0") {
                     store.referPrice = "面议";
@@ -93,15 +93,15 @@ module.exports = {
     create: function (req, res, next) {
         var storeEntity = _.merge(new req.models.store().serialize(), req.body);
         storeEntity.createrId = "123456";
-        storeEntity.createdAt = moment().format('YYYY-MM-DD HH:mm:ss');
+        storeEntity.createdAt = new Date().getTime();
         storeEntity.updaterId = "123456";
-        storeEntity.updatedAt = moment().format('YYYY-MM-DD HH:mm:ss');
+        storeEntity.updatedAt = new Date().getTime();
         storeEntity.eId = "123";
         storeEntity.storeType = _.find(info_dict.store_type, {'id': storeEntity.storeTypeCode}).name;
         storeEntity.busneissScope = _.find(info_dict.busneiss_scope, {'id': storeEntity.busneissScopeCode}).name;
 
         var day = _.find(info_dict.validate_type, {'id': storeEntity.valid}).day;
-        storeEntity.expiryDate = moment().add('d', day).format('YYYY-MM-DD HH:mm:ss');
+        storeEntity.expiryDate = moment().add('d', day).valueOf();
         req.models.store.create(storeEntity, function (err, store) {
             if (err) {
                 if (Array.isArray(err)) {
@@ -124,12 +124,12 @@ module.exports = {
                     return next(err);
                 }
             }
-            store.expiryDate = moment(store.expiryDate).format('YYYY-MM-DD HH:mm:ss');
-            store.createdAt = moment(store.createdAt).format('YYYY-MM-DD HH:mm:ss');
-            store.updatedAt = moment(store.updatedAt).format('YYYY-MM-DD HH:mm:ss');
+            store.expiryDate = moment(parseInt(store.expiryDate)).format('YYYY-MM-DD HH:mm:ss');
+            store.createdAt = moment(parseInt(store.createdAt)).format('YYYY-MM-DD HH:mm:ss');
+            store.updatedAt = moment(parseInt(store.updatedAt)).format('YYYY-MM-DD HH:mm:ss');
             store.statusText = store.status == "1" ? "已发布" : "未发布";
             if (!store.image) {
-                store.image = "/images/no-line.jpg";
+                store.image = "/images/no-store.jpg";
             }
 
             store.telText = "";
@@ -150,12 +150,12 @@ module.exports = {
             }
             var storeEntity = _.merge(store, req.body);
             storeEntity.updaterId = "123456";
-            storeEntity.updatedAt = moment().format('YYYY-MM-DD HH:mm:ss');
+            storeEntity.updatedAt = new Date().getTime();
             storeEntity.storeType = _.find(info_dict.store_type, {'id': storeEntity.storeTypeCode}).name;
             storeEntity.busneissScope = _.find(info_dict.busneiss_scope, {'id': storeEntity.busneissScopeCode}).name;
 
             var day = _.find(info_dict.validate_type, {'id': storeEntity.valid}).day;
-            storeEntity.expiryDate = moment().add('d', day).format('YYYY-MM-DD HH:mm:ss');
+            storeEntity.expiryDate = moment().add('d', day).valueOf();
             store.save(storeEntity, function (err) {
                 if (err) {
                     if (Array.isArray(err)) {
@@ -178,6 +178,8 @@ module.exports = {
                 }
             }
             store.isDeleted = 1;
+            store.updaterId = "123456";
+            store.updatedAt = new Date().getTime();
             store.save(store, function (err) {
                 if (err) {
                     if (Array.isArray(err)) {
@@ -204,7 +206,7 @@ module.exports = {
                 }
                 store.status = status;
                 store.updaterId = "123456";
-                store.updatedAt = moment().format('YYYY-MM-DD HH:mm:ss');
+                store.updatedAt = new Date().getTime();
 
                 store.save(store, function (err) {
                     if (err) {
