@@ -15,6 +15,11 @@ module.exports = function (app) {
         app.use(express.urlencoded());
         app.use(express.methodOverride());
         app.use(express.static(path.join(__dirname, '../public')));
+        app.use(express.cookieParser());
+        app.use(express.session({
+            secret: settings.session_secret
+        }));
+        app.use(require('../app/controllers/sign').auth_user);
 
         app.use(function (req, res, next) {
             models(function (err, db) {

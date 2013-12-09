@@ -92,11 +92,15 @@ module.exports = {
     },
     create: function (req, res, next) {
         var storeEntity = _.merge(new req.models.store().serialize(), req.body);
-        storeEntity.createrId = "123456";
-        storeEntity.createdAt = new Date().getTime();
-        storeEntity.updaterId = "123456";
-        storeEntity.updatedAt = new Date().getTime();
-        storeEntity.eId = "123";
+        var currentDate=new Date();
+        storeEntity.createrId = req.session.user.id;
+        storeEntity.createdAt = currentDate.getTime();
+        storeEntity.updaterId = req.session.user.id;
+        storeEntity.updatedAt = currentDate.getTime();
+        if(req.session.user.eId)
+        {
+            storeEntity.eId = req.session.user.eId;
+        }
         storeEntity.storeType = _.find(info_dict.store_type, {'id': storeEntity.storeTypeCode}).name;
         storeEntity.busneissScope = _.find(info_dict.busneiss_scope, {'id': storeEntity.busneissScopeCode}).name;
 
@@ -149,7 +153,7 @@ module.exports = {
                 }
             }
             var storeEntity = _.merge(store, req.body);
-            storeEntity.updaterId = "123456";
+            storeEntity.updaterId = req.session.user.id;
             storeEntity.updatedAt = new Date().getTime();
             storeEntity.storeType = _.find(info_dict.store_type, {'id': storeEntity.storeTypeCode}).name;
             storeEntity.busneissScope = _.find(info_dict.busneiss_scope, {'id': storeEntity.busneissScopeCode}).name;
@@ -178,7 +182,7 @@ module.exports = {
                 }
             }
             store.isDeleted = 1;
-            store.updaterId = "123456";
+            store.updaterId = req.session.user.id;
             store.updatedAt = new Date().getTime();
             store.save(store, function (err) {
                 if (err) {
@@ -205,7 +209,7 @@ module.exports = {
                     }
                 }
                 store.status = status;
-                store.updaterId = "123456";
+                store.updaterId = req.session.user.id;
                 store.updatedAt = new Date().getTime();
 
                 store.save(store, function (err) {

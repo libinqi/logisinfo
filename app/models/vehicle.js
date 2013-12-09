@@ -33,6 +33,7 @@ module.exports = function (orm, db) {
             status: {type: 'number'},
             freeText: {type: 'text'},
             infoText: {type: 'text'},
+            description: {type: 'text'},
             eId: {type: 'text'},//关联企业的uuid
             createrId: {type: 'text', required: true},//关联用户的uuid
             createdAt: { type: 'text', required: true },

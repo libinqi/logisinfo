@@ -3,6 +3,9 @@
 var settings = {
     path: path.normalize(path.join(__dirname, '..')),
     port: process.env.PORT || 3000,
+    session_secret:"logisinfo",
+    user_cookie_name:"useruuid",
+    e_cookie_name:"euuid",
     database: {
         protocol: "mysql", // or "mysql"
         query: { pool: true },

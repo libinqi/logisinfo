@@ -102,11 +102,15 @@ module.exports = {
     },
     create: function (req, res, next) {
         var lineEntity = _.merge(new req.models.line().serialize(), req.body);
-        lineEntity.createrId = "123456";
-        lineEntity.createdAt = new Date().getTime();
-        lineEntity.updaterId = "123456";
-        lineEntity.updatedAt = new Date().getTime();
-        lineEntity.eId = "123";
+        var currentDate=new Date();
+        lineEntity.createrId = req.session.user.id;
+        lineEntity.createdAt = currentDate.getTime();
+        lineEntity.updaterId = req.session.user.id;
+        lineEntity.updatedAt = currentDate.getTime();
+        if(req.session.user.eId)
+        {
+            lineEntity.eId = req.session.user.eId;
+        }
         lineEntity.lineType = _.find(info_dict.line_type, {'id': lineEntity.lineTypeCode}).name;
         lineEntity.modeTransport = _.find(info_dict.mode_transport, {'id': lineEntity.modeTransportCode}).name;
         if (_.isArray(lineEntity.lineGoodsType))lineEntity.lineGoodsType = lineEntity.lineGoodsType.join(",");
@@ -204,7 +208,7 @@ module.exports = {
                 }
             }
             var lineEntity = _.merge(line, req.body);
-            lineEntity.updaterId = "123456";
+            lineEntity.updaterId = req.session.user.id;
             lineEntity.updatedAt = new Date().getTime();
             lineEntity.lineType = _.find(info_dict.line_type, {'id': lineEntity.lineTypeCode}).name;
             lineEntity.modeTransport = _.find(info_dict.mode_transport, {'id': lineEntity.modeTransportCode}).name;
@@ -241,7 +245,7 @@ module.exports = {
                 }
             }
             line.isDeleted = 1;
-            line.updaterId = "123456";
+            line.updaterId = req.session.user.id;
             line.updatedAt = new Date().getTime();
             line.save(line, function (err) {
                 if (err) {
@@ -268,7 +272,7 @@ module.exports = {
                     }
                 }
                 line.status = status;
-                line.updaterId = "123456";
+                line.updaterId = req.session.user.id;
                 line.updatedAt = new Date().getTime();
 
                 line.save(line, function (err) {

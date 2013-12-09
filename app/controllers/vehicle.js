@@ -93,11 +93,15 @@ module.exports = {
     },
     create: function (req, res, next) {
         var vehicleEntity = _.merge(new req.models.vehicle().serialize(), req.body);
-        vehicleEntity.createrId = "123456";
-        vehicleEntity.createdAt = new Date().getTime();
-        vehicleEntity.updaterId = "123456";
-        vehicleEntity.updatedAt = new Date().getTime();
-        vehicleEntity.eId = "123";
+        var currentDate=new Date();
+        vehicleEntity.createrId = req.session.user.id;
+        vehicleEntity.createdAt = currentDate.getTime();
+        vehicleEntity.updaterId = req.session.user.id;
+        vehicleEntity.updatedAt = currentDate.getTime();
+        if(req.session.user.eId)
+        {
+            vehicleEntity.eId = req.session.user.eId;
+        }
         vehicleEntity.vehicleType = _.find(info_dict.vehicle_type, {'id': vehicleEntity.vehicleTypeCode}).name;
 
         //车辆描述
@@ -212,7 +216,7 @@ module.exports = {
                 }
             }
             var vehicleEntity = _.merge(vehicle, req.body);
-            vehicleEntity.updaterId = "123456";
+            vehicleEntity.updaterId = req.session.user.id;
             vehicleEntity.updatedAt = new Date().getTime();
             vehicleEntity.vehicleType = _.find(info_dict.vehicle_type, {'id': vehicleEntity.vehicleTypeCode}).name;
 

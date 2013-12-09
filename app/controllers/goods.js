@@ -85,11 +85,15 @@ module.exports = {
     },
     create: function (req, res, next) {
         var goodsEntity = _.merge(new req.models.goods().serialize(), req.body);
-        goodsEntity.createrId = "123456";
-        goodsEntity.createdAt = moment().valueOf();
-        goodsEntity.updaterId = "123456";
-        goodsEntity.updatedAt = moment().valueOf();
-        goodsEntity.eId = "123";
+        var currentDate=new Date();
+        goodsEntity.createrId = req.session.user.id;
+        goodsEntity.createdAt = currentDate.getTime();
+        goodsEntity.updaterId = req.session.user.id;
+        goodsEntity.updatedAt = currentDate.getTime();
+        if(req.session.user.eId)
+        {
+            goodsEntity.eId = req.session.user.eId;
+        }
         goodsEntity.goodsType = _.find(info_dict.goods_type, {'id': goodsEntity.goodsTypeCode}).name;
         goodsEntity.vehicleType = _.find(info_dict.vehicle_type, {'id': goodsEntity.vehicleTypeCode}).name;
 
@@ -192,7 +196,7 @@ module.exports = {
                 }
             }
             var goodsEntity = _.merge(goods, req.body);
-            goodsEntity.updaterId = "123456";
+            goodsEntity.updaterId = req.session.user.id;
             goodsEntity.updatedAt = new Date().getTime();
             goodsEntity.goodsType = _.find(info_dict.goods_type, {'id': goodsEntity.goodsTypeCode}).name;
             goodsEntity.vehicleType = _.find(info_dict.vehicle_type, {'id': goodsEntity.vehicleTypeCode}).name;
