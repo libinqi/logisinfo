@@ -19,8 +19,8 @@ module.exports = {
 
         if (!_.isEmpty(req.query.storeType))
             opt.storeTypeCode = req.query.storeType;
-        if (!_.isEmpty(req.query.busneissScope))
-            opt.busneissScopeCode = req.query.busneissScope;
+        if (!_.isEmpty(req.query.businessScope))
+            opt.businessScopeCode = req.query.businessScope;
 
 //        if (!_.isEmpty(req.query.sProvince))
 //            opt.sProvinceCode = req.query.sProvince;
@@ -30,6 +30,10 @@ module.exports = {
 //            opt.eProvinceCode = req.query.eProvince;
 //        if (!_.isEmpty(req.query.eCity))
 //            opt.eCityCode = req.query.eCity;
+        opt.createrId = req.session.user.id;
+        if (req.session.user.eId) {
+            opt.eId = req.session.user.eId;
+        }
 
         req.models.store.count(opt, function (err, count) {
             if (err) {
@@ -79,7 +83,7 @@ module.exports = {
                 status: status,
                 base: req.url,
                 store_type: info_dict.store_type,
-                busneiss_scope: info_dict.busneiss_scope
+                business_scope: info_dict.business_scope
             });
         });
     },
@@ -88,21 +92,20 @@ module.exports = {
             if (_.isNull(val))return "";
             return val;
         });
-        res.render('store/add', {params: req.params, store: store, store_type: info_dict.store_type, busneiss_scope: info_dict.busneiss_scope, validate_type: info_dict.validate_type});
+        res.render('store/add', {params: req.params, store: store, store_type: info_dict.store_type, business_scope: info_dict.business_scope, validate_type: info_dict.validate_type});
     },
     create: function (req, res, next) {
         var storeEntity = _.merge(new req.models.store().serialize(), req.body);
-        var currentDate=new Date();
+        var currentDate = new Date();
         storeEntity.createrId = req.session.user.id;
         storeEntity.createdAt = currentDate.getTime();
         storeEntity.updaterId = req.session.user.id;
         storeEntity.updatedAt = currentDate.getTime();
-        if(req.session.user.eId)
-        {
+        if (req.session.user.eId) {
             storeEntity.eId = req.session.user.eId;
         }
         storeEntity.storeType = _.find(info_dict.store_type, {'id': storeEntity.storeTypeCode}).name;
-        storeEntity.busneissScope = _.find(info_dict.busneiss_scope, {'id': storeEntity.busneissScopeCode}).name;
+        storeEntity.businessScope = _.find(info_dict.business_scope, {'id': storeEntity.businessScopeCode}).name;
 
         var day = _.find(info_dict.validate_type, {'id': storeEntity.valid}).day;
         storeEntity.expiryDate = moment().add('d', day).valueOf();
@@ -140,7 +143,7 @@ module.exports = {
             if (store.phone && store.tel) {
                 store.telText = "/ " + store.tel;
             }
-            res.render('store/edit', {params: req.params, store: store, store_type: info_dict.store_type, busneiss_scope: info_dict.busneiss_scope, validate_type: info_dict.validate_type});
+            res.render('store/edit', {params: req.params, store: store, store_type: info_dict.store_type, business_scope: info_dict.business_scope, validate_type: info_dict.validate_type});
         });
     },
     update: function (req, res, next) {
@@ -156,7 +159,7 @@ module.exports = {
             storeEntity.updaterId = req.session.user.id;
             storeEntity.updatedAt = new Date().getTime();
             storeEntity.storeType = _.find(info_dict.store_type, {'id': storeEntity.storeTypeCode}).name;
-            storeEntity.busneissScope = _.find(info_dict.busneiss_scope, {'id': storeEntity.busneissScopeCode}).name;
+            storeEntity.businessScope = _.find(info_dict.business_scope, {'id': storeEntity.businessScopeCode}).name;
 
             var day = _.find(info_dict.validate_type, {'id': storeEntity.valid}).day;
             storeEntity.expiryDate = moment().add('d', day).valueOf();

@@ -26,6 +26,11 @@ module.exports = {
         if (!_.isEmpty(req.query.eCity))
             opt.eCityCode = req.query.eCity;
 
+        opt.createrId = req.session.user.id;
+        if (req.session.user.eId) {
+            opt.eId = req.session.user.eId;
+        }
+
         req.models.line.count(opt, function (err, count) {
             if (err) {
                 if (err.code == orm.ErrorCodes.NOT_FOUND) {
@@ -102,13 +107,12 @@ module.exports = {
     },
     create: function (req, res, next) {
         var lineEntity = _.merge(new req.models.line().serialize(), req.body);
-        var currentDate=new Date();
+        var currentDate = new Date();
         lineEntity.createrId = req.session.user.id;
         lineEntity.createdAt = currentDate.getTime();
         lineEntity.updaterId = req.session.user.id;
         lineEntity.updatedAt = currentDate.getTime();
-        if(req.session.user.eId)
-        {
+        if (req.session.user.eId) {
             lineEntity.eId = req.session.user.eId;
         }
         lineEntity.lineType = _.find(info_dict.line_type, {'id': lineEntity.lineTypeCode}).name;

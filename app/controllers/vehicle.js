@@ -6,6 +6,84 @@ var settings = require('../../config/settings');
 var info_dict = require('../../util/info_dict');
 
 module.exports = {
+    all: function (req, res, next) {
+        var page = Number(req.query.page) || 1;
+        var limit = settings.list_count;
+        var pages = 0;
+
+        var opt = {isDeleted: 0};
+
+        if (!_.isEmpty(req.query.sProvince))
+            opt.sProvinceCode = req.query.sProvince;
+        if (!_.isEmpty(req.query.sCity))
+            opt.sCityCode = req.query.sCity;
+        if (!_.isEmpty(req.query.eProvince))
+            opt.eProvinceCode = req.query.eProvince;
+        if (!_.isEmpty(req.query.eCity))
+            opt.eCityCode = req.query.eCity;
+
+        req.models.vehicle.count(opt, function (err, count) {
+            if (err) {
+                if (err.code == orm.ErrorCodes.NOT_FOUND) {
+                    pages = 0;
+                } else {
+                    return next(err);
+                }
+            }
+            else {
+                pages = Math.ceil(count / limit);
+            }
+        });
+
+        req.models.vehicle.find(opt).offset((page - 1) * limit).limit(limit).order('-updatedAt').all(function (err, vehicles) {
+            if (err) {
+                if (err.code == orm.ErrorCodes.NOT_FOUND) {
+                    vehicles = [];
+                    pages = 0;
+                } else {
+                    return next(err);
+                }
+            }
+            vehicles.forEach(function (vehicle) {
+                moment.lang('zh-cn');
+                vehicle.updatedAt = moment(parseInt(vehicle.updatedAt)).fromNow();
+                if (!vehicle.image) {
+                    vehicle.image = "/images/no-vehicle.jpg";
+                }
+                if (vehicle.phone && vehicle.tel)
+                    vehicle.tel = "/ " + vehicle.tel;
+
+                vehicle.vehicle += vehicle.vehicleLength + "米" + _.find(info_dict.vehicle_type, {'id': vehicle.vehicleTypeCode}).name;
+                if (vehicle.vehicleNumber)
+                    vehicle.vehicle += ",车牌号" + vehicle.vehicleNumber;
+
+                if (vehicle.loadWeight) {
+                    vehicle.loadWeight = vehicle.loadWeight + (vehicle.unit == 0 ? "方" : "吨");
+                }
+
+                vehicle.loadingTime = _.find(info_dict.loading_time, {'id': vehicle.loadingTime}).name;
+                if (vehicle.referPrice && vehicle.referPrice != 0) {
+                    vehicle.referPrice += vehicle.referPriceFlag == 0 ? "元/方" : "元/吨";
+                }
+                else {
+                    vehicle.referPrice = "面议";
+                }
+
+                if (vehicle.infoText > 50)vehicle.freeText = vehicle.freeText.substr(0, 49);
+            });
+            res.render('vehicle/all', {
+                vehicles: vehicles,
+                current_page: page,
+                list_count: limit,
+                pages: pages,
+                base: req.url,
+                sProvince: req.query.sProvince,
+                sCity: req.query.sCity,
+                eProvince: req.query.eProvince,
+                eCity: req.query.eCity
+            });
+        });
+    },
     index: function (req, res, next) {
         var page = Number(req.query.page) || 1;
         var limit = settings.list_count;
@@ -21,6 +99,11 @@ module.exports = {
             opt.eProvinceCode = req.query.eProvince;
         if (!_.isEmpty(req.query.eCity))
             opt.eCityCode = req.query.eCity;
+
+        opt.createrId = req.session.user.id;
+        if (req.session.user.eId) {
+            opt.eId = req.session.user.eId;
+        }
 
         req.models.vehicle.count(opt, function (err, count) {
             if (err) {

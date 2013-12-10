@@ -21,6 +21,7 @@ module.exports = function (app) {
     app.get('/store/change_status/:id', controllers.store.change_status);
 
     app.get('/goods', controllers.goods.index);
+    app.get('/goods/all', controllers.goods.all);
     app.get('/goods/add', controllers.goods.add);
     app.post('/goods', controllers.goods.create);
     app.get('/goods/:id', controllers.goods.show);
@@ -28,6 +29,7 @@ module.exports = function (app) {
     app.post('/goods/:id', controllers.goods.update);
 
     app.get('/vehicle', controllers.vehicle.index);
+    app.get('/vehicle/all', controllers.vehicle.all);
     app.get('/vehicle/add', controllers.vehicle.add);
     app.post('/vehicle', controllers.vehicle.create);
     app.get('/vehicle/:id', controllers.vehicle.show);

@@ -174,7 +174,7 @@ exports.store_type=[
     {"id": "12", "name": "其它"},
 ];
 
-exports.busneiss_scope=[
+exports.business_scope=[
     {"id": "1", "name": "自有仓库"},
     {"id": "2", "name": "租用仓库"},
 ];

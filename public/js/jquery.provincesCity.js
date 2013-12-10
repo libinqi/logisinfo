@@ -38,6 +38,7 @@
 
                     if (callback)callback('', '', '');
                 } else {
+                    $sel3.append("<option value=''>请选择区/县</option>");
                     var cities = getCitiesByParentCode($($sel1).val());
                     $.each(cities, function (index, data) {
                         $sel2.append("<option value='" + data.code + "'>" + data.name + "</option>");
@@ -54,6 +55,7 @@
             $sel2.change(function () {
                 $sel3[0].options.length = 0;
                 index2 = this.selectedIndex;
+                $sel3.append("<option value=''>请选择区/县</option>");
                 var cities = getAreasByParentCode($($sel2).val());
                 $.each(cities, function (index, data) {
                     $sel3.append("<option value='" + data.code + "'>" + data.name + "</option>");

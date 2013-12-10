@@ -349,18 +349,23 @@
         $.ProvinceCity('sProvinceCode', 'sCityCode', 'sAreaCode', function (selectProvince, selectCity, selectArea) {
             $("#sProvince").val(selectProvince);
             $("#sCity").val(selectCity);
-            $("#sArea").val(selectArea);
             $("#per_scity").html(selectProvince + selectCity);
 
             if(!$("#eProvinceCode").val())
             {
                 $("#per_ecity").html("全国");
             }
+
+            if (selectArea != "请选择区/县") {
+                $("#sArea").val(selectArea);
+            }
+            else {
+                $("#sArea").val('');
+            }
         });
         $.ProvinceCity('eProvinceCode', 'eCityCode', 'eAreaCode', function (selectProvince, selectCity, selectArea) {
             $("#eProvince").val(selectProvince);
             $("#eCity").val(selectCity);
-            $("#eArea").val(selectArea);
 
             if(!$("#eProvinceCode").val())
             {
@@ -368,6 +373,13 @@
             }
             else{
                 $("#per_ecity").html(selectProvince + selectCity);
+            }
+
+            if (selectArea != "请选择区/县") {
+                $("#eArea").val(selectArea);
+            }
+            else {
+                $("#eArea").val('');
             }
         });
 

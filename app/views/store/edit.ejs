@@ -51,19 +51,19 @@
     <label for="inputEmail3" class="col-lg-4 col-md-4 col-sm-4 control-label jiben_left">经营范围：</label>
 
     <div class="col-lg-8 col-md-8 col-sm-8 jiben_right">
-        <% if(locals.busneiss_scope){
-                busneiss_scope.forEach(function(busneissScope){
+        <% if(locals.business_scope){
+                business_scope.forEach(function(businessScope){
         %>
         <div class="pad_select w90 pull-left">
             <div class="radio">
                 <label>
-                    <% if(busneissScope.id == store.busneissScopeCode){ %>
-                    <input type="radio" id="busneissScope" name="busneissScopeCode" class="radio"
-                           value="<%= busneissScope.id %>"
-                           checked="checked"/><%= busneissScope.name %>
+                    <% if(businessScope.id == store.businessScopeCode){ %>
+                    <input type="radio" id="businessScope" name="businessScopeCode" class="radio"
+                           value="<%= businessScope.id %>"
+                           checked="checked"/><%= businessScope.name %>
                     <% }else{ %>
-                    <input type="radio" id="busneissScope" name="busneissScopeCode" class="radio"
-                           value="<%= busneissScope.id %>"/><%= busneissScope.name %>
+                    <input type="radio" id="businessScope" name="businessScopeCode" class="radio"
+                           value="<%= businessScope.id %>"/><%= businessScope.name %>
                     <% } %>
                 </label>
             </div>
@@ -275,8 +275,8 @@
             </div>
             <div class="pull-left w530 tn_padding rn_padding ln_padding lianxi">
                 <p>面积：<span id="per_storeArea" class="text-primary"><%= store.storeArea %>㎡</span> | 经营范围：<span
-                            id="per_busneissScope"
-                            class="text-primary"><%= store.busneissScope %></span>
+                            id="per_businessScope"
+                            class="text-primary"><%= store.businessScope %></span>
                 </p>
 
                 <p>仓库类型：<span id="per_storeType" class="text-primary"><%= store.storeType %></span> | 联系方式：<span
@@ -313,8 +313,14 @@
         $.ProvinceCity('provinceCode', 'cityCode', 'areaCode', function (selectProvince, selectCity, selectArea) {
             $("#province").val(selectProvince);
             $("#city").val(selectCity);
-            $("#area").val(selectArea);
-            $("#per_city").html(selectProvince + selectCity + selectArea);
+            if (selectArea != "请选择区/县") {
+                $("#per_city").html(selectProvince + selectCity + selectArea);
+                $("#area").val(selectArea);
+            }
+            else {
+                $("#per_city").html(selectProvince + selectCity);
+                $("#area").val('');
+            }
         });
 
         $('#provinceCode').val('<%=store.provinceCode%>').change();
@@ -333,10 +339,10 @@
             $("#per_storeType").html($(this)[0].options[selectedIndex].text);
         });
 
-        $("input[name='busneissScopeCode']").each(function () {
+        $("input[name='businessScopeCode']").each(function () {
             $(this).click(function () {
                 var parent = $(this).parent();
-                $("#per_busneissScope").html(parent.text());
+                $("#per_businessScope").html(parent.text());
             });
         });
 

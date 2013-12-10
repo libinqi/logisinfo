@@ -84,13 +84,13 @@
                     <div class="w260 pull-left">
                         <div class="w80 pull-left ts_padding">经营范围：</div>
                         <div class="w180 pull-left">
-                            <select id="busneissScope" class="form-control min_hundred w160 input-sm">
+                            <select id="businessScope" class="form-control min_hundred w160 input-sm">
                                 <option>选择经营范围</option>
                                 <%
-                                if(locals.busneiss_scope){
-                                        busneiss_scope.forEach(function(busneissScope){
+                                if(locals.business_scope){
+                                        business_scope.forEach(function(businessScope){
                                 %>
-                                <option value="<%= busneissScope.id %>"><%= busneissScope.name %></option>
+                                <option value="<%= businessScope.id %>"><%= businessScope.name %></option>
                                 <%
                                 });
                                 }
@@ -147,13 +147,13 @@
     function search() {
         var url = "";
         var storeType = $("#storeType").val();
-        var busneissScope = $("#busneissScope").val();
+        var businessScope = $("#businessScope").val();
 
         if (storeType) {
             url += "storeType=" + storeType;
         }
-        if (busneissScope) {
-            url += "&busneissScope=" + busneissScope;
+        if (businessScope) {
+            url += "&businessScope=" + businessScope;
         }
         if (url) {
             if (url.substr(0, 1) == "&")
