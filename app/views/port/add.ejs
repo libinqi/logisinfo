@@ -2,13 +2,13 @@
 
 <div class="container w1002 tn_margin" id="qiye">
 
-<%- partial("layouts/info_nav", {current_url: "/store/edit"}) %>
+<%- partial("layouts/info_nav", {current_url: "/port/add"}) %>
 
 <div class="col-lg-10 col-md-10 col-sm-10 youce">
 <div class="bg_pale_yellow">
     <div class="col-md-12 pad_topbot_change">
-        <h4 class="line_b">更新仓库
-            <small class="pull-right"><a href="/store">返回仓库信息</a></small>
+        <h4 class="line_b">发布港口
+            <small class="pull-right"><a href="/port">返回港口信息</a></small>
         </h4>
     </div>
 </div>
@@ -17,58 +17,40 @@
         <!--<label id="error" class="error"></label>-->
     </div>
 </div>
-<form id="store-form" class="form-horizontal" action="/store/<%= params.id %>?_method=PUT" method="POST">
+<form id="port-form" class="form-horizontal" action="/port" method="POST">
 <div class="form-group">
     <label for="inputEmail3" class="col-lg-4 col-sm-4 control-label jiben_left"><span class="text_red">*</span>
-        仓库名称：</label>
+        港口名称：</label>
 
-    <div class="col-lg-8 col-sm-8 jiben_right"><input type="text" class="form-control w300 inputinline" id="storeName"
-                                                      name="storeName"
-                                                      placeholder="请输入仓库名称" value="<%=store.storeName%>"></div>
+    <div class="col-lg-8 col-sm-8 jiben_right"><input type="text" class="form-control w300 inputinline" id="portName"
+                                                      name="portName"
+                                                      placeholder="请输入港口名称"></div>
 </div>
 <div class="form-group">
     <label for="inputEmail3" class="col-lg-4 col-md-4 col-sm-4 control-label jiben_left"><span class="text_red">*</span>
-        仓库类型：</label>
+        港口类型：</label>
 
     <div class="col-lg-8 col-md-8 col-sm-8 jiben_right">
-        <select id="storeTypeCode" name="storeTypeCode" class="form-control min_hundred w300">
-            <% if(locals.store_type){
-                    store_type.forEach(function(storeType){
-                    if(storeType.id == store.storeTypeCode){
-            %>
-            <option value="<%= storeType.id %>" checked><%= storeType.name %></option>
-            <%
-            }else{
-            %>
-            <option value="<%= storeType.id %>"><%= storeType.name %></option>
-            <%
-            }});
-            } %>
-        </select>
-    </div>
-</div>
-<div class="form-group">
-    <label for="inputEmail3" class="col-lg-4 col-md-4 col-sm-4 control-label jiben_left">经营范围：</label>
-
-    <div class="col-lg-8 col-md-8 col-sm-8 jiben_right">
-        <% if(locals.business_scope){
-                business_scope.forEach(function(businessScope){
+        <% if(locals.port_type){
+            var index = 0;
+                port_type.forEach(function(portType){
         %>
         <div class="pad_select w90 pull-left">
             <div class="radio">
                 <label>
-                    <% if(businessScope.id == store.businessScopeCode){ %>
-                    <input type="radio" id="businessScope" name="businessScopeCode" class="radio"
-                           value="<%= businessScope.id %>"
-                           checked="checked"/><%= businessScope.name %>
+                    <% if(index == 0){ %>
+                    <input type="radio" id="portType" name="portTypeCode" class="radio"
+                           value="<%= portType.id %>"
+                           checked="checked"/><%= portType.name %>
                     <% }else{ %>
-                    <input type="radio" id="businessScope" name="businessScopeCode" class="radio"
-                           value="<%= businessScope.id %>"/><%= businessScope.name %>
+                    <input type="radio" id="portType" name="portTypeCode" class="radio"
+                           value="<%= portType.id %>"/><%= portType.name %>
                     <% } %>
                 </label>
             </div>
         </div>
         <%
+            index++;
         });
         } %>
     </div>
@@ -76,33 +58,30 @@
 
 <div class="form-group">
     <label for="inputEmail3" class="col-lg-4 col-sm-4 control-label jiben_left"><span class="text_red">*</span>
-        面积：</label>
+        泊位数量：</label>
 
     <div class="col-lg-8 col-sm-8 jiben_right">
-        <input type="text" class="form-control w20 inputinline" id="storeArea" name="storeArea" placeholder="0"
-               value="<%= store.storeArea %>">
-        m<sup>2</sup>
-        <label for="storeArea" class="error"></label>
+        <input type="text" class="form-control w20 inputinline" id="berthNumber" name="berthNumber" placeholder="0"> 个
+        <label for="berthNumber" class="error"></label>
     </div>
 </div>
 <div class="form-group">
-    <label for="inputEmail3" class="col-lg-4 col-sm-4 control-label jiben_left">可用面积：</label>
+    <label for="inputEmail3" class="col-lg-4 col-sm-4 control-label jiben_left">可用泊位数量：</label>
 
     <div class="col-lg-8 col-sm-8 jiben_right">
-        <input type="text" class="form-control w20 inputinline" id="useArea" name="useArea" placeholder="0"
-               value="<%= store.useArea %>">
-        m<sup>2</sup>
-        <label for="useArea" class="error"></label>
+        <input type="text" class="form-control w20 inputinline" id="useableBerthNumber" name="useableBerthNumber"
+               placeholder="0"> 个
+        <label for="useableBerthNumber" class="error"></label>
     </div>
 </div>
 <div class="form-group">
-    <label for="inputEmail3" class="col-lg-4 col-sm-4 control-label jiben_left">参考价格：</label>
+    <label for="inputEmail3" class="col-lg-4 col-sm-4 control-label jiben_left"><span class="text_red">*</span>
+        年吞吐量：</label>
 
     <div class="col-lg-8 col-sm-8 jiben_right">
-        <input type="text" class="form-control w20 inputinline" id="referPrice" name="referPrice"
-               value="<%= store.referPrice %>">
-        （单位：元/平方/月，"0"表示电询)
-        <label for="referPrice" class="error"></label>
+        <input type="text" class="form-control w20 inputinline" id="yearThroughput" name="yearThroughput"
+               placeholder="0"> 吨
+        <label for="yearThroughput" class="error"></label>
     </div>
 </div>
 <div class="form-group">
@@ -128,17 +107,59 @@
     <label for="inputEmail3" class="col-sm-4 control-label jiben_left"><span class="text_red">*</span> 具体位置：</label>
 
     <div class="col-sm-8 jiben_right">
-        <input type="text" class="form-control" id="address" name="address" placeholder="请填入详细地址，省市县不需要重复填写"
-               value="<%= store.address %>">
+        <input type="text" class="form-control" id="address" name="address" placeholder="请填入详细地址，省市县不需要重复填写">
     </div>
 </div>
 
 <div class="form-group">
+    <label for="inputEmail3" class="col-lg-4 col-sm-4 control-label jiben_left">陆域面积：</label>
+
+    <div class="col-lg-8 col-sm-8 jiben_right">
+        <input type="text" class="form-control w20 inputinline" id="landArea" name="landArea" placeholder="0">
+        m<sup>2</sup>
+        <label for="landArea" class="error"></label>
+    </div>
+</div>
+
+<div class="form-group">
+    <label for="inputEmail3" class="col-lg-4 col-sm-4 control-label jiben_left">水域外岸线：</label>
+
+    <div class="col-lg-8 col-sm-8 jiben_right">
+        <input type="text" class="form-control w20 inputinline" id="outWaterLine" name="outWaterLine" placeholder="0">
+        km
+    </div>
+    <label for="outWaterLine" class="error"></label>
+</div>
+<div class="form-group">
+    <label for="inputEmail3" class="col-lg-4 col-md-4 col-sm-4 control-label jiben_left"><span class="text_red">*</span>港口级别：</label>
+
+    <div class="col-lg-8 col-md-8 col-sm-8 jiben_right">
+        <select id="portLevelCode" name="portLevelCode" class="form-control min_hundred w300">
+            <% if(locals.port_level){
+                var index = 0;
+                    port_level.forEach(function(portLevel){
+            %>
+            <option value="<%= portLevel.id %>"><%= portLevel.name %></option>
+            <%
+                index++;
+            });
+            } %>
+        </select>
+    </div>
+</div>
+<div class="form-group">
+    <label for="inputEmail3" class="col-lg-4 col-md-4 col-sm-4 control-label jiben_left">港口说明：</label>
+
+    <div class="col-lg-8 col-md-8 col-sm-8 jiben_right">
+        <textarea name="freeText" class="form-control" maxlength="500" rows="3"></textarea>
+        <small>(限制500字符)</small>
+    </div>
+</div>
+<div class="form-group">
     <label for="inputEmail3" class="col-lg-4 col-md-4 col-sm-4 control-label jiben_left"><span class="text_red">*</span>联系人：</label>
 
     <div class="col-lg-3 col-md-3 col-sm-3 jiben_right">
-        <input type="text" class="form-control" id="contact" name="contact" placeholder="请填写联系人"
-               value="<%= store.contact %>">
+        <input type="text" class="form-control" id="contact" name="contact" placeholder="请填写联系人">
     </div>
 </div>
 <div class="form-group">
@@ -146,23 +167,14 @@
 
     <div class="col-sm-4 jiben_right">
         <input type="text" class="form-control" id="phone" name="phone" maxlength="11"
-               placeholder="联系电话和手机必填一项" value="<%= store.phone %>">
+               placeholder="联系电话和手机必填一项">
     </div>
 </div>
 <div class="form-group">
     <label for="inputEmail3" class="col-sm-4 control-label jiben_left">联系电话：</label>
 
     <div class="col-sm-4 jiben_right">
-        <input type="text" class="form-control" id="tel" name="tel" placeholder="联系的电话号码" value="<%= store.tel %>">
-    </div>
-</div>
-
-<div class="form-group">
-    <label for="inputEmail3" class="col-lg-4 col-md-4 col-sm-4 control-label jiben_left">仓库说明：</label>
-
-    <div class="col-lg-8 col-md-8 col-sm-8 jiben_right">
-        <textarea name="freeText" class="form-control" maxlength="500" rows="3"><%= store.freeText %></textarea>
-        <small>(限制500字符)</small>
+        <input type="text" class="form-control" id="tel" name="tel" placeholder="联系的电话号码">
     </div>
 </div>
 
@@ -171,9 +183,10 @@
 
     <div class="col-lg-8 col-md-8 col-sm-8 jiben_right">
         <% if(locals.validate_type){
+            var index = 0;
                 validate_type.forEach(function(validateType){
         %>
-        <% if(validateType.id == store.valid){ %>
+        <% if(index == 0){ %>
         <div class="pad_select w75 pull-left">
             <div class="radio">
                 <label>
@@ -191,14 +204,17 @@
                 </label>
             </div>
         </div>
-        <% } });} %>
+        <% } %>
+        <%
+            index++;
+        });
+        } %>
     </div>
 </div>
 <div class="form-group">
     <label for="inputEmail3" class="col-lg-4 col-md-4 col-sm-4 control-label jiben_left">发布状态：</label>
 
     <div class="col-lg-8 col-md-8 col-sm-8 jiben_right">
-        <%if(store.status==1){%>
         <div class="pad_select w75 pull-left">
             <div class="radio">
                 <label>
@@ -213,26 +229,10 @@
                 </label>
             </div>
         </div>
-        <%}else{%>
-        <div class="pad_select w75 pull-left">
-            <div class="radio">
-                <label>
-                    <input type="radio" name="status" value="1" class="radio">发布
-                </label>
-            </div>
-        </div>
-        <div class="pad_select w75 pull-left">
-            <div class="radio">
-                <label>
-                    <input type="radio" name="status" value="0" class="radio" checked>不发布
-                </label>
-            </div>
-        </div>
-        <%}%>
     </div>
 </div>
 <div class="form-group">
-    <label class="col-lg-4 col-md-4 col-sm-4 control-label jiben_left">仓库图片：</label>
+    <label class="col-lg-4 col-md-4 col-sm-4 control-label jiben_left">港口图片：</label>
 
     <div class="col-lg-8 col-md-8 col-sm-8 jiben_right">
         <span class="btn btn-success fileinput-button">
@@ -244,18 +244,18 @@
     </div>
 </div>
 
-<input type="hidden" id="province" name="province" value="<%= store.province %>"/>
-<input type="hidden" id="city" name="city" value="<%= store.city %>"/>
-<input type="hidden" id="area" name="area" value="<%= store.area %>"/>
-<input type="hidden" id="store_image" name="image" value="<%= store.image %>"/>
+<input type="hidden" id="province" name="province"/>
+<input type="hidden" id="city" name="city"/>
+<input type="hidden" id="area" name="area"/>
+<input type="hidden" id="port_image" name="image"/>
 
 <div class="clearfix"></div>
 <div class="form-group">
     <div class="col-sm-1 col-sm-offset-4">
-        <button type="submit" class="btn btn-info btn_detail">保存</button>
+        <button type="submit" class="btn btn-info btn_detail">发布</button>
     </div>
     <div class="col-sm-1">
-        <a href="/store" class="btn btn-default btn_detail">返回</a>
+        <a href="/line/add" class="btn btn-default btn_detail">重置</a>
     </div>
 </div>
 </form>
@@ -265,7 +265,7 @@
     <div class="info_item">
         <div class="info_title">
             <div class="w210 ln_padding pull-left">
-                <span class="pull-left"><strong id="per_storeName"><%= store.storeName %></strong></span>
+                <span class="pull-left"><strong id="per_portName">未填写</strong></span>
                 <span class="clearfix"></span>
             </div>
             <!--<div class="w100 pull-left">-->
@@ -276,8 +276,7 @@
             <!--</div>-->
             <div class="w100 pull-left">
                 <small class="dropdown">状态：
-                    <a href="#" id="per_status" class="dropdown-toggle"><%= store.statusText %><b
-                                class="caret xiala_btn"></b></a>
+                    <a href="#" id="per_status" class="dropdown-toggle">已发布</a>
                 </small>
             </div>
             <div class="chaozuo pull-right">
@@ -288,23 +287,22 @@
         </div>
         <div class="info_content">
             <div class=" pull-left w145 tn_padding ln_padding bn_padding">
-                <a href="#"><img id="per_image" src="<%= store.image %>" width="135" height="100"></a>
+                <a href="#"><img id="per_image" src="/images/no-port.jpg" width="135" height="100"></a>
             </div>
             <div class="pull-left w530 tn_padding rn_padding ln_padding lianxi">
-                <p>面积：<span id="per_storeArea" class="text-primary"><%= store.storeArea %>㎡</span> | 经营范围：<span
-                            id="per_businessScope"
-                            class="text-primary"><%= store.businessScope %></span>
+                <p>泊位数量：<span id="per_berthNumber" class="text-primary">未填写</span> | 年吞吐量：<span id="per_yearThroughput"
+                                                                                                class="text-primary">吨</span>
                 </p>
 
-                <p>仓库类型：<span id="per_storeType" class="text-primary"><%= store.storeType %></span> | 联系方式：<span
-                            id="per_phone"
-                            class="text-primary"><%= store.phone %></span>
-                    <span id="per_tel" class="text-primary"><%= store.telText %></span>
-                    <span id="per_contact" class="text-primary">    <%= store.contact %></span></p>
+                <p>港口类型：<span id="per_portType" class="text-primary">湖港</span> | 联系方式：<span id="per_phone"
+                                                                                            class="text-primary">未填写</span>
+                    <span id="per_tel" class="text-primary">/未填写</span>
+                    <span id="per_contact" class="text-primary">    未填写</span></p>
 
-                <p>仓库地址：<span id="per_city" class="text-primary"><%= store.province+store.city+store.area %></span><span
+                <p>港口级别：<span id="per_portLevel" class="text-primary">航运中心港</span> | 港口地址：<span id="per_city"
+                                                                                                class="text-primary"></span><span
                             id="per_address"
-                            class="text-primary"><%= store.address %></span></p>
+                            class="text-primary"></span></p>
             </div>
 
             <div class="pull-right w80 tl_padding">
@@ -340,33 +338,36 @@
             }
         });
 
-        $('#provinceCode').val('<%=store.provinceCode%>').change();
-        $('#cityCode').val('<%=store.cityCode%>').change();
-        $('#areaCode').val('<%=store.areaCode%>').change();
-
-        $("#storeName").change(function () {
-            var storeName = $(this).val();
-            if (storeName) {
-                $("#per_storeName").html(storeName);
+        $("#portName").change(function () {
+            var portName = $(this).val();
+            if (portName) {
+                $("#per_portName").html(portName);
             }
         });
 
-        $("#storeTypeCode").change(function () {
-            var selectedIndex = $(this)[0].selectedIndex;
-            $("#per_storeType").html($(this)[0].options[selectedIndex].text);
+        $("#berthNumber").change(function () {
+            var berthNumber = $(this).val();
+            if (berthNumber) {
+                $("#per_berthNumber").html(berthNumber);
+            }
         });
 
-        $("input[name='businessScopeCode']").each(function () {
+        $("input[name='portTypeCode']").each(function () {
             $(this).click(function () {
                 var parent = $(this).parent();
-                $("#per_businessScope").html(parent.text());
+                $("#per_portType").html(parent.text());
             });
         });
 
-        $("#storeArea").change(function () {
-            var storeArea = $(this).val();
-            if (storeArea) {
-                $("#per_storeArea").html(storeArea + "㎡");
+        $("#portLevelCode").change(function () {
+            var selectedIndex = $(this)[0].selectedIndex;
+            $("#per_portLevel").html($(this)[0].options[selectedIndex].text);
+        });
+
+        $("#yearThroughput").change(function () {
+            var yearThroughput = $(this).val();
+            if (yearThroughput) {
+                $("#per_yearThroughput").html(yearThroughput + "吨");
             }
         });
 
@@ -408,24 +409,33 @@
             return this.optional(element) || (tel.test(value));
         }, "电话号码格式不正确");
 
-        $('#store-form').validate({
+        $('#port-form').validate({
             rules: {
                 provinceCode: "required",
-                storeName: "required",
-                storeArea: {
+                portName: "required",
+                berthNumber: {
                     required: true,
                     number: true,
                     min: 0
                 },
-                useArea: {
+                useableBerthNumber: {
                     number: true,
                     min: 0
                 },
-                referPrice: {
+                yearThroughput: {
                     number: true,
                     min: 0
                 },
-                storeType: "required",
+                landArea: {
+                    number: true,
+                    min: 0
+                },
+                outWaterLine: {
+                    number: true,
+                    min: 0
+                },
+                portType: "required",
+                portLevel: "required",
                 contact: "required",
                 address: "required",
                 phone: {
@@ -437,21 +447,30 @@
             },
             messages: {
                 provinceCode: "所在地必选",
-                storeName: "仓库名称必填",
-                storeArea: {
-                    required: "仓库面积必填",
-                    number: "仓库面积必须为数字",
-                    min: "仓库面积不能少于0"
+                portName: "港口名称必填",
+                berthNumber: {
+                    required: "泊位数量必填",
+                    number: "泊位数量必须为数字",
+                    min: "泊位数量不能少于0"
                 },
-                useArea: {
-                    number: "可用面积必须为数字",
-                    min: "可用面积不能少于0"
+                useableBerthNumber: {
+                    number: "可用泊位数量必须为数字",
+                    min: "可用泊位数量不能少于0"
                 },
-                referPrice: {
-                    number: "参考价格必须为数字",
-                    min: "参考价格不能少于0"
+                yearThroughput: {
+                    number: "年吞吐量必须为数字",
+                    min: "年吞吐量不能少于0"
                 },
-                storeType: "仓库类型必选",
+                landArea: {
+                    number: "陆域面积必须为数字",
+                    min: "陆域面积不能少于0"
+                },
+                outWaterLine: {
+                    number: "水域外岸线必须为数字",
+                    min: "水域外岸线不能少于0"
+                },
+                portType: "港口类型必选",
+                portLevel: "港口级别必选",
                 contact: "联系人不能为空",
                 address: "具体位置不能为空",
                 phone: {
@@ -473,7 +492,7 @@
         });
 
         // Change this to the location of your server-side upload handler:
-        var url = 'http://localhost:3001/upload/store';
+        var url = 'http://localhost:3001/upload/port';
 
         $('#fileupload').fileupload({
             url: url,
@@ -481,7 +500,7 @@
             done: function (e, data) {
                 $.each(data.result.files, function (index, file) {
                     $('#per_image').attr("src", file.url);
-                    $('#store_image').val(file.url);
+                    $('#port_image').val(file.url);
                 });
             },
             progressall: function (e, data) {

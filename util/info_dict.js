@@ -178,3 +178,18 @@ exports.business_scope=[
     {"id": "1", "name": "自有仓库"},
     {"id": "2", "name": "租用仓库"},
 ];
+
+exports.port_type=[
+    {"id": "1", "name": "湖港"},
+    {"id": "2", "name": "河港"},
+    {"id": "3", "name": "水库港"},
+    {"id": "4", "name": "海港"}
+];
+
+exports.port_level=[
+    {"id": "1", "name": "航运中心港"},
+    {"id": "2", "name": "主枢纽港"},
+    {"id": "3", "name": "地区性枢纽港"},
+    {"id": "4", "name": "地区性重要港口"},
+    {"id": "5", "name": "其他中小港口"}
+];

@@ -83,7 +83,9 @@ module.exports = {
                 status: status,
                 base: req.url,
                 store_type: info_dict.store_type,
-                business_scope: info_dict.business_scope
+                business_scope: info_dict.business_scope,
+                storeTypeCode: req.query.storeType,
+                businessScopeCode: req.query.businessScope
             });
         });
     },

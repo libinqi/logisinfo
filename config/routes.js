@@ -20,6 +20,15 @@ module.exports = function (app) {
     app.get('/store/delete/:id', controllers.store.remove);
     app.get('/store/change_status/:id', controllers.store.change_status);
 
+    app.get('/port', controllers.port.index);
+    app.get('/port/add', controllers.port.add);
+    app.post('/port', controllers.port.create);
+    app.get('/port/:id', controllers.port.show);
+    app.get('/port/edit/:id', controllers.port.edit);
+    app.post('/port/:id', controllers.port.update);
+    app.get('/port/delete/:id', controllers.port.remove);
+    app.get('/port/change_status/:id', controllers.port.change_status);
+
     app.get('/goods', controllers.goods.index);
     app.get('/goods/all', controllers.goods.all);
     app.get('/goods/add', controllers.goods.add);

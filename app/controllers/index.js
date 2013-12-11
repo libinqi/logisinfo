@@ -4,5 +4,6 @@
     goods: require('./goods'),
     vehicle: require('./vehicle'),
     store: require('./store'),
+    port: require('./port'),
     api: require('./api')
 };
