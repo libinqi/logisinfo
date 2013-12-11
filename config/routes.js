@@ -1,7 +1,7 @@
 ﻿var controllers = require('../app/controllers')
 
 module.exports = function (app) {
-    app.get('/', controllers.home.index);
+    app.get('/', controllers.line.index);
     app.get('/line', controllers.line.index);
     app.get('/line/add', controllers.line.add);
     app.post('/line', controllers.line.create);
@@ -35,4 +35,10 @@ module.exports = function (app) {
     app.get('/vehicle/:id', controllers.vehicle.show);
     app.get('/vehicle/edit/:id', controllers.vehicle.edit);
     app.post('/vehicle/:id', controllers.vehicle.update);
+
+    app.get('/api/line',controllers.api.line);
+    app.get('/api/line/:id',controllers.api.getLine);
+    app.get('/api/store',controllers.api.store);
+    app.get('/api/goods',controllers.api.goods);
+    app.get('/api/vehicle',controllers.api.vehicle);
 };

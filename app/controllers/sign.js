@@ -6,6 +6,11 @@
 var settings = require('../../config/settings');
 
 exports.auth_user = function (req, res, next) {
+//    if(req.url.indexOf("/api")>=0)
+//    {
+//        next();
+//    }
+
     if (req.session.user) {
         next();
     }
