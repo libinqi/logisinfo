@@ -122,7 +122,7 @@ module.exports = {
     getLine: function (req, res, next) {
         var lineId = req.params.id || "";
         var eId = req.query.eId || "";
-        if (_.isEmpty(lineId) && _.isEmpty(eId)) {
+        if (_.isEmpty(lineId) || _.isEmpty(eId)) {
             res.send(JSON.stringify({}));
         }
 
@@ -130,11 +130,11 @@ module.exports = {
         opt.isDeleted = 0;
         opt.status = 1;
 
-        if (eId) {
-            opt.eId = eId;
-        }
+        opt.id = lineId;
+        opt.eId = eId;
 
-        req.models.line.get(lineId, function (err, line) {
+        req.models.line.find(opt, function (err, lines) {
+            var line = {};
             if (err) {
                 if (err.code == orm.ErrorCodes.NOT_FOUND) {
                     line = {};
@@ -142,41 +142,43 @@ module.exports = {
                     return next(err);
                 }
             }
-            line.updatedAt = moment(parseInt(line.updatedAt)).format('YYYY-MM-DD HH:mm');
-            line.status = line.status == "1" ? "已发布" : "未发布";
-            line.transTimeText = _.find(info_dict.trans_time, {'id': line.transTime}).name;
-            line.valid = _.find(info_dict.validate_type, {'id': line.valid}).name;
-            if (line.heavyCargoPrice == "" || line.heavyCargoPrice == "0") {
-                line.heavyCargoPrice = "面议";
-            }
-            else {
-                line.heavyCargoPrice = line.heavyCargoPrice + "元/吨";
-            }
-            if (line.foamGoodsPrice == "" || line.foamGoodsPrice == "0") {
-                line.foamGoodsPrice = "面议";
-            }
-            else {
-                line.foamGoodsPrice = line.foamGoodsPrice + "元/公斤"
-            }
-            if (line.isFrozen == "0") {
-                line.transRate = "不固定";
-            }
-            else {
-                line.transRate = "每" + line.transRateDay + "天" + line.transRateNumber + "班";
-            }
-            if (line.lineGoodsType) {
-                var lineGoodsTypes = line.lineGoodsType.split(',');
-                if (lineGoodsTypes && lineGoodsTypes.length > 0) {
-                    line.lineGoodsType = "";
-                    for (var i = 0; i < lineGoodsTypes.length; i++) {
-                        if (i == 0)
-                            line.lineGoodsType += _.find(info_dict.line_goods_type, {'id': lineGoodsTypes[i]}).name;
-                        else
-                            line.lineGoodsType += "," + _.find(info_dict.line_goods_type, {'id': lineGoodsTypes[i]}).name;
+            if (lines && lines.length > 0) {
+                line = lines[0];
+                line.updatedAt = moment(parseInt(line.updatedAt)).format('YYYY-MM-DD HH:mm');
+                line.status = line.status == "1" ? "已发布" : "未发布";
+                line.transTimeText = _.find(info_dict.trans_time, {'id': line.transTime}).name;
+                line.valid = _.find(info_dict.validate_type, {'id': line.valid}).name;
+                if (line.heavyCargoPrice == "" || line.heavyCargoPrice == "0") {
+                    line.heavyCargoPrice = "面议";
+                }
+                else {
+                    line.heavyCargoPrice = line.heavyCargoPrice + "元/吨";
+                }
+                if (line.foamGoodsPrice == "" || line.foamGoodsPrice == "0") {
+                    line.foamGoodsPrice = "面议";
+                }
+                else {
+                    line.foamGoodsPrice = line.foamGoodsPrice + "元/公斤"
+                }
+                if (line.isFrozen == "0") {
+                    line.transRate = "不固定";
+                }
+                else {
+                    line.transRate = "每" + line.transRateDay + "天" + line.transRateNumber + "班";
+                }
+                if (line.lineGoodsType) {
+                    var lineGoodsTypes = line.lineGoodsType.split(',');
+                    if (lineGoodsTypes && lineGoodsTypes.length > 0) {
+                        line.lineGoodsType = "";
+                        for (var i = 0; i < lineGoodsTypes.length; i++) {
+                            if (i == 0)
+                                line.lineGoodsType += _.find(info_dict.line_goods_type, {'id': lineGoodsTypes[i]}).name;
+                            else
+                                line.lineGoodsType += "," + _.find(info_dict.line_goods_type, {'id': lineGoodsTypes[i]}).name;
+                        }
                     }
                 }
             }
-
             res.send(JSON.stringify(line));
         });
     },
@@ -260,10 +262,413 @@ module.exports = {
             }));
         });
     },
-    goods: function (req, res, next) {
+    getStore: function (req, res, next) {
+        var storeId = req.params.id || "";
+        var eId = req.query.eId || "";
+        if (_.isEmpty(storeId) || _.isEmpty(eId)) {
+            res.send(JSON.stringify({}));
+        }
 
+        var opt = {};
+        opt.isDeleted = 0;
+        opt.status = 1;
+
+        opt.id = storeId;
+        opt.eId = eId;
+
+        req.models.store.find(opt, function (err, stores) {
+            var store = {};
+            if (err) {
+                if (err.code == orm.ErrorCodes.NOT_FOUND) {
+                    store = {};
+                } else {
+                    return next(err);
+                }
+            }
+            if (stores && stores.length > 0) {
+                store = stores[0];
+                store.updatedAt = moment(parseInt(store.updatedAt)).format('YYYY-MM-DD HH:mm');
+                store.status = store.status == "1" ? "已发布" : "未发布";
+                store.valid = _.find(info_dict.validate_type, {'id': store.valid}).name;
+
+                if (store.referPrice == "" || store.referPrice == "0") {
+                    store.referPrice = "面议";
+                }
+                else {
+                    store.referPrice = store.referPrice + (store.referPriceFlag == 0 ? "元/平方/年" : "元/平方/月");
+                }
+            }
+            res.send(JSON.stringify(store));
+        });
+    },
+    goods: function (req, res, next) {
+        var userId = req.query.userId || "";
+        var eId = req.query.eId || "";
+        var page = Number(req.query.page) || 1;
+        var pagesize = Number(req.query.pagesize) || 10;
+        var pages = 0;
+        var total = 0;
+
+        if (_.isEmpty(userId) && _.isEmpty(eId)) {
+            res.send(JSON.stringify({
+                rows: [],
+                current_page: page,
+                pagesize: pagesize,
+                pages: pages,
+                total: total
+            }));
+        }
+
+        var opt = {};
+        opt.isDeleted = 0;
+        opt.status = 1;
+
+        if (userId) {
+            opt.createrId = userId;
+        }
+        if (eId) {
+            opt.eId = eId;
+        }
+
+        if (!_.isEmpty(req.query.sProvince))
+            opt.sProvinceCode = req.query.sProvince;
+        if (!_.isEmpty(req.query.sCity))
+            opt.sCityCode = req.query.sCity;
+        if (!_.isEmpty(req.query.eProvince))
+            opt.eProvinceCode = req.query.eProvince;
+        if (!_.isEmpty(req.query.eCity))
+            opt.eCityCode = req.query.eCity;
+
+        req.models.goods.count(opt, function (err, count) {
+            if (err) {
+                if (err.code == orm.ErrorCodes.NOT_FOUND) {
+                    pages = 0;
+                    total = 0;
+                } else {
+                    return next(err);
+                }
+            }
+            else {
+                pages = Math.ceil(count / pagesize);
+                total = count;
+            }
+        });
+
+        req.models.goods.find(opt).offset((page - 1) * pagesize).limit(pagesize).order('-updatedAt').all(function (err, goodsList) {
+            if (err) {
+                if (err.code == orm.ErrorCodes.NOT_FOUND) {
+                    goodsList = [];
+                    pages = 0;
+                    total = 0;
+                } else {
+                    return next(err);
+                }
+            }
+            goodsList.forEach(function (goods) {
+                moment.lang('zh-cn');
+                goods.updatedAt = moment(parseInt(goods.updatedAt)).fromNow();
+
+                goods.vehicle = "";
+                goods.weight = goods.weight + (goods.unit == 0 ? "方" : "吨");
+                goods.vehicle += goods.vehicleLength + "米" + _.find(info_dict.vehicle_type, {'id': goods.vehicleTypeCode}).name;
+                if (goods.vehicleCount > 0)
+                    goods.vehicle += goods.vehicleCount + "辆";
+
+                goods.loadingTime = _.find(info_dict.loading_time, {'id': goods.loadingTime}).name;
+            });
+            res.send(JSON.stringify({
+                rows: goodsList,
+                current_page: page,
+                pagesize: pagesize,
+                pages: pages,
+                total: total
+            }));
+        });
+    },
+    getGoods: function (req, res, next) {
+        var goodsId = req.params.id || "";
+        var eId = req.query.eId || "";
+        if (_.isEmpty(goodsId) || _.isEmpty(eId)) {
+            res.send(JSON.stringify({}));
+        }
+
+        var opt = {};
+        opt.isDeleted = 0;
+        opt.status = 1;
+
+        opt.id = goodsId;
+        opt.eId = eId;
+
+        req.models.goods.find(opt, function (err, goodsList) {
+            var goods = {};
+            if (err) {
+                if (err.code == orm.ErrorCodes.NOT_FOUND) {
+                    goods = {};
+                } else {
+                    return next(err);
+                }
+            }
+            if (goodsList && goodsList.length > 0) {
+                goods = goodsList[0];
+                moment.lang('zh-cn');
+                goods.updatedAt = moment(parseInt(goods.updatedAt)).fromNow();
+                if (!goods.image) {
+                    goods.image = "/images/no-goods.jpg";
+                }
+                if (goods.phone && goods.tel)
+                    goods.tel = "/ " + goods.tel;
+
+                goods.vehicle = "";
+                goods.weight = goods.weight + (goods.unit == 0 ? "方" : "吨");
+                goods.vehicle += goods.vehicleLength + "米" + _.find(info_dict.vehicle_type, {'id': goods.vehicleTypeCode}).name;
+                if (goods.vehicleCount > 0)
+                    goods.vehicle += goods.vehicleCount + "辆";
+
+                goods.loadingTime = _.find(info_dict.loading_time, {'id': goods.loadingTime}).name;
+            }
+            res.send(JSON.stringify(goods));
+        });
     },
     vehicle: function (req, res, next) {
+        var userId = req.query.userId || "";
+        var eId = req.query.eId || "";
+        var page = Number(req.query.page) || 1;
+        var pagesize = Number(req.query.pagesize) || 10;
+        var pages = 0;
+        var total = 0;
 
+        if (_.isEmpty(userId) && _.isEmpty(eId)) {
+            res.send(JSON.stringify({
+                rows: [],
+                current_page: page,
+                pagesize: pagesize,
+                pages: pages,
+                total: total
+            }));
+        }
+
+        var opt = {};
+        opt.isDeleted = 0;
+        opt.status = 1;
+
+        if (userId) {
+            opt.createrId = userId;
+        }
+        if (eId) {
+            opt.eId = eId;
+        }
+
+        if (!_.isEmpty(req.query.sProvince))
+            opt.sProvinceCode = req.query.sProvince;
+        if (!_.isEmpty(req.query.sCity))
+            opt.sCityCode = req.query.sCity;
+        if (!_.isEmpty(req.query.eProvince))
+            opt.eProvinceCode = req.query.eProvince;
+        if (!_.isEmpty(req.query.eCity))
+            opt.eCityCode = req.query.eCity;
+
+        req.models.vehicle.count(opt, function (err, count) {
+            if (err) {
+                if (err.code == orm.ErrorCodes.NOT_FOUND) {
+                    pages = 0;
+                    total = 0;
+                } else {
+                    return next(err);
+                }
+            }
+            else {
+                pages = Math.ceil(count / pagesize);
+                total = count;
+            }
+        });
+
+        req.models.vehicle.find(opt).offset((page - 1) * pagesize).limit(pagesize).order('-updatedAt').all(function (err, vehicles) {
+            if (err) {
+                if (err.code == orm.ErrorCodes.NOT_FOUND) {
+                    vehicles = [];
+                    pages = 0;
+                    total = 0;
+                } else {
+                    return next(err);
+                }
+            }
+            vehicles.forEach(function (vehicle) {
+                moment.lang('zh-cn');
+                vehicle.updatedAt = moment(parseInt(vehicle.updatedAt)).fromNow();
+
+                vehicle.vehicle += vehicle.vehicleLength + "米" + _.find(info_dict.vehicle_type, {'id': vehicle.vehicleTypeCode}).name;
+                if (vehicle.vehicleNumber)
+                    vehicle.vehicle += ",车牌号" + vehicle.vehicleNumber;
+
+                if (vehicle.loadWeight) {
+                    vehicle.loadWeight = vehicle.loadWeight + (vehicle.unit == 0 ? "方" : "吨");
+                }
+
+                vehicle.loadingTime = _.find(info_dict.loading_time, {'id': vehicle.loadingTime}).name;
+                if (vehicle.referPrice && vehicle.referPrice != 0) {
+                    vehicle.referPrice += vehicle.referPriceFlag == 0 ? "元/方" : "元/吨";
+                }
+                else {
+                    vehicle.referPrice = "面议";
+                }
+            });
+            res.send(JSON.stringify({
+                rows: vehicles,
+                current_page: page,
+                pagesize: pagesize,
+                pages: pages,
+                total: total
+            }));
+        });
+    },
+    getVehicle: function (req, res, next) {
+        var vehicleId = req.params.id || "";
+        var eId = req.query.eId || "";
+        if (_.isEmpty(vehicleId) && _.isEmpty(eId)) {
+            res.send(JSON.stringify({}));
+        }
+
+        var opt = {};
+        opt.isDeleted = 0;
+        opt.status = 1;
+
+        opt.id = vehicleId;
+        opt.eId = eId;
+
+        req.models.vehicle.find(opt, function (err, vehicles) {
+            var vehicle = {};
+            if (err) {
+                if (err.code == orm.ErrorCodes.NOT_FOUND) {
+                    vehicle = {};
+                } else {
+                    return next(err);
+                }
+            }
+            if (vehicles && vehicles.length > 0) {
+                vehicle = vehicles[0];
+                moment.lang('zh-cn');
+                vehicle.updatedAt = moment(parseInt(vehicle.updatedAt)).fromNow();
+
+                vehicle.vehicle += vehicle.vehicleLength + "米" + _.find(info_dict.vehicle_type, {'id': vehicle.vehicleTypeCode}).name;
+                if (vehicle.vehicleNumber)
+                    vehicle.vehicle += ",车牌号" + vehicle.vehicleNumber;
+
+                if (vehicle.loadWeight) {
+                    vehicle.loadWeight = vehicle.loadWeight + (vehicle.unit == 0 ? "方" : "吨");
+                }
+
+                vehicle.loadingTime = _.find(info_dict.loading_time, {'id': vehicle.loadingTime}).name;
+                if (vehicle.referPrice && vehicle.referPrice != 0) {
+                    vehicle.referPrice += vehicle.referPriceFlag == 0 ? "元/方" : "元/吨";
+                }
+                else {
+                    vehicle.referPrice = "面议";
+                }
+            }
+            res.send(JSON.stringify(vehicle));
+        });
+    },
+    port: function (req, res, next) {
+        var userId = req.query.userId || "";
+        var eId = req.query.eId || "";
+        var page = Number(req.query.page) || 1;
+        var pagesize = Number(req.query.pagesize) || 10;
+        var pages = 0;
+        var total = 0;
+
+        if (_.isEmpty(userId) && _.isEmpty(eId)) {
+            res.send(JSON.stringify({
+                rows: [],
+                current_page: page,
+                pagesize: pagesize,
+                pages: pages,
+                total: total
+            }));
+        }
+
+        var opt = {};
+        opt.isDeleted = 0;
+        opt.status = 1;
+
+        if (userId) {
+            opt.createrId = userId;
+        }
+        if (eId) {
+            opt.eId = eId;
+        }
+
+        if (!_.isEmpty(req.query.portType))
+            opt.portTypeCode = req.query.portType;
+        if (!_.isEmpty(req.query.portLevel))
+            opt.portLevelCode = req.query.portLevelCode;
+
+        req.models.port.count(opt, function (err, count) {
+            if (err) {
+                if (err.code == orm.ErrorCodes.NOT_FOUND) {
+                    pages = 0;
+                    total = 0;
+                } else {
+                    return next(err);
+                }
+            }
+            else {
+                pages = Math.ceil(count / pagesize);
+                total = count;
+            }
+        });
+
+        req.models.port.find(opt).offset((page - 1) * pagesize).limit(pagesize).order('-updatedAt').all(function (err, ports) {
+            if (err) {
+                if (err.code == orm.ErrorCodes.NOT_FOUND) {
+                    ports = [];
+                    pages = 0;
+                    total = 0;
+                } else {
+                    return next(err);
+                }
+            }
+            ports.forEach(function (port) {
+                port.updatedAt = moment(parseInt(port.updatedAt)).format('YYYY-MM-DD HH:mm');
+                port.statusText = port.status == "1" ? "已发布" : "未发布";
+            });
+            res.send(JSON.stringify({
+                rows: ports,
+                current_page: page,
+                pagesize: pagesize,
+                pages: pages,
+                total: total
+            }));
+        });
+    },
+    getPort: function (req, res, next) {
+        var portId = req.params.id || "";
+        var eId = req.query.eId || "";
+        if (_.isEmpty(vehicleId) && _.isEmpty(eId)) {
+            res.send(JSON.stringify({}));
+        }
+
+        var opt = {};
+        opt.isDeleted = 0;
+        opt.status = 1;
+
+        opt.id = portId;
+        opt.eId = eId;
+
+        req.models.port.find(opt, function (err, ports) {
+            var port = {};
+            if (err) {
+                if (err.code == orm.ErrorCodes.NOT_FOUND) {
+                    port = {};
+                } else {
+                    return next(err);
+                }
+            }
+            if (ports && ports.length > 0) {
+                port=ports[0];
+                port.updatedAt = moment(parseInt(port.updatedAt)).format('YYYY-MM-DD HH:mm');
+                port.statusText = port.status == "1" ? "已发布" : "未发布";
+            }
+            res.send(JSON.stringify(port));
+        });
     }
 }

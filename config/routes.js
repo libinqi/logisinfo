@@ -48,6 +48,11 @@ module.exports = function (app) {
     app.get('/api/line', controllers.api.line);
     app.get('/api/line/:id', controllers.api.getLine);
     app.get('/api/store', controllers.api.store);
+    app.get('/api/store/:id', controllers.api.getStore);
+    app.get('/api/port', controllers.api.port);
+    app.get('/api/port/:id', controllers.api.getPort);
     app.get('/api/goods', controllers.api.goods);
+    app.get('/api/goods/:id', controllers.api.getGoods);
     app.get('/api/vehicle', controllers.api.vehicle);
+    app.get('/api/vehicle/:id', controllers.api.getVehicle);
 };

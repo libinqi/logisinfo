@@ -56,12 +56,6 @@ module.exports = {
                 if (!port.image) {
                     port.image = "/images/no-port.jpg";
                 }
-                if (port.referPrice == "" || port.referPrice == "0") {
-                    port.referPrice = "面议";
-                }
-                else {
-                    port.referPrice = port.referPrice + (port.referPriceFlag == 0 ? "元/平方/年" : "元/平方/月");
-                }
 
                 if (port.phone && port.tel)
                     port.tel = "/ " + port.tel;
