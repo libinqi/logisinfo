@@ -36,9 +36,9 @@ module.exports = function (app) {
     app.get('/vehicle/edit/:id', controllers.vehicle.edit);
     app.post('/vehicle/:id', controllers.vehicle.update);
 
-    app.get('/api/line',controllers.api.line);
-    app.get('/api/line/:id',controllers.api.getLine);
-    app.get('/api/store',controllers.api.store);
-    app.get('/api/goods',controllers.api.goods);
-    app.get('/api/vehicle',controllers.api.vehicle);
+    app.get('/api/line', controllers.api.line);
+    app.get('/api/line/:id', controllers.api.getLine);
+    app.get('/api/store', controllers.api.store);
+    app.get('/api/goods', controllers.api.goods);
+    app.get('/api/vehicle', controllers.api.vehicle);
 };
