@@ -10,16 +10,18 @@ exports.auth_user = function (req, res, next) {
         next();
     }
     else {
-        //获取cookie
-        var user_cookie = req.cookies[settings.user_cookie_name];
-        if (!user_cookie) {
-            res.redirect('http://ec.jt56.org/ec/');
-        }
-        var user = {id: user_cookie};
-        if (req.cookies["username"])
-            user.name = req.cookies["username"];
-        if (req.cookies[settings.e_cookie_name])
-            user.eId = req.cookies[settings.e_cookie_name];
+        var user = {id: '20131209-17380784-4160-b935-f66b86171d9b',eId:'20131209-113227a8-486a-a050-28d7ba4ab03c'};
+
+//        //获取cookie
+//        var user_cookie = req.cookies[settings.user_cookie_name];
+//        if (!user_cookie) {
+//            res.redirect('http://ec.jt56.org/ec/');
+//        }
+//        var user = {id: user_cookie};
+//        if (req.cookies["username"])
+//            user.name = req.cookies["username"];
+//        if (req.cookies[settings.e_cookie_name])
+//            user.eId = req.cookies[settings.e_cookie_name];
 
         //写入session
         req.session.user = user;

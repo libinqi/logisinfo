@@ -73,7 +73,7 @@ module.exports = {
                 else {
                     line.foamGoodsPrice = line.foamGoodsPrice + "元/公斤"
                 }
-                if (line.isFrozen == "1") {
+                if (line.isFrozen == "0") {
                     line.transRate = "不固定";
                 }
                 else {
