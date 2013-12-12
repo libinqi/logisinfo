@@ -69,6 +69,10 @@ module.exports = function (app) {
     app.get('/api/store/:id', controllers.api.getStore);
     app.get('/api/port', controllers.api.port);
     app.get('/api/port/:id', controllers.api.getPort);
+    app.get('/api/trainstore', controllers.api.trainStore);
+    app.get('/api/trainstore/:id', controllers.api.getTrainStore);
+    app.get('/api/trainline', controllers.api.trainLine);
+    app.get('/api/trainline/:id', controllers.api.getTrainLine);
     app.get('/api/goods', controllers.api.goods);
     app.get('/api/goods/:id', controllers.api.getGoods);
     app.get('/api/vehicle', controllers.api.vehicle);

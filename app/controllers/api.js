@@ -496,7 +496,7 @@ module.exports = {
                 moment.lang('zh-cn');
                 vehicle.updatedAt = moment(parseInt(vehicle.updatedAt)).fromNow();
 
-                vehicle.vehicle="";
+                vehicle.vehicle = "";
                 vehicle.vehicle += vehicle.vehicleLength + "米" + _.find(info_dict.vehicle_type, {'id': vehicle.vehicleTypeCode}).name;
                 if (vehicle.vehicleNumber)
                     vehicle.vehicle += ",车牌号" + vehicle.vehicleNumber;
@@ -550,7 +550,7 @@ module.exports = {
                 moment.lang('zh-cn');
                 vehicle.updatedAt = moment(parseInt(vehicle.updatedAt)).fromNow();
 
-                vehicle.vehicle="";
+                vehicle.vehicle = "";
                 vehicle.vehicle += vehicle.vehicleLength + "米" + _.find(info_dict.vehicle_type, {'id': vehicle.vehicleTypeCode}).name;
                 if (vehicle.vehicleNumber)
                     vehicle.vehicle += ",车牌号" + vehicle.vehicleNumber;
@@ -666,11 +666,208 @@ module.exports = {
                 }
             }
             if (ports && ports.length > 0) {
-                port=ports[0];
+                port = ports[0];
                 port.updatedAt = moment(parseInt(port.updatedAt)).format('YYYY-MM-DD HH:mm');
                 port.statusText = port.status == "1" ? "已发布" : "未发布";
             }
             res.send(JSON.stringify(port));
         });
+    },
+    trainStore: function (req, res, next) {
+        var userId = req.query.userId || "";
+        var eId = req.query.eId || "";
+        var page = Number(req.query.page) || 1;
+        var pagesize = Number(req.query.pagesize) || 10;
+        var pages = 0;
+        var total = 0;
+
+        if (_.isEmpty(userId) && _.isEmpty(eId)) {
+            res.send(JSON.stringify({
+                rows: [],
+                current_page: page,
+                pagesize: pagesize,
+                pages: pages,
+                total: total
+            }));
+        }
+
+        var opt = {};
+        opt.isDeleted = 0;
+        opt.status = 1;
+
+        if (userId) {
+            opt.createrId = userId;
+        }
+        if (eId) {
+            opt.eId = eId;
+        }
+
+        req.models.trainStore.count(opt, function (err, count) {
+            if (err) {
+                if (err.code == orm.ErrorCodes.NOT_FOUND) {
+                    pages = 0;
+                    total = 0;
+                } else {
+                    return next(err);
+                }
+            }
+            else {
+                pages = Math.ceil(count / pagesize);
+                total = count;
+            }
+        });
+
+        req.models.trainStore.find(opt).offset((page - 1) * pagesize).limit(pagesize).order('-updatedAt').all(function (err, trainStores) {
+            if (err) {
+                if (err.code == orm.ErrorCodes.NOT_FOUND) {
+                    trainStores = [];
+                    pages = 0;
+                    total = 0;
+                } else {
+                    return next(err);
+                }
+            }
+            trainStores.forEach(function (trainStore) {
+                trainStore.updatedAt = moment(parseInt(trainStore.updatedAt)).format('YYYY-MM-DD HH:mm');
+                trainStore.statusText = trainStore.status == "1" ? "已发布" : "未发布";
+            });
+            res.send(JSON.stringify({
+                rows: trainStores,
+                current_page: page,
+                pagesize: pagesize,
+                pages: pages,
+                total: total
+            }));
+        });
+    },
+    getTrainStore: function (req, res, next) {
+        var trainStoreId = req.params.id || "";
+        var eId = req.query.eId || "";
+        if (_.isEmpty(trainStoreId) && _.isEmpty(eId)) {
+            res.send(JSON.stringify({}));
+        }
+
+        var opt = {};
+        opt.isDeleted = 0;
+        opt.status = 1;
+
+        opt.id = trainStoreId;
+        opt.eId = eId;
+
+        req.models.port.find(opt, function (err, trainStores) {
+            var trainStore = {};
+            if (err) {
+                if (err.code == orm.ErrorCodes.NOT_FOUND) {
+                    trainStore = {};
+                } else {
+                    return next(err);
+                }
+            }
+            if (trainStores && trainStores.length > 0) {
+                trainStore = trainStores[0];
+                trainStore.updatedAt = moment(parseInt(trainStore.updatedAt)).format('YYYY-MM-DD HH:mm');
+                trainStore.statusText = trainStore.status == "1" ? "已发布" : "未发布";
+            }
+            res.send(JSON.stringify(trainStore));
+        });
+    },
+    trainLine: function (req, res, next) {
+        var userId = req.query.userId || "";
+        var eId = req.query.eId || "";
+        var page = Number(req.query.page) || 1;
+        var pagesize = Number(req.query.pagesize) || 10;
+        var pages = 0;
+        var total = 0;
+
+        if (_.isEmpty(userId) && _.isEmpty(eId)) {
+            res.send(JSON.stringify({
+                rows: [],
+                current_page: page,
+                pagesize: pagesize,
+                pages: pages,
+                total: total
+            }));
+        }
+
+        var opt = {};
+        opt.isDeleted = 0;
+        opt.status = 1;
+
+        if (userId) {
+            opt.createrId = userId;
+        }
+        if (eId) {
+            opt.eId = eId;
+        }
+
+        req.models.trainLine.count(opt, function (err, count) {
+            if (err) {
+                if (err.code == orm.ErrorCodes.NOT_FOUND) {
+                    pages = 0;
+                    total = 0;
+                } else {
+                    return next(err);
+                }
+            }
+            else {
+                pages = Math.ceil(count / pagesize);
+                total = count;
+            }
+        });
+
+        req.models.trainLine.find(opt).offset((page - 1) * pagesize).limit(pagesize).order('-updatedAt').all(function (err, trainLines) {
+            if (err) {
+                if (err.code == orm.ErrorCodes.NOT_FOUND) {
+                    trainLines = [];
+                    pages = 0;
+                    total = 0;
+                } else {
+                    return next(err);
+                }
+            }
+            trainLines.forEach(function (trainLine) {
+                trainLine.updatedAt = moment(parseInt(trainLine.updatedAt)).format('YYYY-MM-DD HH:mm');
+                trainLine.statusText = trainLine.status == "1" ? "已发布" : "未发布";
+            });
+            res.send(JSON.stringify({
+                rows: trainLines,
+                current_page: page,
+                pagesize: pagesize,
+                pages: pages,
+                total: total
+            }));
+        });
+    },
+    getTrainLine: function (req, res, next) {
+        var trainLineId = req.params.id || "";
+        var eId = req.query.eId || "";
+        if (_.isEmpty(vehicleId) && _.isEmpty(eId)) {
+            res.send(JSON.stringify({}));
+        }
+
+        var opt = {};
+        opt.isDeleted = 0;
+        opt.status = 1;
+
+        opt.id = trainLineId;
+        opt.eId = eId;
+
+        req.models.port.find(opt, function (err, trainLines) {
+            var trainLine = {};
+            if (err) {
+                if (err.code == orm.ErrorCodes.NOT_FOUND) {
+                    trainLine = {};
+                } else {
+                    return next(err);
+                }
+            }
+            if (trainLines && trainLines.length > 0) {
+                trainLine = trainLines[0];
+                trainLine.updatedAt = moment(parseInt(trainLine.updatedAt)).format('YYYY-MM-DD HH:mm');
+                trainLine.statusText = trainLine.status == "1" ? "已发布" : "未发布";
+            }
+            res.send(JSON.stringify(trainLine));
+        });
     }
+
 }
