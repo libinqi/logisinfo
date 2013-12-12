@@ -83,7 +83,7 @@
                     vehicle_type.forEach(function(vehicleType){
                     if(vehicleType.id == vehicle.vehicleTypeCode){
             %>
-            <option value="<%= vehicleType.id %>" checked><%= vehicleType.name %></option>
+            <option value="<%= vehicleType.id %>" selected><%= vehicleType.name %></option>
             <% }else{
             %>
             <option value="<%= vehicleType.id %>"><%= vehicleType.name %></option>

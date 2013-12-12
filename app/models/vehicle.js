@@ -1,7 +1,9 @@
 ﻿var moment = require('moment');
+var Ids = require("../../util/Ids");
 
 module.exports = function (orm, db) {
     var Vehicle = db.define('vehicle', {
+            id: {type: 'text', required: true},
             sProvinceCode: {type: 'text', required: true},
             sProvince: {type: 'text', required: true},
             sCityCode: {type: 'text', required: true},
@@ -52,6 +54,7 @@ module.exports = function (orm, db) {
             methods: {
                 serialize: function () {
                     return {
+                        id: Ids.GenerateId('020'),
                         sProvinceCode: this.sProvinceCode,
                         sProvince: this.sProvince,
                         sCityCode: this.sCityCode,

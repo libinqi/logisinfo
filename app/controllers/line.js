@@ -31,9 +31,6 @@ module.exports = {
             opt.eId = req.session.user.eId;
         }
 
-        console.log(req.session.user.id);
-        console.log(req.session.user.eId);
-
         req.models.line.count(opt, function (err, count) {
             if (err) {
                 if (err.code == orm.ErrorCodes.NOT_FOUND) {
