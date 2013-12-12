@@ -19,7 +19,7 @@ exports.auth_user = function (req, res, next) {
         //获取cookie
         var user_cookie = req.cookies[settings.user_cookie_name];
         if (!user_cookie) {
-            return  res.redirect('http://luc.jt56.org/uc?redirectURL=logisinfo.jt56.org:3000');
+            return  res.redirect('http://luc.jt56.org/uc?redirectURL=logisinfo.jt56.org');
         }
         var user = {id: user_cookie};
         if (req.cookies["username"])
