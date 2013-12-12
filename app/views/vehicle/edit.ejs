@@ -281,13 +281,14 @@
         </span>
     </div>
 </div>
-<input type="hidden" id="sProvince" name="sProvince"/>
-<input type="hidden" id="sCity" name="sCity"/>
-<input type="hidden" id="sArea" name="sArea"/>
-<input type="hidden" id="eProvince" name="eProvince"/>
-<input type="hidden" id="eCity" name="eCity"/>
-<input type="hidden" id="eArea" name="eArea"/>
-<input type="hidden" id="vehicle_image" name="image"/>
+
+<input type="hidden" id="sProvince" name="sProvince" value="<%= vehicle.sProvince %>"/>
+<input type="hidden" id="sCity" name="sCity" value="<%= vehicle.sCity %>"/>
+<input type="hidden" id="sArea" name="sArea" value="<%= vehicle.sArea %>"/>
+<input type="hidden" id="eProvince" name="eProvince" value="<%= vehicle.eProvince %>"/>
+<input type="hidden" id="eCity" name="eCity" value="<%= vehicle.eCity %>"/>
+<input type="hidden" id="eArea" name="eArea" value="<%= vehicle.eArea %>"/>
+<input type="hidden" id="vehicle_image" name="image" value="<%= vehicle.image %>"/>
 
 <div class="clearfix"></div>
 <div class="form-group">
@@ -355,23 +356,35 @@ $(function () {
     $.ProvinceCity('sProvinceCode', 'sCityCode', 'sAreaCode', function (selectProvince, selectCity, selectArea) {
         $("#sProvince").val(selectProvince);
         $("#sCity").val(selectCity);
-        $("#sArea").val(selectArea);
         $("#per_scity").html(selectProvince + selectCity);
+
         if (!$("#eProvinceCode").val()) {
             $("#per_ecity").html("全国");
+        }
+
+        if (selectArea != "请选择区/县") {
+            $("#sArea").val(selectArea);
+        }
+        else {
+            $("#sArea").val('');
         }
     });
     $.ProvinceCity('eProvinceCode', 'eCityCode', 'eAreaCode', function (selectProvince, selectCity, selectArea) {
         $("#eProvince").val(selectProvince);
         $("#eCity").val(selectCity);
-        $("#eArea").val(selectArea);
-        $("#per_ecity").html(selectProvince + selectCity);
 
         if (!$("#eProvinceCode").val()) {
             $("#per_ecity").html("全国");
         }
         else {
             $("#per_ecity").html(selectProvince + selectCity);
+        }
+
+        if (selectArea != "请选择区/县") {
+            $("#eArea").val(selectArea);
+        }
+        else {
+            $("#eArea").val('');
         }
     });
 
@@ -566,7 +579,7 @@ $(function () {
     });
 
     // Change this to the location of your server-side upload handler:
-    var url = 'http://localhost:3001/upload/vehicle';
+    var url = 'http://img1.jt56.org/upload/vehicle';
 
     $('#fileupload').fileupload({
         url: url,

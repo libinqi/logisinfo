@@ -7,7 +7,7 @@
 <div class="col-lg-10 col-md-10 col-sm-10 youce">
 <div class="bg_pale_yellow">
     <div class="col-md-12 pad_topbot_change">
-        <h4 class="line_b">发布港口
+        <h4 class="line_b">更新港口
             <small class="pull-right"><a href="/port">返回港口信息</a></small>
         </h4>
     </div>
@@ -312,8 +312,9 @@
                 <a href="#"><img id="per_image" src="<%= port.image %>" width="135" height="100"></a>
             </div>
             <div class="pull-left w530 tn_padding rn_padding ln_padding lianxi">
-                <p>泊位数量：<span id="per_berthNumber" class="text-primary"><%= port.berthNumber %></span> | 年吞吐量：<span id="per_yearThroughput"
-                                                                                                class="text-primary"><%= port.yearThroughput %>吨</span>
+                <p>泊位数量：<span id="per_berthNumber" class="text-primary"><%= port.berthNumber %></span> | 年吞吐量：<span
+                            id="per_yearThroughput"
+                            class="text-primary"><%= port.yearThroughput %>吨</span>
                 </p>
 
                 <p>港口类型：<span id="per_portType" class="text-primary"><%= port.portType %></span> | 联系方式：<span
@@ -323,7 +324,7 @@
                     <span id="per_contact" class="text-primary">    <%= port.contact %></span></p>
 
                 <p>港口级别：<span id="per_portLevel" class="text-primary">航运中心港</span> | 港口地址：<span id="per_city"
-                                                                                                class="text-primary"><%= port.province+port.city+port.area %></span><span
+                                                                                                class="text-primary"><%= port.province + port.city + port.area %></span><span
                             id="per_address"
                             class="text-primary"><%= port.address %></span></p>
             </div>
@@ -519,7 +520,7 @@
         });
 
         // Change this to the location of your server-side upload handler:
-        var url = 'http://localhost:3001/upload/port';
+        var url = 'http://img1.jt56.org/upload/port';
 
         $('#fileupload').fileupload({
             url: url,

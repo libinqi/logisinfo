@@ -14,10 +14,17 @@ app.set('port', process.env.PORT || 3000);
 environment(app);
 routes(app);
 
-// development only
-if ('development' == app.get('env')) {
+var staticDir = path.join(__dirname, 'public');
+app.configure('development', function () {
+    app.use('/public', express.static(staticDir));
+    app.use(express.errorHandler({ dumpExceptions: true, showStack: true }));
+});
+
+app.configure('production', function () {
+    app.use('/public', express.static(staticDir, { maxAge: maxAge }));
     app.use(express.errorHandler());
-}
+    app.set('view cache', true);
+});
 
 http.createServer(app).listen(app.get('port'), function () {
 //生成数据字典js文件

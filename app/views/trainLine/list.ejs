@@ -1,49 +1,50 @@
 <%
-ports.forEach(function(port){
+trainLines.forEach(function(trainLine){
 %>
 <div class="info_item">
     <div class="info_title">
         <div class="w210 ln_padding pull-left">
-            <span class="pull-left"><strong><%=port.portName%></strong></span>
+            <span class="pull-left"><strong><%=trainLine.trainLineName%></strong></span>
             <span class="clearfix"></span>
         </div>
         <!--<div class="w100 pull-left"><small>最新订单：<span class="text-primary">5</span></small></div>-->
-        <div class="w200 pull-left"><small>更新时间：<%= port.updatedAt %></small></div>
+        <div class="w200 pull-left"><small>更新时间：<%= trainLine.updatedAt %></small></div>
         <div class="w100 pull-left">
             <small class="dropdown">状态：
                 <a href="#" class="dropdown-toggle"
-                   data-toggle="dropdown"><%= port.statusText %> <b class="caret"></b></a>
+                   data-toggle="dropdown"><%= trainLine.statusText %> <b class="caret"></b></a>
                 <ul class="dropdown-menu nav_bigdropdown">
-                    <li><a href="/port/change_status/<%= port.id %>?status=2">已发布</a></li>
-                    <li><a href="/port/change_status/<%= port.id %>?status=1">未发布</a></li>
+                    <li><a href="/trainLine/change_status/<%= trainLine.id %>?status=2">已发布</a></li>
+                    <li><a href="/trainLine/change_status/<%= trainLine.id %>?status=1">未发布</a></li>
                 </ul>
             </small>
         </div>
         <div class="chaozuo pull-right">
             <!--<div class="shouqi pull-left"><a href="#"><img src="images/shouqi.png"></a></div>-->
-            <div class="delet pull-right"><a href="javascript:void(0)" onclick="deleteport('<%= port.id %>');return false;"><img src="images/delet.png"></a></div>
+            <div class="delet pull-right"><a href="javascript:void(0)" onclick="deletetrainLine('<%= trainLine.id %>');return false;"><img src="images/delet.png"></a></div>
         </div>
         <div class="clearfix"></div>
     </div>
     <div class="info_content">
         <div class=" pull-left w145 tn_padding ln_padding bn_padding">
-            <a href="#"><img src="<%=port.image%>" width="135" height="100"></a>
+            <a href="#"><img src="<%=trainLine.image%>" width="135" height="100"></a>
         </div>
         <div class="pull-left w530 tn_padding rn_padding ln_padding lianxi">
-            <p>泊位数量：<span id="per_berthNumber" class="text-primary"><%=port.berthNumber%></span> | 年吞吐量：<span id="per_yearThroughput"
-                                                                                            class="text-primary"><%=port.yearThroughput%>吨</span>
+
+            <p>日装载量：<span id="per_dayCapacity" class="text-primary"><%= trainLine.dayCapacity %>吨</span> | 年吞吐量：<span id="per_yearCapacity"
+                                                                                            class="text-primary"><%= trainLine.yearCapacity %>吨</span>
             </p>
 
-            <p>港口类型：<span id="per_portType" class="text-primary"><%=port.portType%></span> | 联系方式：<span class="text-primary"><%= port.phone %></span>
-                <span class="text-primary"><%= port.tel %></span>
-                <span class="text-primary">    <%= port.contact %></span></p>
+            <p>停放车皮总数量：<span id="per_trainBoxNumber" class="text-primary"><%= trainLine.trainBoxNumber %>辆</span> | 联系方式：<span class="text-primary"><%= trainLine.phone %></span>
+                <span class="text-primary"><%= trainLine.tel %></span>
+                <span class="text-primary">    <%= trainLine.contact %></span></p>
 
-            <p>港口级别：<span id="per_portLevel" class="text-primary"><%=port.portLevel%></span> | 具体位置：<%= port.province %><%= port.city %><%= port.area %><%= port.address %></p>
+            <p>具体位置：<%= trainLine.province %><%= trainLine.city %><%= trainLine.area %><%= trainLine.address %></p>
         </div>
 
         <div class="pull-right w80 tl_padding">
             <input class="btn btn-info" type="button" value="查看">
-            <a href="/port/edit/<%= port.id %> " class="btn btn-warning tn_margin">修改</a>
+            <a href="/trainLine/edit/<%= trainLine.id %> " class="btn btn-warning tn_margin">修改</a>
         </div>
         <div class="clearfix"></div>
     </div>
@@ -128,10 +129,10 @@ ports.forEach(function(port){
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                <h4 class="modal-title" id="myModalLabel">删除港口</h4>
+                <h4 class="modal-title" id="myModalLabel">删除铁路专线</h4>
             </div>
             <div class="modal-body">
-                您确定要删除此条港口信息吗？
+                您确定要删除此条专线信息吗？
             </div>
             <div class="modal-footer">
                 <a id="btn_delete" href="#" class="btn btn-primary btn-info">确定</a>
@@ -150,9 +151,9 @@ ports.forEach(function(port){
         });
     });
 
-    function deleteport(portId) {
+    function deletetrainLine(trainLineId) {
         $('#deleteModal').modal('show').on('shown.bs.modal',function () {
-            $("#btn_delete").attr('href', '/port/delete/' + portId);
+            $("#btn_delete").attr('href', '/trainLine/delete/' + trainLineId);
         });
     }
 </script>

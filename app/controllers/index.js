@@ -5,5 +5,7 @@
     vehicle: require('./vehicle'),
     store: require('./store'),
     port: require('./port'),
+    trainStore: require('./trainStore'),
+    trainLine: require('./trainLine'),
     api: require('./api')
 };

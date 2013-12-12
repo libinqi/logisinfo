@@ -1,49 +1,49 @@
 <%
-ports.forEach(function(port){
+trainStores.forEach(function(trainStore){
 %>
 <div class="info_item">
     <div class="info_title">
         <div class="w210 ln_padding pull-left">
-            <span class="pull-left"><strong><%=port.portName%></strong></span>
+            <span class="pull-left"><strong><%=trainStore.trainStoreName%></strong></span>
             <span class="clearfix"></span>
         </div>
         <!--<div class="w100 pull-left"><small>最新订单：<span class="text-primary">5</span></small></div>-->
-        <div class="w200 pull-left"><small>更新时间：<%= port.updatedAt %></small></div>
+        <div class="w200 pull-left"><small>更新时间：<%= trainStore.updatedAt %></small></div>
         <div class="w100 pull-left">
             <small class="dropdown">状态：
                 <a href="#" class="dropdown-toggle"
-                   data-toggle="dropdown"><%= port.statusText %> <b class="caret"></b></a>
+                   data-toggle="dropdown"><%= trainStore.statusText %> <b class="caret"></b></a>
                 <ul class="dropdown-menu nav_bigdropdown">
-                    <li><a href="/port/change_status/<%= port.id %>?status=2">已发布</a></li>
-                    <li><a href="/port/change_status/<%= port.id %>?status=1">未发布</a></li>
+                    <li><a href="/trainStore/change_status/<%= trainStore.id %>?status=2">已发布</a></li>
+                    <li><a href="/trainStore/change_status/<%= trainStore.id %>?status=1">未发布</a></li>
                 </ul>
             </small>
         </div>
         <div class="chaozuo pull-right">
             <!--<div class="shouqi pull-left"><a href="#"><img src="images/shouqi.png"></a></div>-->
-            <div class="delet pull-right"><a href="javascript:void(0)" onclick="deleteport('<%= port.id %>');return false;"><img src="images/delet.png"></a></div>
+            <div class="delet pull-right"><a href="javascript:void(0)" onclick="deletetrainStore('<%= trainStore.id %>');return false;"><img src="images/delet.png"></a></div>
         </div>
         <div class="clearfix"></div>
     </div>
     <div class="info_content">
         <div class=" pull-left w145 tn_padding ln_padding bn_padding">
-            <a href="#"><img src="<%=port.image%>" width="135" height="100"></a>
+            <a href="#"><img src="<%=trainStore.image%>" width="135" height="100"></a>
         </div>
         <div class="pull-left w530 tn_padding rn_padding ln_padding lianxi">
-            <p>泊位数量：<span id="per_berthNumber" class="text-primary"><%=port.berthNumber%></span> | 年吞吐量：<span id="per_yearThroughput"
-                                                                                            class="text-primary"><%=port.yearThroughput%>吨</span>
+            <p>面积：<span id="per_trainStoreArea" class="text-primary"><%=trainStore.trainStoreArea%>㎡</span> | 堆放货物总量：<span id="per_goodsTotal"
+                                                                                            class="text-primary"><%=trainStore.goodsTotal%>吨</span>
             </p>
 
-            <p>港口类型：<span id="per_portType" class="text-primary"><%=port.portType%></span> | 联系方式：<span class="text-primary"><%= port.phone %></span>
-                <span class="text-primary"><%= port.tel %></span>
-                <span class="text-primary">    <%= port.contact %></span></p>
+            <p>货场类型：<span id="per_trainStoreType" class="text-primary"><%=trainStore.trainStoreType%></span> | 联系方式：<span class="text-primary"><%= trainStore.phone %></span>
+                <span class="text-primary"><%= trainStore.tel %></span>
+                <span class="text-primary">    <%= trainStore.contact %></span></p>
 
-            <p>港口级别：<span id="per_portLevel" class="text-primary"><%=port.portLevel%></span> | 具体位置：<%= port.province %><%= port.city %><%= port.area %><%= port.address %></p>
+            <p>货场级别：<span id="per_trainStoreLevel" class="text-primary"><%=trainStore.trainStoreLevel%></span> | 具体位置：<%= trainStore.province %><%= trainStore.city %><%= trainStore.area %><%= trainStore.address %></p>
         </div>
 
         <div class="pull-right w80 tl_padding">
             <input class="btn btn-info" type="button" value="查看">
-            <a href="/port/edit/<%= port.id %> " class="btn btn-warning tn_margin">修改</a>
+            <a href="/trainStore/edit/<%= trainStore.id %> " class="btn btn-warning tn_margin">修改</a>
         </div>
         <div class="clearfix"></div>
     </div>
@@ -128,10 +128,10 @@ ports.forEach(function(port){
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                <h4 class="modal-title" id="myModalLabel">删除港口</h4>
+                <h4 class="modal-title" id="myModalLabel">删除铁路货场</h4>
             </div>
             <div class="modal-body">
-                您确定要删除此条港口信息吗？
+                您确定要删除此条货场信息吗？
             </div>
             <div class="modal-footer">
                 <a id="btn_delete" href="#" class="btn btn-primary btn-info">确定</a>
@@ -150,9 +150,9 @@ ports.forEach(function(port){
         });
     });
 
-    function deleteport(portId) {
+    function deletetrainStore(trainStoreId) {
         $('#deleteModal').modal('show').on('shown.bs.modal',function () {
-            $("#btn_delete").attr('href', '/port/delete/' + portId);
+            $("#btn_delete").attr('href', '/trainStore/delete/' + trainStoreId);
         });
     }
 </script>

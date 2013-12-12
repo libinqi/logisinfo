@@ -29,6 +29,24 @@ module.exports = function (app) {
     app.get('/port/delete/:id', controllers.port.remove);
     app.get('/port/change_status/:id', controllers.port.change_status);
 
+    app.get('/trainStore', controllers.trainStore.index);
+    app.get('/trainStore/add', controllers.trainStore.add);
+    app.post('/trainStore', controllers.trainStore.create);
+    app.get('/trainStore/:id', controllers.trainStore.show);
+    app.get('/trainStore/edit/:id', controllers.trainStore.edit);
+    app.post('/trainStore/:id', controllers.trainStore.update);
+    app.get('/trainStore/delete/:id', controllers.trainStore.remove);
+    app.get('/trainStore/change_status/:id', controllers.trainStore.change_status);
+
+    app.get('/trainLine', controllers.trainLine.index);
+    app.get('/trainLine/add', controllers.trainLine.add);
+    app.post('/trainLine', controllers.trainLine.create);
+    app.get('/trainLine/:id', controllers.trainLine.show);
+    app.get('/trainLine/edit/:id', controllers.trainLine.edit);
+    app.post('/trainLine/:id', controllers.trainLine.update);
+    app.get('/trainLine/delete/:id', controllers.trainLine.remove);
+    app.get('/trainLine/change_status/:id', controllers.trainLine.change_status);
+
     app.get('/goods', controllers.goods.index);
     app.get('/goods/all', controllers.goods.all);
     app.get('/goods/add', controllers.goods.add);

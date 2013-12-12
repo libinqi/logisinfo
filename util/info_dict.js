@@ -193,3 +193,16 @@ exports.port_level=[
     {"id": "4", "name": "地区性重要港口"},
     {"id": "5", "name": "其他中小港口"}
 ];
+
+exports.train_store_type=[
+    {"id": "1", "name": "整车货场"},
+    {"id": "2", "name": "零担货场"},
+    {"id": "3", "name": "兼办整车、零担"},
+    {"id": "4", "name": "综合性货场"}
+];
+
+exports.train_store_level=[
+    {"id": "1", "name": "大型货场"},
+    {"id": "2", "name": "中型货场"},
+    {"id": "3", "name": "小型货场"}
+];

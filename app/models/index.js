@@ -9,6 +9,8 @@ function setup(db, cb) {
     require('./vehicle')(orm, db);
     require('./store')(orm, db);
     require('./port')(orm, db);
+    require('./trainStore')(orm, db);
+    require('./trainLine')(orm, db);
 
     return cb(null, db);
 }

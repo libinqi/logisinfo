@@ -160,13 +160,12 @@ module.exports = {
     },
     create: function (req, res, next) {
         var goodsEntity = _.merge(new req.models.goods().serialize(), req.body);
-        var currentDate=new Date();
+        var currentDate = new Date();
         goodsEntity.createrId = req.session.user.id;
         goodsEntity.createdAt = currentDate.getTime();
         goodsEntity.updaterId = req.session.user.id;
         goodsEntity.updatedAt = currentDate.getTime();
-        if(req.session.user.eId)
-        {
+        if (req.session.user.eId) {
             goodsEntity.eId = req.session.user.eId;
         }
         goodsEntity.goodsType = _.find(info_dict.goods_type, {'id': goodsEntity.goodsTypeCode}).name;
@@ -179,7 +178,7 @@ module.exports = {
             goodsEntity.goodsWeightText += _.find(info_dict.goods_type, {'id': goodsEntity.goodsTypeCode}).name;
             goodsEntity.goodsWeightText = ",有" + goodsEntity.goodsWeightText;
         }
-        goodsEntity.goodsWeightText = goodsEntity.sProvince + goodsEntity.sCity + "→" + goodsEntity.eProvince + goodsEntity.eCity + goodsEntity.goodsWeightText;
+        goodsEntity.goodsWeightText = goodsEntity.sProvince + goodsEntity.sCity + goodsEntity.sArea + "→" + goodsEntity.eProvince + goodsEntity.eCity + goodsEntity.eArea + goodsEntity.goodsWeightText;
 
         //车辆需求
         goodsEntity.goodsVehicleText = "";
@@ -283,7 +282,7 @@ module.exports = {
                 goodsEntity.goodsWeightText += _.find(info_dict.goods_type, {'id': goodsEntity.goodsTypeCode}).name;
                 goodsEntity.goodsWeightText = ",有" + goods.goodsWeightText;
             }
-            goodsEntity.goodsWeightText = goodsEntity.sProvince + goodsEntity.sCity + "→" + goodsEntity.eProvince + goodsEntity.eCity + goodsEntity.goodsWeightText;
+            goodsEntity.goodsWeightText = goodsEntity.sProvince + goodsEntity.sCity + goodsEntity.sArea + "→" + goodsEntity.eProvince + goodsEntity.eCity + goodsEntity.eArea + goodsEntity.goodsWeightText;
 
             //车辆需求
             goodsEntity.goodsVehicleText = "";

@@ -496,6 +496,7 @@ module.exports = {
                 moment.lang('zh-cn');
                 vehicle.updatedAt = moment(parseInt(vehicle.updatedAt)).fromNow();
 
+                vehicle.vehicle="";
                 vehicle.vehicle += vehicle.vehicleLength + "米" + _.find(info_dict.vehicle_type, {'id': vehicle.vehicleTypeCode}).name;
                 if (vehicle.vehicleNumber)
                     vehicle.vehicle += ",车牌号" + vehicle.vehicleNumber;
@@ -549,6 +550,7 @@ module.exports = {
                 moment.lang('zh-cn');
                 vehicle.updatedAt = moment(parseInt(vehicle.updatedAt)).fromNow();
 
+                vehicle.vehicle="";
                 vehicle.vehicle += vehicle.vehicleLength + "米" + _.find(info_dict.vehicle_type, {'id': vehicle.vehicleTypeCode}).name;
                 if (vehicle.vehicleNumber)
                     vehicle.vehicle += ",车牌号" + vehicle.vehicleNumber;

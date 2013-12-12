@@ -53,6 +53,7 @@ module.exports = {
                 if (vehicle.phone && vehicle.tel)
                     vehicle.tel = "/ " + vehicle.tel;
 
+                vehicle.vehicle = "";
                 vehicle.vehicle += vehicle.vehicleLength + "米" + _.find(info_dict.vehicle_type, {'id': vehicle.vehicleTypeCode}).name;
                 if (vehicle.vehicleNumber)
                     vehicle.vehicle += ",车牌号" + vehicle.vehicleNumber;
@@ -136,6 +137,7 @@ module.exports = {
                 if (vehicle.phone && vehicle.tel)
                     vehicle.tel = "/ " + vehicle.tel;
 
+                vehicle.vehicle = "";
                 vehicle.vehicle += vehicle.vehicleLength + "米" + _.find(info_dict.vehicle_type, {'id': vehicle.vehicleTypeCode}).name;
                 if (vehicle.vehicleNumber)
                     vehicle.vehicle += ",车牌号" + vehicle.vehicleNumber;
@@ -176,13 +178,12 @@ module.exports = {
     },
     create: function (req, res, next) {
         var vehicleEntity = _.merge(new req.models.vehicle().serialize(), req.body);
-        var currentDate=new Date();
+        var currentDate = new Date();
         vehicleEntity.createrId = req.session.user.id;
         vehicleEntity.createdAt = currentDate.getTime();
         vehicleEntity.updaterId = req.session.user.id;
         vehicleEntity.updatedAt = currentDate.getTime();
-        if(req.session.user.eId)
-        {
+        if (req.session.user.eId) {
             vehicleEntity.eId = req.session.user.eId;
         }
         vehicleEntity.vehicleType = _.find(info_dict.vehicle_type, {'id': vehicleEntity.vehicleTypeCode}).name;
@@ -195,10 +196,10 @@ module.exports = {
 
         vehicleEntity.vehicleText = ",有" + vehicleEntity.vehicleText;
         if (vehicleEntity.eProvinceCode) {
-            vehicleEntity.vehicleText = vehicleEntity.sProvince + vehicleEntity.sCity + "→" + vehicleEntity.eProvince + vehicleEntity.eCity + vehicleEntity.vehicleText;
+            vehicleEntity.vehicleText = vehicleEntity.sProvince + vehicleEntity.sCity + vehicleEntity.sArea + "→" + vehicleEntity.eProvince + vehicleEntity.eCity + vehicleEntity.eArea + vehicleEntity.vehicleText;
         }
         else {
-            vehicleEntity.vehicleText = vehicleEntity.sProvince + vehicleEntity.sCity + "→" + "全国" + vehicleEntity.vehicleText;
+            vehicleEntity.vehicleText = vehicleEntity.sProvince + vehicleEntity.sCity + vehicleEntity.sArea + "→" + "全国" + vehicleEntity.vehicleText;
             vehicleEntity.eProvince = "";
             vehicleEntity.eCity = "";
         }
@@ -311,10 +312,10 @@ module.exports = {
 
             vehicleEntity.vehicleText = ",有" + vehicleEntity.vehicleText;
             if (vehicleEntity.eProvinceCode) {
-                vehicleEntity.vehicleText = vehicleEntity.sProvince + vehicleEntity.sCity + "→" + vehicleEntity.eProvince + vehicleEntity.eCity + vehicleEntity.vehicleText;
+                vehicleEntity.vehicleText = vehicleEntity.sProvince + vehicleEntity.sCity + vehicleEntity.sArea + "→" + vehicleEntity.eProvince + vehicleEntity.eCity + vehicleEntity.eArea + vehicleEntity.vehicleText;
             }
             else {
-                vehicleEntity.vehicleText = vehicleEntity.sProvince + vehicleEntity.sCity + "→" + "全国" + vehicleEntity.vehicleText;
+                vehicleEntity.vehicleText = vehicleEntity.sProvince + vehicleEntity.sCity + vehicleEntity.sArea + "→" + "全国" + vehicleEntity.vehicleText;
             }
 
             //货物需求
