@@ -909,7 +909,7 @@ module.exports = {
         opt.id = trainLineId;
 //        opt.eId = eId;
 
-        req.models.port.find(opt, function (err, trainLines) {
+        req.models.trainLine.find(opt, function (err, trainLines) {
             var trainLine = {};
             if (err) {
                 if (err.code == orm.ErrorCodes.NOT_FOUND) {
