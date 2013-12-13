@@ -898,7 +898,7 @@ module.exports = {
     getTrainLine: function (req, res, next) {
         var trainLineId = req.params.id || "";
         var eId = req.query.eId || "";
-        if (_.isEmpty(vehicleId) && _.isEmpty(eId)) {
+        if (_.isEmpty(trainLineId) && _.isEmpty(eId)) {
             res.send(JSON.stringify({}));
         }
 
