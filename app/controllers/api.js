@@ -36,9 +36,9 @@ module.exports = {
         if (userId) {
             opt.createrId = userId;
         }
-        if (eId) {
-            opt.eId = eId;
-        }
+//        if (eId) {
+//            opt.eId = eId;
+//        }
 
         if (!_.isEmpty(req.query.sProvince))
             opt.sProvinceCode = req.query.sProvince;
@@ -131,7 +131,7 @@ module.exports = {
         opt.status = 1;
 
         opt.id = lineId;
-        opt.eId = eId;
+//        opt.eId = eId;
 
         req.models.line.find(opt, function (err, lines) {
             var line = {};
@@ -207,9 +207,9 @@ module.exports = {
         if (userId) {
             opt.createrId = userId;
         }
-        if (eId) {
-            opt.eId = eId;
-        }
+//        if (eId) {
+//            opt.eId = eId;
+//        }
 
         if (!_.isEmpty(req.query.storeType))
             opt.storeTypeCode = req.query.storeType;
@@ -274,7 +274,7 @@ module.exports = {
         opt.status = 1;
 
         opt.id = storeId;
-        opt.eId = eId;
+//        opt.eId = eId;
 
         req.models.store.find(opt, function (err, stores) {
             var store = {};
@@ -326,9 +326,9 @@ module.exports = {
         if (userId) {
             opt.createrId = userId;
         }
-        if (eId) {
-            opt.eId = eId;
-        }
+//        if (eId) {
+//            opt.eId = eId;
+//        }
 
         if (!_.isEmpty(req.query.sProvince))
             opt.sProvinceCode = req.query.sProvince;
@@ -397,7 +397,7 @@ module.exports = {
         opt.status = 1;
 
         opt.id = goodsId;
-        opt.eId = eId;
+//        opt.eId = eId;
 
         req.models.goods.find(opt, function (err, goodsList) {
             var goods = {};
@@ -454,9 +454,9 @@ module.exports = {
         if (userId) {
             opt.createrId = userId;
         }
-        if (eId) {
-            opt.eId = eId;
-        }
+//        if (eId) {
+//            opt.eId = eId;
+//        }
 
         if (!_.isEmpty(req.query.sProvince))
             opt.sProvinceCode = req.query.sProvince;
@@ -534,7 +534,7 @@ module.exports = {
         opt.status = 1;
 
         opt.id = vehicleId;
-        opt.eId = eId;
+//        opt.eId = eId;
 
         req.models.vehicle.find(opt, function (err, vehicles) {
             var vehicle = {};
@@ -595,9 +595,9 @@ module.exports = {
         if (userId) {
             opt.createrId = userId;
         }
-        if (eId) {
-            opt.eId = eId;
-        }
+//        if (eId) {
+//            opt.eId = eId;
+//        }
 
         if (!_.isEmpty(req.query.portType))
             opt.portTypeCode = req.query.portType;
@@ -654,7 +654,7 @@ module.exports = {
         opt.status = 1;
 
         opt.id = portId;
-        opt.eId = eId;
+//        opt.eId = eId;
 
         req.models.port.find(opt, function (err, ports) {
             var port = {};
@@ -698,9 +698,9 @@ module.exports = {
         if (userId) {
             opt.createrId = userId;
         }
-        if (eId) {
-            opt.eId = eId;
-        }
+//        if (eId) {
+//            opt.eId = eId;
+//        }
 
         req.models.trainStore.count(opt, function (err, count) {
             if (err) {
@@ -752,7 +752,7 @@ module.exports = {
         opt.status = 1;
 
         opt.id = trainStoreId;
-        opt.eId = eId;
+//        opt.eId = eId;
 
         req.models.port.find(opt, function (err, trainStores) {
             var trainStore = {};
@@ -796,9 +796,9 @@ module.exports = {
         if (userId) {
             opt.createrId = userId;
         }
-        if (eId) {
-            opt.eId = eId;
-        }
+//        if (eId) {
+//            opt.eId = eId;
+//        }
 
         req.models.trainLine.count(opt, function (err, count) {
             if (err) {
@@ -850,7 +850,7 @@ module.exports = {
         opt.status = 1;
 
         opt.id = trainLineId;
-        opt.eId = eId;
+//        opt.eId = eId;
 
         req.models.port.find(opt, function (err, trainLines) {
             var trainLine = {};

@@ -9,9 +9,9 @@ exports.GenerateId = function (_prefix) {
     var seed = date.getTime();
 
     if (_prefix)
-        return _prefix + seed + '' + Math.floor(Math.random() * 900 + 100);
+        return _prefix + seed;
     else
-        return seed + '' + Math.floor(Math.random() * 900 + 100);
+        return seed;
 }
 
 exports.GenerateKey = function () {

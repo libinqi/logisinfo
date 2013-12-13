@@ -54,7 +54,7 @@ module.exports = function (orm, db) {
             methods: {
                 serialize: function () {
                     return {
-                        id: Ids.GenerateId('010'),
+                        id: Ids.GenerateId('10'),
                         sProvinceCode: this.sProvinceCode,
                         sProvince: this.sProvince,
                         sCityCode: this.sCityCode,
