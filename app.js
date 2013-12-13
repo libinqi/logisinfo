@@ -8,7 +8,6 @@ var path = require('path');
 var settings = require('./config/settings');
 var environment = require('./config/environment');
 var routes = require('./config/routes');
-var Ids = require('./util/Ids');
 
 var app = express();
 app.set('port', process.env.PORT || 3000);
