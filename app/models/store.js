@@ -1,5 +1,5 @@
 ﻿var moment = require('moment');
-var Ids = require("../../util/Ids");
+var ids = require("../../util/ids");
 
 module.exports = function (orm, db) {
     var Store = db.define('store', {
@@ -48,7 +48,7 @@ module.exports = function (orm, db) {
             methods: {
                 serialize: function () {
                     return {
-                        id: Ids.GenerateId('40'),
+                        id: ids.GenerateId('40'),
                         provinceCode: this.provinceCode,
                         province: this.province,
                         cityCode: this.cityCode,

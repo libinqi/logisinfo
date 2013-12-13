@@ -1,5 +1,5 @@
 ﻿var moment = require('moment');
-var Ids = require("../../util/Ids");
+var ids = require("../../util/ids");
 
 module.exports = function (orm, db) {
     var trainLine = db.define('trainLine', {
@@ -46,7 +46,7 @@ module.exports = function (orm, db) {
             methods: {
                 serialize: function () {
                     return {
-                        id: Ids.GenerateId('70'),
+                        id: ids.GenerateId('70'),
                         provinceCode: this.provinceCode,
                         province: this.province,
                         cityCode: this.cityCode,
