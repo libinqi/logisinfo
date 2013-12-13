@@ -801,7 +801,7 @@ module.exports = {
         opt.id = trainStoreId;
 //        opt.eId = eId;
 
-        req.models.port.find(opt, function (err, trainStores) {
+        req.models.trainStore.find(opt, function (err, trainStores) {
             var trainStore = {};
             if (err) {
                 if (err.code == orm.ErrorCodes.NOT_FOUND) {
