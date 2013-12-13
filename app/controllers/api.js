@@ -645,7 +645,7 @@ module.exports = {
     getPort: function (req, res, next) {
         var portId = req.params.id || "";
         var eId = req.query.eId || "";
-        if (_.isEmpty(vehicleId) && _.isEmpty(eId)) {
+        if (_.isEmpty(portId) && _.isEmpty(eId)) {
             res.send(JSON.stringify({}));
         }
 
