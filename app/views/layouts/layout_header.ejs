@@ -1,4 +1,19 @@
 <div class="top" id="top">
+    <div class="search show768">
+        <form action="http://search.jt56.org/so56.php" class="search_form" target="_blank" method="get">
+            <div class="pull-left search_select">
+                <span class="select_selected"><b class="selected">平台</b><b class="drop_down"></b></span>
+                <ul class="drop_down_menu" style="display:none;">
+                    <li class="li_select">平台</li>
+                </ul>
+            </div>
+            <div style="position:absolute; float:left; width:100%; height:28px; overflow:hidden;">
+                <input type="button" class="search_btn"/>
+                <input type="text" value="请输入..." name="key" class="search_input"/>
+            </div>
+            <div class="clearfix"></div>
+        </form>
+    </div>
     <nav class="navbar navbar-default topnav container boder-clear" role="navigation" style="z-index:999;">
         <div class="navbar-header">
             <button type="button" class="navbar-toggle" data-toggle="collapse"
@@ -8,41 +23,55 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="#">欢迎您，</a>
+            <span class="navbar-brand left_first">欢迎您，</span>
+            <ul class="nav_user nav navbar-nav">
+                <li>
+                    <% if (locals.current_user && current_user.name) {
+                    %>
+                    <a href="http://luc.jt56.org/uc/remoteuserController.do?userindex" class="dropdown-toggle"
+                       data-toggle="dropdown"><%= current_user.name %></a>
+                    <% } %>
+                </li>
+            </ul>
         </div>
         <!-- Collect the nav links, forms, and other content for toggling -->
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-            <ul class="nav navbar-nav">
-                <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">天狼在线 <b class="caret"></b></a>
-
-                    <div class="dropdown-menu zhanghao">
-                        <dl class="pull-left"><a href="#"><img src="images/shi1.jpg"/></a></dl>
-                        <dt class=""><a href="#">账号管理</a> | <a href="#">退出</a></dt>
-                        <dt class="">赶快去<a href="#">实名认证</a></dt>
-                    </div>
-                </li>
-                <li><a href="#">平台首页</a></li>
+            <ul class="nav navbar-nav hide768 hide1002">
+                <li><a href="http://www.jt56.org" target="_blank">共享平台首页</a></li>
             </ul>
 
             <ul class="nav navbar-nav navbar-right">
-                <li><a class="dingdanguanli" href="#"><span class="badge pull-right">42</span>订单管理&nbsp;</a></li>
-                <li class="fenge">|</li>
-                <li class="xiaoxi"><a class="xiaoxitiao" href="#"><span class="badge pull-right">42</span>消息中心&nbsp;</a>
+                <li class="hide768">
+                    <div class="search">
+                        <form action="http://search.jt56.org/so56.php" class="search_form" target="_blank" method="get">
+                            <div class="pull-left search_select">
+                                <span class="select_selected"><b class="selected">平台</b><b class="drop_down"></b><div
+                                            class="clearfix"></div></span>
+                                <ul class="drop_down_menu" style="display:none;">
+                                    <li class="li_select">平台</li>
+                                </ul>
+                            </div>
+                            <input type="text" value="请输入..." name="key" class="search_input"/>
+                            <input type="button" class="search_btn"/>
+                        </form>
+                        <div class="clearfix"></div>
+                    </div>
+                </li>
+
+                <li class="xiaoxi"><a class="xiaoxitiao pull-left"
+                                      href="http://msgc.jt56.org/msc/messagesController.do?queryMessageListbyUuid">消息中心&nbsp;</a>
                 </li>
                 <li class="fenge">|</li>
-                <li><a href="#">公共服务&nbsp;</a></li>
-                <li class="fenge">|</li>
-                <li><a href="#">帮助中心&nbsp;</a></li>
+                <li><a href="http://jt56.org/HTML/PublicServices.shtml" target="_blank">公共服务&nbsp;</a></li>
                 <li class="fenge">|</li>
                 <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">平台导航 <b class="caret"></b></a>
+                    <a href="javascript:" class="dropdown-toggle" data-toggle="dropdown">平台导航 <b class="caret"></b></a>
 
                     <div class="dropdown-menu daohang" style="_width:1002px; _padding:0px;">
-                        <ul class="col-lg-2 list-unstyled">
-                            <li class="text-center lead"><a href="http://jt56.org/HTML/PublicServices.shtml"
-                                                            target="_blank">公共服务</a></li>
-                            <ul>
+                        <ul class="daohang_item">
+                            <li class="lead"><a class="text_orange" href="http://jt56.org/HTML/PublicServices.shtml"
+                                                target="_blank">公共服务</a></li>
+                            <ul class="hide768">
                                 <li><a href="http://jt56.org/HTML/PolicyInterpretation.shtml" target="_blank">法律法规</a>
                                 </li>
                                 <li><a href="http://jt56.org/HTML/LogisticsPriceSystem.shtml" target="_blank">物流指数</a>
@@ -52,10 +81,10 @@
                                 </li>
                             </ul>
                         </ul>
-                        <ul class="col-lg-2 list-unstyled">
-                            <li class="text-center lead"><a href="http://jt56.org/HTML/informationstandards.shtml"
-                                                            target="_blank">应用服务</a></li>
-                            <ul>
+                        <ul class="daohang_item">
+                            <li class="lead"><a class="text_blue" href="http://jt56.org/HTML/informationstandards.shtml"
+                                                target="_blank">应用服务</a></li>
+                            <ul class="hide768">
                                 <li><a href="http://jt56.org/HTML/StandardApplicationTraining.shtml" target="_blank">应用培训</a>
                                 </li>
                                 <li><a href="http://jt56.org/HTML/LogisticsAndCommonSofeware.shtml"
@@ -64,10 +93,10 @@
                                 <li><a href="http://jt56.org/HTML/2013/4/62.shtml" target="_blank">电子标签</a></li>
                             </ul>
                         </ul>
-                        <ul class="col-lg-2 list-unstyled">
-                            <li class="text-center lead"><a href="http://search.jt56.org/goodsinfo.php" target="_blank">信息共享</a>
-                            </li>
-                            <ul>
+                        <ul class="daohang_item">
+                            <li class="lead"><a class="text_green" href="http://search.jt56.org/goodsinfo.php"
+                                                target="_blank">信息共享</a></li>
+                            <ul class="hide768">
                                 <li><a href="http://search.jt56.org/goodsinfo.php" target="_blank">货源信息</a></li>
                                 <li><a href="http://search.jt56.org/carinfo.php" target="_blank">车源信息</a></li>
                                 <li><a href="http://search.jt56.org/line.php" target="_blank">专线信息</a></li>
@@ -75,20 +104,21 @@
                             </ul>
                         </ul>
 
-                        <ul class="col-lg-2 list-unstyled">
-                            <li class="text-center lead"><a href="http://jt56.org/HTML/2008/1/329.shtml"
-                                                            target="_blank">微平台</a></li>
-                            <ul>
+                        <ul class="daohang_item">
+                            <li class="lead"><a class="text_red" href="http://jt56.org/HTML/2008/1/329.shtml"
+                                                target="_blank">微平台</a></li>
+                            <ul class="hide768">
                                 <li><a href="http://jt56.org/HTML/2008/1/329.shtml" target="_blank">功能特色</a></li>
                                 <li><a href="http://jt56.org/HTML/2008/1/328.shtml" target="_blank">产品介绍</a></li>
                                 <li><a href="http://jt56.org/HTML/CheckInCompany.shtml" target="_blank">物流企业</a></li>
                                 <li><a href="http://jt56.org/HTML/application.shtml" target="_blank">申请入驻</a></li>
                             </ul>
                         </ul>
-                        <ul class="col-lg-2 list-unstyled">
-                            <li class="text-center lead"><a href="http://jt56.org/Templates/jt56map/transportmap.html"
-                                                            target="_blank">全息地图</a></li>
-                            <ul>
+                        <ul class="daohang_item">
+                            <li class="lead"><a class="text_purple"
+                                                href="http://jt56.org/Templates/jt56map/transportmap.html"
+                                                target="_blank">全息地图</a></li>
+                            <ul class="hide768">
                                 <li><a href="http://jt56.org/Templates/jt56map/transportmap.html?cid=0" target="_blank">物流企业</a>
                                 </li>
                                 <li><a href="http://jt56.org/Templates/jt56map/transportmap.html?cid=1" target="_blank">物流仓库</a>
@@ -117,45 +147,34 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand logo" href="#"><img src="/images/logo.jpg" class="img-responsive"
-                                                       alt="Responsive image"/></a>
         </div>
 
         <!-- Collect the nav links, forms, and other content for toggling -->
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-2">
             <ul class="nav navbar-nav nav_big">
                 <li>
-                    <a class="nav_item" href="#">我的微平台</a>
+                    <a class="nav_item" href="http://ec.jt56.org/ec" target="_blank">微平台首页</a>
                 </li>
-                <li><a class="nav_item" href="/">信息共享</a></li>
-                <li><a class="nav_item" href="#">我的应用</a></li>
+                <li class="li_click"><a class="nav_item" href="http://logisinfo.jt56.org">信息共享</a></li>
+                <li><a class="nav_item" href="http://ec.jt56.org/ec/enterpriseController.do?showApplication"
+                       target="_blank">我的应用</a></li>
                 <li>
-                    <a href="#" class=" nav_item">网站管理</a>
+                    <a href="http://login.jt56.org/webAdmin" class=" nav_item" target="_blank">网站管理</a>
                 </li>
                 <li class="dropdown">
-                    <a href="#" class="dropdown-toggle nav_item" data-toggle="dropdown">企业信息<b class="caret"></b></a>
+                    <a href="javascript:" class="dropdown-toggle nav_item" data-toggle="dropdown">企业信息<b
+                                class="caret"></b></a>
                     <ul class="dropdown-menu nav_bigdropdown">
-                        <li><a href="#">企业基本信息</a></li>
-                        <li><a href="#">企业组织架构</a></li>
-                        <li><a href="#">应用授权</a></li>
+                        <li><a href="http://ec.jt56.org/ec/enterpriseController.do?viewEnterpriseinfo" target="_blank">企业基本信息</a>
+                        </li>
+                        <li><a href="http://ec.jt56.org/ec/adminNodeController.do?show" target="_blank">企业组织架构</a></li>
+                        <li><a href="http://ec.jt56.org/ec/userapplicationController.do?userapplication"
+                               target="_blank">应用授权</a></li>
+                        <li><a href="http://ec.jt56.org/ec/bssNodeController.do?show" target="_blank">业务基础信息</a></li>
                     </ul>
                 </li>
             </ul>
 
-            <ul class="nav navbar-nav navbar-right tn_margin" style="*float:right; *width:265px; *padding-top:10px;">
-                <li>
-                    <form class="navbar-form navbar-left" role="search">
-                        <div class="form-group" style="*float:left;*width:150px;">
-                            <input type="text" class="form-control" placeholder="全国最专业的物流搜索引擎"
-                                   style="_width:144px; *height:16px;_height:16px; _padding:2px;*overflow:hidden;">
-                        </div>
-                        <button style="*float:left; *margin-top:2px; _margin-top:5px; *height:30px; _height:16px; _line-height:16px;"
-                                type="submit" class="btn btn-default">搜索
-                        </button>
-                    </form>
-                </li>
-            </ul>
         </div>
-        <!-- /.navbar-collapse -->
     </nav>
 </div>

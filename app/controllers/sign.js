@@ -11,25 +11,26 @@ exports.auth_user = function (req, res, next) {
     }
 
     if (req.session.user) {
-        next();
+        res.locals.current_user = req.session.user;
+        return next();
     }
     else {
-//        var user = {id: '20131209-17380784-4160-b935-f66b86171d9b', eId: '20131209-113227a8-486a-a050-28d7ba4ab03c'};
-
+//        var user = {id: '20131214-1438198d-4b69-a9aa-245b768cb5fb', eId: '20131214-14594877-4f5f-b79e-753477f3651a', name: 'oshine'};
+        var user = {eId: '20131209-113227a8-486a-a050-28d7ba4ab03c', id: '20131209-17380784-4160-b935-f66b86171d9b', name: 'oshine'};
         //获取cookie
-        var user_cookie = req.cookies[settings.user_cookie_name];
-        if (!user_cookie) {
-            return  res.redirect('http://luc.jt56.org/uc?redirectURL=logisinfo.jt56.org');
-        }
-        var user = {id: user_cookie};
-        if (req.cookies["username"])
-            user.name = req.cookies["username"];
-        if (req.cookies[settings.e_cookie_name])
-            user.eId = req.cookies[settings.e_cookie_name];
+//        var user_cookie = req.cookies[settings.user_cookie_name];
+//        if (!user_cookie) {
+//            return  res.redirect('http://luc.jt56.org/uc?redirectURL=logisinfo.jt56.org');
+//        }
+//        var user = {id: user_cookie};
+//        if (req.cookies["username"])
+//            user.name = req.cookies["username"];
+//        if (req.cookies[settings.e_cookie_name])
+//            user.eId = req.cookies[settings.e_cookie_name];
 
         //写入session
         req.session.user = user;
-        res.locals('current_user', req.session.user);
+        res.locals.current_user = req.session.user;
         return next();
     }
 }
