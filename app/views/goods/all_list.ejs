@@ -1,0 +1,101 @@
+<%
+goodsList.forEach(function(goods){
+%>
+<div class="info_item">
+    <div class="info_content">
+        <div class=" pull-left w145 tn_padding ln_padding bn_padding">
+            <a href="#"><img src="<%= goods.image %>" width="135" height="100"></a>
+        </div>
+        <div class="pull-left w440 tn_padding rn_padding ln_padding lianxi">
+            <p><strong><a href="#"><%= goods.infoText %></a></strong></p>
+            <p>联系方式：<span class="text-primary"><%= goods.phone %></span>
+                <span class="text-primary"><%= goods.tel %></span>
+                <span class="text-primary"> <%= goods.contact %></span>
+                发布时间：<span class="text-primary"><%= goods.updatedAt %></span></p>
+            <p><a href="#" class="btn btn-success">查看</a></p>
+        </div>
+        <div class="pull-left w175 ln_padding tn_padding xijie">
+            <div class="w65 text-right pull-left">货物类型：</div><div class="pull-left xijie_xinxi"><%= goods.goodsType %></div>
+            <div class="w65 text-right pull-left">装货时间：</div><div class="pull-left xijie_xinxi"><%= goods.loadingTime %></div>
+            <span class="w65 text-right pull-left">货重：</span><div class="pull-left xijie_xinxi"><%= goods.weight %></div>
+            <span class="w65 text-right pull-left">车辆需求：</span><div class="pull-left xijie_xinxi"><%= goods.vehicle %></div>
+        </div>
+        <div class="clearfix"></div>
+    </div>
+</div>
+
+
+<% }) %>
+<% if(pages > 1){ %>
+<div class="col-lg-5 col-sm-offset-4">
+    <ul class="pagination" current_page='<%= current_page %>'>
+        <%
+            function removeURLParameter(url, parameter) {
+                var urlparts = url.split('?');
+                if (urlparts.length >= 2) {
+                    var prefix = encodeURIComponent(parameter) + '=';
+                    var pars = urlparts[1].split(/[&;]/g);
+                    for (var i = pars.length; i-- > 0;)
+                        if (pars[i].lastIndexOf(prefix, 0) !== -1)
+                            pars.splice(i, 1);
+                    url = urlparts[0] + '?' + pars.join('&');
+                    return url;
+                } else {
+                    return url;
+                }
+            }
+            base = removeURLParameter(base, 'page');
+            var base_url = base + (base.indexOf('?') < 0 ? '?' : '&') + 'page=';
+        %>
+        <% if (current_page == 1) { %>
+        <li class='disabled'><a>«</a></li>
+        <% } else { %>
+        <li><a href="<%= base_url %>1">«</a></li>
+        <% } %>
+
+        <%
+            var page_start = current_page - 2 > 0 ? current_page - 2 : 1;
+            var page_end = page_start + 4 >= pages ? pages : page_start + 4;
+        %>
+
+        <% if (page_start > 1) { %>
+        <li><a>...</a></li>
+        <% } %>
+
+        <% for(var i = page_start; i <= page_end; i++) { %>
+        <% if (i === current_page) { %>
+        <li><a><%= i %></a></li>
+        <% } else { %>
+        <li><a href='<%= base_url + i %>'><%= i %></a></li>
+        <% } %>
+        <% } %>
+
+        <% if (page_end < pages ) { %>
+        <li><a>...</a></li>
+        <% } %>
+
+        <% if (current_page == pages) { %>
+        <li class='disabled'><a>»</a></li>
+        <% } else { %>
+        <li><a href='<%= base_url + pages %>'>»</a></li>
+        <% } %>
+    </ul>
+</div>
+</div>
+<script type="text/javascript">
+    $(document).ready(function () {
+        var $nav = $('.pagination');
+        var current_page = $nav.attr('current_page');
+        if (current_page) {
+            $nav.find('li').each(function () {
+                var $li = $(this);
+                var $a = $li.find('a');
+                if ($a.html() == current_page) {
+                    $li.addClass('active');
+                    $a.removeAttr('href');
+                }
+            });
+        }
+    });
+</script>
+<% } %>

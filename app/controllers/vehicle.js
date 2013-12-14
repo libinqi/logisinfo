@@ -22,6 +22,12 @@ module.exports = {
         if (!_.isEmpty(req.query.eCity))
             opt.eCityCode = req.query.eCity;
 
+        var createrId = req.session.user.id;
+        var eId="";
+        if (req.session.user.eId) {
+            eId = req.session.user.eId;
+        }
+
         req.models.vehicle.count(opt, function (err, count) {
             if (err) {
                 if (err.code == orm.ErrorCodes.NOT_FOUND) {
@@ -35,7 +41,7 @@ module.exports = {
             }
         });
 
-        req.models.vehicle.find(opt).offset((page - 1) * limit).limit(limit).order('-updatedAt').all(function (err, vehicles) {
+        req.models.vehicle.find(opt).where("createrId!=? and updaterId!=? and eId!=?",[createrId,createrId,eId]).offset((page - 1) * limit).offset((page - 1) * limit).limit(limit).order('-updatedAt').all(function (err, vehicles) {
             if (err) {
                 if (err.code == orm.ErrorCodes.NOT_FOUND) {
                     vehicles = [];
