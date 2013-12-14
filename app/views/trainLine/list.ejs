@@ -153,7 +153,7 @@ trainLines.forEach(function(trainLine){
 
     function deletetrainLine(trainLineId) {
         $('#deleteModal').modal('show').on('shown.bs.modal',function () {
-            $("#btn_delete").attr('href', '/trainLine/delete/' + trainLineId);
+            $("#btn_delete").attr('href', '/trainline/delete/' + trainLineId);
         });
     }
 </script>

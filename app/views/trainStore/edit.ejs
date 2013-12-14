@@ -2,13 +2,13 @@
 
 <div class="container w1002 tn_margin" id="qiye">
 
-<%- partial("layouts/info_nav", {current_url: "/trainStore/edit"}) %>
+<%- partial("layouts/info_nav", {current_url: "/trainstore/edit"}) %>
 
 <div class="col-lg-10 col-md-10 col-sm-10 youce">
 <div class="bg_pale_yellow">
     <div class="col-md-12 pad_topbot_change">
         <h4 class="line_b">更新铁路货场
-            <small class="pull-right"><a href="/trainStore">返回铁路货场信息</a></small>
+            <small class="pull-right"><a href="/trainstore">返回铁路货场信息</a></small>
         </h4>
     </div>
 </div>
@@ -17,7 +17,7 @@
         <!--<label id="error" class="error"></label>-->
     </div>
 </div>
-<form id="trainStore-form" class="form-horizontal" action="/trainStore/<%= params.id %>?_method=PUT" method="POST">
+<form id="trainstore-form" class="form-horizontal" action="/trainstore/<%= params.id %>?_method=PUT" method="POST">
 <div class="form-group">
     <label for="inputEmail3" class="col-lg-4 col-sm-4 control-label jiben_left"><span class="text_red">*</span>
         货场名称：</label>
@@ -268,7 +268,7 @@
         <button type="submit" class="btn btn-info btn_detail">保存</button>
     </div>
     <div class="col-sm-1">
-        <a href="/trainStore" class="btn btn-default btn_detail">返回</a>
+        <a href="/trainstore" class="btn btn-default btn_detail">返回</a>
     </div>
 </div>
 </form>
@@ -431,7 +431,7 @@
             return this.optional(element) || (tel.test(value));
         }, "电话号码格式不正确");
 
-        $('#trainStore-form').validate({
+        $('#trainstore-form').validate({
             rules: {
                 provinceCode: "required",
                 trainStoreName: "required",

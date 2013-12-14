@@ -2,13 +2,13 @@
 
 <div class="container w1002 tn_margin" id="qiye">
 
-<%- partial("layouts/info_nav", {current_url: "/trainStore/add"}) %>
+<%- partial("layouts/info_nav", {current_url: "/trainstore/add"}) %>
 
 <div class="col-lg-10 col-md-10 col-sm-10 youce">
 <div class="bg_pale_yellow">
     <div class="col-md-12 pad_topbot_change">
         <h4 class="line_b">发布铁路货场
-            <small class="pull-right"><a href="/trainStore">返回铁路货场信息</a></small>
+            <small class="pull-right"><a href="/trainstore">返回铁路货场信息</a></small>
         </h4>
     </div>
 </div>
@@ -17,7 +17,7 @@
         <!--<label id="error" class="error"></label>-->
     </div>
 </div>
-<form id="trainStore-form" class="form-horizontal" action="/trainStore" method="POST">
+<form id="trainstore-form" class="form-horizontal" action="/trainstore" method="POST">
 <div class="form-group">
     <label for="inputEmail3" class="col-lg-4 col-sm-4 control-label jiben_left"><span class="text_red">*</span>
         货场名称：</label>
@@ -248,7 +248,7 @@
         <button type="submit" class="btn btn-info btn_detail">发布</button>
     </div>
     <div class="col-sm-1">
-        <a href="/trainStore/add" class="btn btn-default btn_detail">重置</a>
+        <a href="/trainstore/add" class="btn btn-default btn_detail">重置</a>
     </div>
 </div>
 </form>
@@ -280,7 +280,7 @@
         </div>
         <div class="info_content">
             <div class=" pull-left w145 tn_padding ln_padding bn_padding">
-                <a href="#"><img id="per_image" src="/images/no-trainStore.jpg" width="135" height="100"></a>
+                <a href="#"><img id="per_image" src="/images/no-trainstore.jpg" width="135" height="100"></a>
             </div>
             <div class="pull-left w530 tn_padding rn_padding ln_padding lianxi">
                 <p>面积：<span id="per_trainStoreArea" class="text-primary">㎡</span> | 堆放货物总量：<span id="per_goodsTotal"
@@ -402,7 +402,7 @@
             return this.optional(element) || (tel.test(value));
         }, "电话号码格式不正确");
 
-        $('#trainStore-form').validate({
+        $('#trainstore-form').validate({
             rules: {
                 provinceCode: "required",
                 trainStoreName: "required",

@@ -1,5 +1,5 @@
 <div class="container w1002 tn_margin" id="qiye">
-    <%- partial("layouts/info_nav", {current_url: "/trainStore"}) %>
+    <%- partial("layouts/info_nav", {current_url: "/trainstore"}) %>
     <div class="col-lg-10 col-md-10 col-sm-10 youce">
         <div class="bg_pale_yellow">
             <div class="col-lg-12 col-md-12 col-sm-12 pad_topbot_change">
@@ -27,7 +27,7 @@
                             if(status == 2)
                     {
                     %>
-                    <div class="third_nav"><a href="/trainStore">全部信息</a></div>
+                    <div class="third_nav"><a href="/trainstore">全部信息</a></div>
                     <div class="third_nav third_hover"><a href="<%= base_url %>2">已发布</a></div>
                     <div class="third_nav"><a href="<%= base_url %>1">未发布</a></div>
                     <%
@@ -35,7 +35,7 @@
                     else if(status == 1)
                     {
                     %>
-                    <div class="third_nav"><a href="/trainStore">全部信息</a></div>
+                    <div class="third_nav"><a href="/trainstore">全部信息</a></div>
                     <div class="third_nav"><a href="<%= base_url %>2">已发布</a></div>
                     <div class="third_nav third_hover"><a href="<%= base_url %>1">未发布</a></div>
                     <%
@@ -43,7 +43,7 @@
                     else
                     {
                     %>
-                    <div class="third_nav third_hover"><a href="/trainStore">全部信息</a></div>
+                    <div class="third_nav third_hover"><a href="/trainstore">全部信息</a></div>
                     <div class="third_nav"><a href="<%= base_url %>2">已发布</a></div>
                     <div class="third_nav"><a href="<%= base_url %>1">未发布</a></div>
                     <%
@@ -51,13 +51,13 @@
                     }else
                     {
                     %>
-                    <div class="third_nav third_hover"><a href="/trainStore">全部信息</a></div>
+                    <div class="third_nav third_hover"><a href="/trainstore">全部信息</a></div>
                     <div class="third_nav"><a href="<%= base_url %>2">已发布</a></div>
                     <div class="third_nav"><a href="<%= base_url %>1">未发布</a></div>
                     <%
                     } %>
 
-                    <a href="/trainStore/add" class="btn pull-right btn-info btn-sm">发布铁路货场</a>
+                    <a href="/trainstore/add" class="btn pull-right btn-info btn-sm">发布铁路货场</a>
                 </h4>
             </div>
         </div>
@@ -115,7 +115,7 @@
         <div class="col-lg-12 col-dm-12 col-sm-12 info tn_margin">
             <% if(locals.trainStores && locals.trainStores.length){
             %>
-            <%- partial('trainStore/list', {
+            <%- partial('trainstore/list', {
                 trainStores: trainStores,
                 current_page: current_page,
                 list_count: list_count,
@@ -168,11 +168,11 @@
         if (url) {
             if (url.substr(0, 1) == "&")
                 url = url.substr(1, url.length - 1);
-            window.location.href = "/trainStore?" + url;
+            window.location.href = "/trainstore?" + url;
         }
         else
         {
-            window.location.href = "/trainStore";
+            window.location.href = "/trainstore";
         }
     }
 </script>

@@ -2,13 +2,13 @@
 
 <div class="container w1002 tn_margin" id="qiye">
 
-<%- partial("layouts/info_nav", {current_url: "/trainLine/add"}) %>
+<%- partial("layouts/info_nav", {current_url: "/trainline/add"}) %>
 
 <div class="col-lg-10 col-md-10 col-sm-10 youce">
 <div class="bg_pale_yellow">
     <div class="col-md-12 pad_topbot_change">
         <h4 class="line_b">发布铁路专线
-            <small class="pull-right"><a href="/trainLine">返回铁路专线信息</a></small>
+            <small class="pull-right"><a href="/trainline">返回铁路专线信息</a></small>
         </h4>
     </div>
 </div>
@@ -17,7 +17,7 @@
         <!--<label id="error" class="error"></label>-->
     </div>
 </div>
-<form id="trainLine-form" class="form-horizontal" action="/trainLine" method="POST">
+<form id="trainline-form" class="form-horizontal" action="/trainline" method="POST">
 <div class="form-group">
     <label for="inputEmail3" class="col-lg-4 col-sm-4 control-label jiben_left"><span class="text_red">*</span>
         专线名称：</label>
@@ -225,7 +225,7 @@
         <button type="submit" class="btn btn-info btn_detail">发布</button>
     </div>
     <div class="col-sm-1">
-        <a href="/trainLine/add" class="btn btn-default btn_detail">重置</a>
+        <a href="/trainline/add" class="btn btn-default btn_detail">重置</a>
     </div>
 </div>
 </form>
@@ -257,7 +257,7 @@
         </div>
         <div class="info_content">
             <div class=" pull-left w145 tn_padding ln_padding bn_padding">
-                <a href="#"><img id="per_image" src="/images/no-trainLine.jpg" width="135" height="100"></a>
+                <a href="#"><img id="per_image" src="/images/no-trainline.jpg" width="135" height="100"></a>
             </div>
             <div class="pull-left w530 tn_padding rn_padding ln_padding lianxi">
                 <p>日装载量：<span id="per_dayCapacity" class="text-primary">未填写</span> | 年吞吐量：<span id="per_yearCapacity"
@@ -372,7 +372,7 @@
             return this.optional(element) || (tel.test(value));
         }, "电话号码格式不正确");
 
-        $('#trainLine-form').validate({
+        $('#trainline-form').validate({
             rules: {
                 provinceCode: "required",
                 trainLineName: "required",

@@ -55,7 +55,7 @@ module.exports = {
                 if (trainLine.phone && trainLine.tel)
                     trainLine.tel = "/ " + trainLine.tel;
             });
-            res.render('trainLine/index', {
+            res.render('trainline/index', {
                 trainLines: trainLines,
                 current_page: page,
                 list_count: limit,
@@ -70,7 +70,7 @@ module.exports = {
             if (_.isNull(val))return "";
             return val;
         });
-        res.render('trainLine/add', {params: req.params, trainLine: trainLine, validate_type: info_dict.validate_type});
+        res.render('trainline/add', {params: req.params, trainLine: trainLine, validate_type: info_dict.validate_type});
     },
     create: function (req, res, next) {
         var trainLineEntity = _.merge(new req.models.trainLine().serialize(), req.body);
@@ -93,7 +93,7 @@ module.exports = {
                     return next(err);
                 }
             }
-            res.redirect('/trainLine');
+            res.redirect('/trainline');
         });
     },
     show: function (req, res, next) {
@@ -119,7 +119,7 @@ module.exports = {
             if (trainLine.phone && trainLine.tel) {
                 trainLine.telText = "/ " + trainLine.tel;
             }
-            res.render('trainLine/edit', {params: req.params, trainLine: trainLine, validate_type: info_dict.validate_type});
+            res.render('trainline/edit', {params: req.params, trainLine: trainLine, validate_type: info_dict.validate_type});
         });
     },
     update: function (req, res, next) {
@@ -145,7 +145,7 @@ module.exports = {
                         return next(err);
                     }
                 }
-                res.redirect('/trainLine');
+                res.redirect('/trainline');
             });
         });
     },
@@ -169,7 +169,7 @@ module.exports = {
                         return next(err);
                     }
                 }
-                res.redirect('/trainLine');
+                res.redirect('/trainline');
             });
         });
     },

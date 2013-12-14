@@ -152,7 +152,7 @@ trainStores.forEach(function(trainStore){
 
     function deletetrainStore(trainStoreId) {
         $('#deleteModal').modal('show').on('shown.bs.modal',function () {
-            $("#btn_delete").attr('href', '/trainStore/delete/' + trainStoreId);
+            $("#btn_delete").attr('href', '/trainstore/delete/' + trainStoreId);
         });
     }
 </script>

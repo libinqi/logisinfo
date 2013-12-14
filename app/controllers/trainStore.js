@@ -60,7 +60,7 @@ module.exports = {
                 if (trainStore.phone && trainStore.tel)
                     trainStore.tel = "/ " + trainStore.tel;
             });
-            res.render('trainStore/index', {
+            res.render('trainstore/index', {
                 trainStores: trainStores,
                 current_page: page,
                 list_count: limit,
@@ -79,7 +79,7 @@ module.exports = {
             if (_.isNull(val))return "";
             return val;
         });
-        res.render('trainStore/add', {params: req.params, trainStore: trainStore, train_store_type: info_dict.train_store_type, train_store_level: info_dict.train_store_level, validate_type: info_dict.validate_type});
+        res.render('trainstore/add', {params: req.params, trainStore: trainStore, train_store_type: info_dict.train_store_type, train_store_level: info_dict.train_store_level, validate_type: info_dict.validate_type});
     },
     create: function (req, res, next) {
         var trainStoreEntity = _.merge(new req.models.trainStore().serialize(), req.body);
@@ -104,7 +104,7 @@ module.exports = {
                     return next(err);
                 }
             }
-            res.redirect('/trainStore');
+            res.redirect('/trainstore');
         });
     },
     show: function (req, res, next) {
@@ -130,7 +130,7 @@ module.exports = {
             if (trainStore.phone && trainStore.tel) {
                 trainStore.telText = "/ " + trainStore.tel;
             }
-            res.render('trainStore/edit', {params: req.params, trainStore: trainStore, train_store_type: info_dict.train_store_type, train_store_level: info_dict.train_store_level, validate_type: info_dict.validate_type});
+            res.render('trainstore/edit', {params: req.params, trainStore: trainStore, train_store_type: info_dict.train_store_type, train_store_level: info_dict.train_store_level, validate_type: info_dict.validate_type});
         });
     },
     update: function (req, res, next) {
@@ -158,7 +158,7 @@ module.exports = {
                         return next(err);
                     }
                 }
-                res.redirect('/trainStore');
+                res.redirect('/trainstore');
             });
         });
     },
@@ -182,7 +182,7 @@ module.exports = {
                         return next(err);
                     }
                 }
-                res.redirect('/trainStore');
+                res.redirect('/trainstore');
             });
         });
     },

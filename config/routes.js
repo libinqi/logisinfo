@@ -29,23 +29,23 @@ module.exports = function (app) {
     app.get('/port/delete/:id', controllers.port.remove);
     app.get('/port/change_status/:id', controllers.port.change_status);
 
-    app.get('/trainStore', controllers.trainStore.index);
-    app.get('/trainStore/add', controllers.trainStore.add);
-    app.post('/trainStore', controllers.trainStore.create);
-    app.get('/trainStore/:id', controllers.trainStore.show);
-    app.get('/trainStore/edit/:id', controllers.trainStore.edit);
-    app.post('/trainStore/:id', controllers.trainStore.update);
-    app.get('/trainStore/delete/:id', controllers.trainStore.remove);
-    app.get('/trainStore/change_status/:id', controllers.trainStore.change_status);
+    app.get('/trainstore', controllers.trainStore.index);
+    app.get('/trainstore/add', controllers.trainStore.add);
+    app.post('/trainstore', controllers.trainStore.create);
+    app.get('/trainstore/:id', controllers.trainStore.show);
+    app.get('/trainstore/edit/:id', controllers.trainStore.edit);
+    app.post('/trainstore/:id', controllers.trainStore.update);
+    app.get('/trainstore/delete/:id', controllers.trainStore.remove);
+    app.get('/trainstore/change_status/:id', controllers.trainStore.change_status);
 
-    app.get('/trainLine', controllers.trainLine.index);
-    app.get('/trainLine/add', controllers.trainLine.add);
-    app.post('/trainLine', controllers.trainLine.create);
-    app.get('/trainLine/:id', controllers.trainLine.show);
-    app.get('/trainLine/edit/:id', controllers.trainLine.edit);
-    app.post('/trainLine/:id', controllers.trainLine.update);
-    app.get('/trainLine/delete/:id', controllers.trainLine.remove);
-    app.get('/trainLine/change_status/:id', controllers.trainLine.change_status);
+    app.get('/trainline', controllers.trainLine.index);
+    app.get('/trainline/add', controllers.trainLine.add);
+    app.post('/trainline', controllers.trainLine.create);
+    app.get('/trainline/:id', controllers.trainLine.show);
+    app.get('/trainline/edit/:id', controllers.trainLine.edit);
+    app.post('/trainline/:id', controllers.trainLine.update);
+    app.get('/trainline/delete/:id', controllers.trainLine.remove);
+    app.get('/trainline/change_status/:id', controllers.trainLine.change_status);
 
     app.get('/goods', controllers.goods.index);
     app.get('/goods/all', controllers.goods.all);

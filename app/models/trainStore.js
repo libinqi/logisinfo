@@ -2,7 +2,7 @@
 var ids = require("../../util/ids");
 
 module.exports = function (orm, db) {
-    var trainStore = db.define('trainStore', {
+    var TrainStore = db.define('trainStore', {
             id: {type: 'text', required: true},
             provinceCode: {type: 'text', required: true},
             province: {type: 'text', required: true},
