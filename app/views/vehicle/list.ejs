@@ -12,7 +12,23 @@ vehicles.forEach(function(vehicle){
                 <span class="text-primary"><%= vehicle.tel %></span>
                 <span class="text-primary">    <%= vehicle.contact %></span>
                 发布时间：<span class="text-primary"><%= vehicle.updatedAt %></span></p>
-            <p><a href="#" class="btn btn-success">查看</a><a href="/vehicle/edit/<%= vehicle.id %>" class="btn btn-warning ln_margin">修改</a></p>
+            <p>
+                <%
+                if(vehicle.status == 1)
+                {
+                %>
+                <a href="http://login.jt56.org/Api/Interface/goToInfo?type=vehicle&euuid=<%= vehicle.eId %>&infoid=<%= vehicle.id %>"
+                   target="_blank" class="btn btn-info">查看</a>
+                <%
+                }
+                else
+                {
+                %>
+                <input class="btn w55 inputinline" type="button" value="查看">
+                <%
+                }
+                %>
+                <a href="/vehicle/edit/<%= vehicle.id %>" class="btn btn-warning ln_margin">修改</a></p>
         </div>
         <div class="pull-left w175 ln_padding tn_padding xijie">
             <div class="w65 text-right pull-left">车辆类型：</div><div class="pull-left xijie_xinxi"><%= vehicle.vehicleType %></div>

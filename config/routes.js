@@ -1,7 +1,7 @@
 ﻿var controllers = require('../app/controllers')
 
 module.exports = function (app) {
-    app.get('/', controllers.line.index);
+    app.get('/', controllers.home.index);
     app.get('/line', controllers.line.index);
     app.get('/line/add', controllers.line.add);
     app.post('/line', controllers.line.create);

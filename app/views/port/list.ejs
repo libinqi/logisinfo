@@ -42,7 +42,21 @@ ports.forEach(function(port){
         </div>
 
         <div class="pull-right w80 tl_padding">
-            <input class="btn btn-info" type="button" value="查看">
+            <%
+            if(port.status == 1)
+            {
+            %>
+            <a href="http://login.jt56.org/Api/Interface/goToInfo?type=port&euuid=<%= port.eId %>&infoid=<%= port.id %>"
+               target="_blank" class="btn btn-info">查看</a>
+            <%
+            }
+            else
+            {
+            %>
+            <input class="btn w55 inputinline" type="button" value="查看">
+            <%
+            }
+            %>
             <a href="/port/edit/<%= port.id %> " class="btn btn-warning tn_margin">修改</a>
         </div>
         <div class="clearfix"></div>

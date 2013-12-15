@@ -16,7 +16,7 @@ exports.auth_user = function (req, res, next) {
     }
     else {
 //        var user = {id: '20131214-1438198d-4b69-a9aa-245b768cb5fb', eId: '20131214-14594877-4f5f-b79e-753477f3651a', name: 'oshine'};
-        var user = {eId: '20131209-113227a8-486a-a050-28d7ba4ab03c', id: '20131209-17380784-4160-b935-f66b86171d9b', name: 'oshine'};
+        var user = {eId: '20131215-09484639-495e-866f-7fed3d114e16', id: '20131214-144753e5-4924-ac83-cefdfd524a2e', name: 'hnftwl'};
         //获取cookie
 //        var user_cookie = req.cookies[settings.user_cookie_name];
 //        if (!user_cookie) {
