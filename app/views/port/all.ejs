@@ -108,10 +108,10 @@
         if (url) {
             if (url.substr(0, 1) == "&")
                 url = url.substr(1, url.length - 1);
-            window.location.href = "/port?" + url;
+            window.location.href = "/port/all?" + url;
         }
         else {
-            window.location.href = "/port";
+            window.location.href = "/port/all";
         }
     }
 </script>

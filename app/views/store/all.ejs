@@ -108,11 +108,11 @@
         if (url) {
             if (url.substr(0, 1) == "&")
                 url = url.substr(1, url.length - 1);
-            window.location.href = "/store?" + url;
+            window.location.href = "/store/all?" + url;
         }
         else
         {
-            window.location.href = "/store";
+            window.location.href = "/store/all";
         }
     }
 </script>
