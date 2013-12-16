@@ -187,14 +187,12 @@ module.exports = {
         storeEntity.storeType = _.find(info_dict.store_type, {'id': storeEntity.storeTypeCode}).name;
         storeEntity.businessScope = _.find(info_dict.business_scope, {'id': storeEntity.businessScopeCode}).name;
 
-        if(!storeEntity.useArea)
-        {
+        if (!storeEntity.useArea) {
             delete storeEntity.useArea;
         }
 
-        if(!storeEntity.referPrice)
-        {
-            delete storeEntity.referPrice;
+        if (!storeEntity.referPrice) {
+            storeEntity.referPrice = 0;
         }
 
         var day = _.find(info_dict.validate_type, {'id': storeEntity.valid}).day;
@@ -251,13 +249,11 @@ module.exports = {
             storeEntity.storeType = _.find(info_dict.store_type, {'id': storeEntity.storeTypeCode}).name;
             storeEntity.businessScope = _.find(info_dict.business_scope, {'id': storeEntity.businessScopeCode}).name;
 
-            if(!storeEntity.useArea)
-            {
+            if (!storeEntity.useArea) {
                 delete storeEntity.useArea;
             }
-            if(!storeEntity.referPrice)
-            {
-                delete storeEntity.referPrice;
+            if (!storeEntity.referPrice) {
+                storeEntity.referPrice = 0;
             }
 
             var day = _.find(info_dict.validate_type, {'id': storeEntity.valid}).day;

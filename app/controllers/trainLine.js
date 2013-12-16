@@ -145,6 +145,11 @@ module.exports = {
             trainLineEntity.eId = req.session.user.eId;
         }
 
+        if(!trainLineEntity.lineLength)
+        {
+            delete trainLineEntity.lineLength;
+        }
+
         var day = _.find(info_dict.validate_type, {'id': trainLineEntity.valid}).day;
         trainLineEntity.expiryDate = moment().add('d', day).valueOf();
         req.models.trainLine.create(trainLineEntity, function (err, trainLine) {
@@ -196,6 +201,11 @@ module.exports = {
             var trainLineEntity = _.merge(trainLine, req.body);
             trainLineEntity.updaterId = req.session.user.id;
             trainLineEntity.updatedAt = new Date().getTime();
+
+            if(!trainLineEntity.lineLength)
+            {
+                delete trainLineEntity.lineLength;
+            }
 
             var day = _.find(info_dict.validate_type, {'id': trainLineEntity.valid}).day;
             trainLineEntity.expiryDate = moment().add('d', day).valueOf();
