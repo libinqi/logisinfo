@@ -113,11 +113,11 @@
         if (url) {
             if (url.substr(0, 1) == "&")
                 url = url.substr(1, url.length - 1);
-            window.location.href = "/trainstore?" + url;
+            window.location.href = "/trainstore/all?" + url;
         }
         else
         {
-            window.location.href = "/trainstore";
+            window.location.href = "/trainstore/all";
         }
     }
 </script>

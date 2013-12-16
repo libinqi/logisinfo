@@ -4,10 +4,10 @@ goodsList.forEach(function(goods){
 <div class="info_item">
     <div class="info_content">
         <div class=" pull-left w145 tn_padding ln_padding bn_padding">
-            <a href="#"><img src="<%= goods.image %>" width="135" height="100"></a>
+            <a href="http://login.jt56.org/Api/Interface/goToInfo?type=goods&euuid=<%= goods.eId %>&infoid=<%= goods.id %>"><img src="<%= goods.image %>" width="135" height="100"></a>
         </div>
         <div class="pull-left w440 tn_padding rn_padding ln_padding lianxi">
-            <p><strong><a href="#"><%= goods.infoText %></a></strong></p>
+            <p><strong><a href="http://login.jt56.org/Api/Interface/goToInfo?type=goods&euuid=<%= goods.eId %>&infoid=<%= goods.id %>"><%= goods.infoText %></a></strong></p>
             <p>联系方式：<span class="text-primary"><%= goods.phone %></span>
                 <span class="text-primary"><%= goods.tel %></span>
                 <span class="text-primary"> <%= goods.contact %></span>
