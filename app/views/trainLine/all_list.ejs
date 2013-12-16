@@ -1,41 +1,50 @@
 <%
-goodsList.forEach(function(goods){
+trainLines.forEach(function(trainLine){
 %>
 <div class="info_item">
+    <div class="info_title">
+        <div class="w210 ln_padding pull-left">
+            <span class="pull-left"><strong><%=trainLine.trainLineName%></strong></span>
+            <span class="clearfix"></span>
+        </div>
+        <!--<div class="w100 pull-left"><small>最新订单：<span class="text-primary">5</span></small></div>-->
+        <div class="w220 pull-left"><small>更新时间：<%= trainLine.updatedAt %></small></div>
+        <div class="w140 pull-right">
+            <small class="dropdown">信息有效期：
+                <a href="#" class="dropdown-toggle"
+                   data-toggle="dropdown"><%= trainLine.valid %></a>
+            </small>
+        </div>
+        <div class="chaozuo pull-right">
+            <!--<div class="shouqi pull-left"><a href="#"><img src="images/shouqi.png"></a></div>-->
+            <!--<div class="delet pull-right"><a href="javascript:void(0)" onclick="deletetrainLine('<%= trainLine.id %>');return false;"><img src="images/delet.png"></a></div>-->
+        </div>
+        <div class="clearfix"></div>
+    </div>
     <div class="info_content">
         <div class=" pull-left w145 tn_padding ln_padding bn_padding">
-            <a href="#"><img src="<%= goods.image %>" width="135" height="100"></a>
+            <a href="#"><img src="<%=trainLine.image%>" width="135" height="100"></a>
         </div>
-        <div class="pull-left w440 tn_padding rn_padding ln_padding lianxi">
-            <p><strong><a href="#"><%= goods.infoText %></a></strong></p>
+        <div class="pull-left w530 tn_padding rn_padding ln_padding lianxi">
 
-            <p>联系方式：<span class="text-primary"><%= goods.phone %></span>
-                <span class="text-primary"><%= goods.tel %></span>
-                <span class="text-primary"> <%= goods.contact %></span>
-                发布时间：<span class="text-primary"><%= goods.updatedAt %></span></p>
-
-            <p>
-                <a href="http://login.jt56.org/Api/Interface/goToInfo?type=goods&euuid=<%= goods.eId %>&infoid=<%= goods.id %>"
-                   target="_blank" class="btn btn-info">查看</a>
+            <p>日装载量：<span id="per_dayCapacity" class="text-primary"><%= trainLine.dayCapacity %>吨</span> | 年吞吐量：<span id="per_yearCapacity"
+                                                                                            class="text-primary"><%= trainLine.yearCapacity %>吨</span>
             </p>
+
+            <p>停放车皮总数量：<span id="per_trainBoxNumber" class="text-primary"><%= trainLine.trainBoxNumber %>辆</span> | 联系方式：<span class="text-primary"><%= trainLine.phone %></span>
+                <span class="text-primary"><%= trainLine.tel %></span>
+                <span class="text-primary">    <%= trainLine.contact %></span></p>
+
+            <p>具体位置：<%= trainLine.province %><%= trainLine.city %><%= trainLine.area %><%= trainLine.address %></p>
         </div>
-        <div class="pull-left w175 ln_padding tn_padding xijie">
-            <div class="w65 text-right pull-left">货物类型：</div>
-            <div class="pull-left xijie_xinxi"><%= goods.goodsType %></div>
-            <div class="w65 text-right pull-left">装货时间：</div>
-            <div class="pull-left xijie_xinxi"><%= goods.loadingTime %></div>
-            <span class="w65 text-right pull-left">货重：</span>
 
-            <div class="pull-left xijie_xinxi"><%= goods.weight %></div>
-            <span class="w65 text-right pull-left">车辆需求：</span>
-
-            <div class="pull-left xijie_xinxi"><%= goods.vehicle %></div>
+        <div class="pull-right w80 tl_padding">
+            <a href="http://login.jt56.org/Api/Interface/goToInfo?type=trainline&euuid=<%= trainLine.eId %>&infoid=<%= trainLine.id %>"
+               target="_blank" class="btn btn-info">查看</a>
         </div>
         <div class="clearfix"></div>
     </div>
 </div>
-
-
 <% }) %>
 <% if(pages > 1){ %>
 <div class="col-lg-5 col-sm-offset-4">

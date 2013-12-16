@@ -6,6 +6,102 @@ var settings = require('../../config/settings');
 var info_dict = require('../../util/info_dict');
 
 module.exports = {
+    all: function (req, res, next) {
+        var status = Number(req.query.status) || "";
+        var page = Number(req.query.page) || 1;
+        var limit = settings.list_count;
+        var pages = 0;
+
+        var opt = {};
+        opt.isDeleted = 0;
+        opt.status = 1;
+        opt.expiryDate = orm.gt(new Date().getTime());
+
+        if (!_.isEmpty(req.query.sProvince))
+            opt.sProvinceCode = req.query.sProvince;
+        if (!_.isEmpty(req.query.sCity))
+            opt.sCityCode = req.query.sCity;
+        if (!_.isEmpty(req.query.eProvince))
+            opt.eProvinceCode = req.query.eProvince;
+        if (!_.isEmpty(req.query.eCity))
+            opt.eCityCode = req.query.eCity;
+
+        req.models.line.count(opt, function (err, count) {
+            if (err) {
+                if (err.code == orm.ErrorCodes.NOT_FOUND) {
+                    pages = 0;
+                } else {
+                    return next(err);
+                }
+            }
+            else {
+                pages = Math.ceil(count / limit);
+            }
+        });
+
+        req.models.line.find(opt).offset((page - 1) * limit).limit(limit).order('-updatedAt').all(function (err, lines) {
+            if (err) {
+                if (err.code == orm.ErrorCodes.NOT_FOUND) {
+//                    res.send(404, "没有任何专线信息");
+                    lines = [];
+                    pages = 0;
+                } else {
+                    return next(err);
+                }
+            }
+            lines.forEach(function (line) {
+                line.updatedAt = moment(parseInt(line.updatedAt)).format('YYYY-MM-DD HH:mm:ss');
+                line.statusText = line.status == "1" ? "已发布" : "未发布";
+                line.transTimeText = _.find(info_dict.trans_time, {'id': line.transTime}).name;
+
+                if (line.valid == 1) {
+                    line.valid = "永不过期";
+                }
+                else {
+                    moment.lang('zh-cn');
+                    line.valid = moment(parseInt(line.expiryDate)).fromNow();
+                }
+
+                if (!line.image) {
+                    line.image = "/images/no-line.jpg";
+                }
+                if (line.heavyCargoPrice == "" || line.heavyCargoPrice == "0") {
+                    line.heavyCargoPrice = "面议";
+                }
+                else {
+                    line.heavyCargoPrice = line.heavyCargoPrice + "元/吨";
+                }
+                if (line.foamGoodsPrice == "" || line.foamGoodsPrice == "0") {
+                    line.foamGoodsPrice = "面议";
+                }
+                else {
+                    line.foamGoodsPrice = line.foamGoodsPrice + "元/公斤"
+                }
+                if (line.isFrozen == "0") {
+                    line.transRate = "不固定";
+                }
+                else {
+                    line.transRate = "每" + line.transRateDay + "天" + line.transRateNumber + "班";
+                }
+                if (line.startPhone && line.startTel)
+                    line.startTel = "/ " + line.startTel;
+                if (line.endPhone && line.endTel)
+                    line.endTel = "/ " + line.endTel;
+            });
+            res.render('line/all', {
+                lines: lines,
+                current_page: page,
+                list_line_count: limit,
+                pages: pages,
+                status: status,
+                base: req.url,
+                sProvince: req.query.sProvince,
+                sCity: req.query.sCity,
+                eProvince: req.query.eProvince,
+                eCity: req.query.eCity
+            });
+        });
+    },
     index: function (req, res, next) {
         var status = Number(req.query.status) || "";
         var page = Number(req.query.page) || 1;

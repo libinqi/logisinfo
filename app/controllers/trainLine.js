@@ -6,6 +6,68 @@ var settings = require('../../config/settings');
 var info_dict = require('../../util/info_dict');
 
 module.exports = {
+    all: function (req, res, next) {
+        var status = Number(req.query.status) || "";
+        var page = Number(req.query.page) || 1;
+        var limit = settings.list_count;
+        var pages = 0;
+
+        var opt = {};
+        opt.isDeleted = 0;
+        opt.status = 1;
+        opt.expiryDate = orm.gt(new Date().getTime());
+
+        req.models.trainLine.count(opt, function (err, count) {
+            if (err) {
+                if (err.code == orm.ErrorCodes.NOT_FOUND) {
+                    pages = 0;
+                } else {
+                    return next(err);
+                }
+            }
+            else {
+                pages = Math.ceil(count / limit);
+            }
+        });
+
+        req.models.trainLine.find(opt).offset((page - 1) * limit).limit(limit).order('-updatedAt').all(function (err, trainLines) {
+            if (err) {
+                if (err.code == orm.ErrorCodes.NOT_FOUND) {
+                    trainLines = [];
+                    pages = 0;
+                } else {
+                    return next(err);
+                }
+            }
+            trainLines.forEach(function (trainLine) {
+                trainLine.updatedAt = moment(parseInt(trainLine.updatedAt)).format('YYYY-MM-DD HH:mm:ss');
+                trainLine.statusText = trainLine.status == "1" ? "已发布" : "未发布";
+
+                if (trainLine.valid == 1) {
+                    trainLine.valid = "永不过期";
+                }
+                else {
+                    moment.lang('zh-cn');
+                    trainLine.valid = moment(parseInt(trainLine.expiryDate)).fromNow();
+                }
+
+                if (!trainLine.image) {
+                    trainLine.image = "/images/no-trainline.jpg";
+                }
+
+                if (trainLine.phone && trainLine.tel)
+                    trainLine.tel = "/ " + trainLine.tel;
+            });
+            res.render('trainline/all', {
+                trainLines: trainLines,
+                current_page: page,
+                list_count: limit,
+                pages: pages,
+                status: status,
+                base: req.url
+            });
+        });
+    },
     index: function (req, res, next) {
         var status = Number(req.query.status) || "";
         var page = Number(req.query.page) || 1;

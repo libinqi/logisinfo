@@ -12,6 +12,8 @@ module.exports = {
         var pages = 0;
 
         var opt = {isDeleted: 0};
+        opt.status=1;
+        opt.expiryDate = orm.gt(new Date().getTime());
 
         if (!_.isEmpty(req.query.sProvince))
             opt.sProvinceCode = req.query.sProvince;

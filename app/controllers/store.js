@@ -6,6 +6,84 @@ var settings = require('../../config/settings');
 var info_dict = require('../../util/info_dict');
 
 module.exports = {
+    all: function (req, res, next) {
+        var status = Number(req.query.status) || "";
+        var page = Number(req.query.page) || 1;
+        var limit = settings.list_count;
+        var pages = 0;
+
+        var opt = {};
+        opt.isDeleted = 0;
+        opt.status = 1;
+        opt.expiryDate = orm.gt(new Date().getTime());
+
+        if (!_.isEmpty(req.query.storeType))
+            opt.storeTypeCode = req.query.storeType;
+        if (!_.isEmpty(req.query.businessScope))
+            opt.businessScopeCode = req.query.businessScope;
+
+        req.models.store.count(opt, function (err, count) {
+            if (err) {
+                if (err.code == orm.ErrorCodes.NOT_FOUND) {
+                    pages = 0;
+                } else {
+                    return next(err);
+                }
+            }
+            else {
+                pages = Math.ceil(count / limit);
+            }
+        });
+
+        req.models.store.find(opt).offset((page - 1) * limit).limit(limit).order('-updatedAt').all(function (err, stores) {
+            if (err) {
+                if (err.code == orm.ErrorCodes.NOT_FOUND) {
+//                    res.send(404, "没有任何专线信息");
+                    stores = [];
+                    pages = 0;
+                } else {
+                    return next(err);
+                }
+            }
+            stores.forEach(function (store) {
+                store.updatedAt = moment(parseInt(store.updatedAt)).format('YYYY-MM-DD HH:mm:ss');
+                store.statusText = store.status == "1" ? "已发布" : "未发布";
+
+                if (store.valid == 1) {
+                    store.valid = "永不过期";
+                }
+                else {
+                    moment.lang('zh-cn');
+                    store.valid = moment(parseInt(store.expiryDate)).fromNow();
+                }
+
+                if (!store.image) {
+                    store.image = "/images/no-store.jpg";
+                }
+                if (store.referPrice == "" || store.referPrice == "0") {
+                    store.referPrice = "面议";
+                }
+                else {
+                    store.referPrice = store.referPrice + (store.referPriceFlag == 0 ? "元/平方/年" : "元/平方/月");
+                }
+
+                if (store.phone && store.tel)
+                    store.tel = "/ " + store.tel;
+            });
+            res.render('store/all', {
+                stores: stores,
+                current_page: page,
+                list_count: limit,
+                pages: pages,
+                status: status,
+                base: req.url,
+                store_type: info_dict.store_type,
+                business_scope: info_dict.business_scope,
+                storeTypeCode: req.query.storeType,
+                businessScopeCode: req.query.businessScope
+            });
+        });
+    },
     index: function (req, res, next) {
         var status = Number(req.query.status) || "";
         var page = Number(req.query.page) || 1;

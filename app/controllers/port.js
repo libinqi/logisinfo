@@ -6,6 +6,77 @@ var settings = require('../../config/settings');
 var info_dict = require('../../util/info_dict');
 
 module.exports = {
+    all: function (req, res, next) {
+        var status = Number(req.query.status) || "";
+        var page = Number(req.query.page) || 1;
+        var limit = settings.list_count;
+        var pages = 0;
+
+        var opt = {};
+        opt.isDeleted = 0;
+        opt.status = 1;
+        opt.expiryDate = orm.gt(new Date().getTime());
+
+        if (!_.isEmpty(req.query.portType))
+            opt.portTypeCode = req.query.portType;
+        if (!_.isEmpty(req.query.portLevel))
+            opt.portLevelCode = req.query.portLevelCode;
+
+        req.models.port.count(opt, function (err, count) {
+            if (err) {
+                if (err.code == orm.ErrorCodes.NOT_FOUND) {
+                    pages = 0;
+                } else {
+                    return next(err);
+                }
+            }
+            else {
+                pages = Math.ceil(count / limit);
+            }
+        });
+
+        req.models.port.find(opt).offset((page - 1) * limit).limit(limit).order('-updatedAt').all(function (err, ports) {
+            if (err) {
+                if (err.code == orm.ErrorCodes.NOT_FOUND) {
+                    ports = [];
+                    pages = 0;
+                } else {
+                    return next(err);
+                }
+            }
+            ports.forEach(function (port) {
+                port.updatedAt = moment(parseInt(port.updatedAt)).format('YYYY-MM-DD HH:mm:ss');
+                port.statusText = port.status == "1" ? "已发布" : "未发布";
+
+                if (port.valid == 1) {
+                    port.valid = "永不过期";
+                }
+                else {
+                    moment.lang('zh-cn');
+                    port.valid = moment(parseInt(port.expiryDate)).fromNow();
+                }
+
+                if (!port.image) {
+                    port.image = "/images/no-port.jpg";
+                }
+
+                if (port.phone && port.tel)
+                    port.tel = "/ " + port.tel;
+            });
+            res.render('port/all', {
+                ports: ports,
+                current_page: page,
+                list_count: limit,
+                pages: pages,
+                status: status,
+                base: req.url,
+                port_type: info_dict.port_type,
+                port_level: info_dict.port_level,
+                portTypeCode:req.query.portType,
+                portLevelCode:req.query.portLevelCode
+            });
+        });
+    },
     index: function (req, res, next) {
         var status = Number(req.query.status) || "";
         var page = Number(req.query.page) || 1;

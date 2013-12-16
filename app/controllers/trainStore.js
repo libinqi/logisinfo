@@ -6,6 +6,77 @@ var settings = require('../../config/settings');
 var info_dict = require('../../util/info_dict');
 
 module.exports = {
+    all: function (req, res, next) {
+        var status = Number(req.query.status) || "";
+        var page = Number(req.query.page) || 1;
+        var limit = settings.list_count;
+        var pages = 0;
+
+        var opt = {};
+        opt.isDeleted = 0;
+        opt.status = 1;
+        opt.expiryDate = orm.gt(new Date().getTime());
+
+        if (!_.isEmpty(req.query.trainStoreType))
+            opt.trainStoreTypeCode = req.query.trainStoreType;
+        if (!_.isEmpty(req.query.trainStoreLevel))
+            opt.trainStoreLevelCode = req.query.trainStoreLevelCode;
+
+        req.models.trainStore.count(opt, function (err, count) {
+            if (err) {
+                if (err.code == orm.ErrorCodes.NOT_FOUND) {
+                    pages = 0;
+                } else {
+                    return next(err);
+                }
+            }
+            else {
+                pages = Math.ceil(count / limit);
+            }
+        });
+
+        req.models.trainStore.find(opt).offset((page - 1) * limit).limit(limit).order('-updatedAt').all(function (err, trainStores) {
+            if (err) {
+                if (err.code == orm.ErrorCodes.NOT_FOUND) {
+                    trainStores = [];
+                    pages = 0;
+                } else {
+                    return next(err);
+                }
+            }
+            trainStores.forEach(function (trainStore) {
+                trainStore.updatedAt = moment(parseInt(trainStore.updatedAt)).format('YYYY-MM-DD HH:mm:ss');
+                trainStore.statusText = trainStore.status == "1" ? "已发布" : "未发布";
+
+                if (trainStore.valid == 1) {
+                    trainStore.valid = "永不过期";
+                }
+                else {
+                    moment.lang('zh-cn');
+                    trainStore.valid = moment(parseInt(trainStore.expiryDate)).fromNow();
+                }
+
+                if (!trainStore.image) {
+                    trainStore.image = "/images/no-trainstore.jpg";
+                }
+
+                if (trainStore.phone && trainStore.tel)
+                    trainStore.tel = "/ " + trainStore.tel;
+            });
+            res.render('trainstore/all', {
+                trainStores: trainStores,
+                current_page: page,
+                list_count: limit,
+                pages: pages,
+                status: status,
+                base: req.url,
+                train_store_type: info_dict.train_store_type,
+                train_store_level: info_dict.train_store_level,
+                trainStoreTypeCode: req.query.trainStoreType,
+                trainStoreLevelCode: req.query.trainStoreLevelCode
+            });
+        });
+    },
     index: function (req, res, next) {
         var status = Number(req.query.status) || "";
         var page = Number(req.query.page) || 1;
@@ -69,8 +140,8 @@ module.exports = {
                 base: req.url,
                 train_store_type: info_dict.train_store_type,
                 train_store_level: info_dict.train_store_level,
-                trainStoreTypeCode:req.query.trainStoreType,
-                trainStoreLevelCode:req.query.trainStoreLevelCode
+                trainStoreTypeCode: req.query.trainStoreType,
+                trainStoreLevelCode: req.query.trainStoreLevelCode
             });
         });
     },

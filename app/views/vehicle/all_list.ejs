@@ -16,20 +16,8 @@ vehicles.forEach(function(vehicle){
 
             <p>
                 <%
-                if(vehicle.status == 1)
-                {
-                %>
                 <a href="http://login.jt56.org/Api/Interface/goToInfo?type=vehicle&euuid=<%= vehicle.eId %>&infoid=<%= vehicle.id %>"
                    target="_blank" class="btn btn-info">查看</a>
-                <%
-                }
-                else
-                {
-                %>
-                <input class="btn w55 inputinline" type="button" value="查看">
-                <%
-                }
-                %>
             </p>
         </div>
         <div class="pull-left w175 ln_padding tn_padding xijie">

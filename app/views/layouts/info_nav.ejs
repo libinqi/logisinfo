@@ -1,16 +1,24 @@
 <div class="col-lg-2 col-md-2 col-sm-2 left_bar">
     <h4>信息共享</h4>
     <ul class="sub_nav" current_url="<%= current_url %>">
+        <% if (locals.current_user && current_user.eId) {
+        %>
         <li>
-            <!--<span class="badge pull-right"><a class="wide_font" href="#">42</a></span>-->
-            <a href="/line">专线信息</a>
+            <a href="/line/all">专线信息</a>
         </li>
-        <li><a href="/store">仓库信息</a></li>
+        <li><a href="/store/all">仓库信息</a></li>
         <li><a href="/goods/all">货源信息</a></li>
         <li><a href="/vehicle/all">车源信息</a></li>
-        <li><a href="/port">港口信息</a></li>
-        <li><a href="/trainstore">铁路货场</a></li>
-        <li><a href="/trainline">铁路专线</a></li>
+        <li><a href="/port/all">港口信息</a></li>
+        <li><a href="/trainstore/all">铁路货场</a></li>
+        <li><a href="/trainline/all">铁路专线</a></li>
+        <% }else{
+        %>
+        <li><a href="/goods/all">货源信息</a></li>
+        <li><a href="/vehicle/all">车源信息</a></li>
+        <%
+        } %>
+
     </ul>
 </div>
 <script type="text/javascript">

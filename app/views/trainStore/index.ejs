@@ -5,6 +5,7 @@
             <div class="col-lg-12 col-md-12 col-sm-12 pad_topbot_change">
                 <h4 class="lh h4_line">
                     <div class="w120 pull-left ts_padding">铁路货场信息</div>
+                    <div class="third_nav"><a href="/trainstore/all">所有信息</a></div>
                     <%
                     function removeURLParameter(url, parameter) {
                         var urlparts = url.split('?');
@@ -22,38 +23,83 @@
                     }
                     base = removeURLParameter(base, 'status');
                     var base_url = base + (base.indexOf('?') < 0 ? '?' : '&') + 'status=';
-
                             if(status){
                             if(status == 2)
                     {
                     %>
-                    <div class="third_nav"><a href="/trainstore">全部信息</a></div>
-                    <div class="third_nav third_hover"><a href="<%= base_url %>2">已发布</a></div>
-                    <div class="third_nav"><a href="<%= base_url %>1">未发布</a></div>
+                    <div class="third_nav third_hover dropdown">
+                        <a href="#" id="myTab" data-toggle="dropdown">我的信息<b class="caret">​</b>​</a>
+                        <ul class="dropdown-menu" aria-labelledby="myTab" role="menu">
+                            <li>
+                                <a id="menu1" data-toggle="tab" tabindex="-1" link="/trainstore" href="#dropdown1">全部</a>
+                            </li>
+                            <li class="active">
+                                <a id="menu2" data-toggle="tab" tabindex="-1" link="<%= base_url %>2"
+                                   href="#dropdown2">已发布</a>
+                            </li>
+                            <li>
+                                <a id="menu3" data-toggle="tab" tabindex="-1" link="<%= base_url %>1"
+                                   href="#dropdown3">未发布</a>
+                            </li>
+                        </ul>
+                    </div>
                     <%
                     }
                     else if(status == 1)
                     {
                     %>
-                    <div class="third_nav"><a href="/trainstore">全部信息</a></div>
-                    <div class="third_nav"><a href="<%= base_url %>2">已发布</a></div>
-                    <div class="third_nav third_hover"><a href="<%= base_url %>1">未发布</a></div>
+                    <div class="third_nav third_hover dropdown">
+                        <a href="#" id="myTab" data-toggle="dropdown">我的信息<b class="caret">​</b>​</a>
+                        <ul class="dropdown-menu" aria-labelledby="myTab" role="menu">
+                            <li>
+                                <a id="menu1" data-toggle="tab" tabindex="-1" link="/trainstore" href="#dropdown1">全部</a>
+                            </li>
+                            <li>
+                                <a id="menu2" data-toggle="tab" tabindex="-1" link="<%= base_url %>2" href="#dropdown2">已发布</a>
+                            </li>
+                            <li class="active">
+                                <a id="menu3" data-toggle="tab" tabindex="-1" link="<%= base_url %>1" href="#dropdown3">未发布</a>
+                            </li>
+                        </ul>
+                    </div>
                     <%
                     }
                     else
                     {
                     %>
-                    <div class="third_nav third_hover"><a href="/trainstore">全部信息</a></div>
-                    <div class="third_nav"><a href="<%= base_url %>2">已发布</a></div>
-                    <div class="third_nav"><a href="<%= base_url %>1">未发布</a></div>
+                    <div class="third_nav third_hover dropdown">
+                        <a href="#" id="myTab" data-toggle="dropdown">我的信息<b class="caret">​</b>​</a>
+                        <ul class="dropdown-menu" aria-labelledby="myTab" role="menu">
+                            <li class="active">
+                                <a id="menu1" data-toggle="tab" tabindex="-1" link="/trainstore" href="#dropdown1">全部</a>
+                            </li>
+                            <li>
+                                <a id="menu2" data-toggle="tab" tabindex="-1" link="<%= base_url %>2" href="#dropdown2">已发布</a>
+                            </li>
+                            <li>
+                                <a id="menu3" data-toggle="tab" tabindex="-1" link="<%= base_url %>1" href="#dropdown3">未发布</a>
+                            </li>
+                        </ul>
+                    </div>
                     <%
                     }
                     }else
                     {
                     %>
-                    <div class="third_nav third_hover"><a href="/trainstore">全部信息</a></div>
-                    <div class="third_nav"><a href="<%= base_url %>2">已发布</a></div>
-                    <div class="third_nav"><a href="<%= base_url %>1">未发布</a></div>
+                    <div class="third_nav third_hover dropdown">
+                        <a href="#" id="myTab" data-toggle="dropdown">我的信息<b class="caret">​</b>​</a>
+                        <ul class="dropdown-menu" aria-labelledby="myTab" role="menu">
+                            <li class="active">
+                                <a id="menu1" data-toggle="tab" tabindex="-1" link="/trainstore" href="#dropdown1">全部</a>
+                            </li>
+                            <li>
+                                <a id="menu2" data-toggle="tab" tabindex="-1" link="<%= base_url %>2" href="#dropdown2">已发布</a>
+                            </li>
+                            <li>
+                                <a id="menu3" data-toggle="tab" tabindex="-1" link="<%= base_url %>1" href="#dropdown3">未发布</a>
+                            </li>
+                        </ul>
+                    </div>
                     <%
                     } %>
 
@@ -137,42 +183,17 @@
         </div>
     </div>
 </div>
-<!--<input type="hidden" id="sProvince" name="sProvince" value="">-->
-<!--<input type="hidden" id="sCity" name="sCity" value="">-->
-<!--<input type="hidden" id="eProvince" name="eProvince" value="">-->
-<!--<input type="hidden" id="eCity" name="eCity" value="">-->
 
-<script src="/js/jquery.provincesCity.js" type="text/javascript"></script>
-<script src="/js/core/city.js" type="text/javascript"></script>
 <script type="text/javascript">
-    $(function () {
-        var trainStoreType = '<%=trainStoreTypeCode%>';
-        var trainStoreLevel = '<%=trainStoreLevelCode%>';
-
-        if (trainStoreType && trainStoreType != 'undefined')
-            $("#trainStoreType").val(trainStoreType).change();
-        if (trainStoreLevel && trainStoreLevel != 'undefined')
-            $("#trainStoreLevel").val(trainStoreLevel).change();
-    });
-    function search() {
-        var url = "";
-        var trainStoreType = $("#trainStoreType").val();
-        var trainStoreLevel = $("#trainStoreLevel").val();
-
-        if (trainStoreType && trainStoreType != "选择货场类型") {
-            url += "trainStoreType=" + trainStoreType;
+    $('a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
+        if (e.currentTarget.innerText == "全部") {
+            window.location.href = $('#menu1').attr('link');
         }
-        if (trainStoreLevel && trainStoreLevel != "选择货场级别") {
-            url += "&trainStoreLevel=" + trainStoreLevel;
+        if (e.currentTarget.innerText == "已发布") {
+            window.location.href = $('#menu2').attr('link');
         }
-        if (url) {
-            if (url.substr(0, 1) == "&")
-                url = url.substr(1, url.length - 1);
-            window.location.href = "/trainstore?" + url;
+        if (e.currentTarget.innerText == "未发布") {
+            window.location.href = $('#menu3').attr('link');
         }
-        else
-        {
-            window.location.href = "/trainstore";
-        }
-    }
+    })
 </script>
