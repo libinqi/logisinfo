@@ -187,9 +187,14 @@ module.exports = {
         storeEntity.storeType = _.find(info_dict.store_type, {'id': storeEntity.storeTypeCode}).name;
         storeEntity.businessScope = _.find(info_dict.business_scope, {'id': storeEntity.businessScopeCode}).name;
 
-        if(!portEntity.useArea)
+        if(!storeEntity.useArea)
         {
-            delete portEntity.useArea;
+            delete storeEntity.useArea;
+        }
+
+        if(!storeEntity.referPrice)
+        {
+            delete storeEntity.referPrice;
         }
 
         var day = _.find(info_dict.validate_type, {'id': storeEntity.valid}).day;
@@ -246,9 +251,13 @@ module.exports = {
             storeEntity.storeType = _.find(info_dict.store_type, {'id': storeEntity.storeTypeCode}).name;
             storeEntity.businessScope = _.find(info_dict.business_scope, {'id': storeEntity.businessScopeCode}).name;
 
-            if(!portEntity.useArea)
+            if(!storeEntity.useArea)
             {
-                delete portEntity.useArea;
+                delete storeEntity.useArea;
+            }
+            if(!storeEntity.referPrice)
+            {
+                delete storeEntity.referPrice;
             }
 
             var day = _.find(info_dict.validate_type, {'id': storeEntity.valid}).day;
