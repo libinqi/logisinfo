@@ -1,6 +1,6 @@
 <div class="container w1002 tn_margin" id="qiye">
 
-    <%-partial("layouts/info_nav",{current_url:"/goods/all"})%>
+    <%- partial("layouts/info_nav", {current_url: "/goods/all"}) %>
 
     <div class="col-lg-10 col-md-10 col-sm-10 youce">
         <div class="bg_pale_yellow">
@@ -72,18 +72,12 @@
                 pages: pages,
                 base: base
             }) %>
-            <% }else{
-                    if(base == "/goods" || base == "/goods/"){ %>
-            <div class="info_item">
-                <div class="col-lg-12 tl_padding bl_padding text-danger text-center">您还没有发布信息哦，<a href="/goods/add">赶快去发布信息</a>
-                </div>
-            </div>
             <% }else{ %>
             <div class="info_item">
                 <div class="col-lg-12 tl_padding bl_padding text-danger text-center">对不起，没有找到适合您的信息
                 </div>
             </div>
-            <% } } %>
+            <% } %>
         </div>
     </div>
 </div>
@@ -141,8 +135,7 @@
                 url = url.substr(1, url.length - 1);
             window.location.href = "/goods/all?" + url;
         }
-        else
-        {
+        else {
             window.location.href = "/goods/all";
         }
     }

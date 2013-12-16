@@ -99,12 +99,6 @@ module.exports = {
         if (!_.isEmpty(req.query.eCity))
             opt.eCityCode = req.query.eCity;
 
-        var createrId = req.session.user.id;
-        var eId="";
-        if (req.session.user.eId) {
-            eId = req.session.user.eId;
-        }
-
         req.models.goods.count(opt, function (err, count) {
             if (err) {
                 if (err.code == orm.ErrorCodes.NOT_FOUND) {
@@ -118,7 +112,7 @@ module.exports = {
             }
         });
 
-        req.models.goods.find(opt).where("createrId!=? and updaterId!=? and eId!=?",[createrId,createrId,eId]).offset((page - 1) * limit).limit(limit).order('-updatedAt').all(function (err, goodsList) {
+        req.models.goods.find(opt).offset((page - 1) * limit).limit(limit).order('-updatedAt').all(function (err, goodsList) {
             if (err) {
                 if (err.code == orm.ErrorCodes.NOT_FOUND) {
                     goodsList = [];
