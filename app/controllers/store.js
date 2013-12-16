@@ -187,6 +187,11 @@ module.exports = {
         storeEntity.storeType = _.find(info_dict.store_type, {'id': storeEntity.storeTypeCode}).name;
         storeEntity.businessScope = _.find(info_dict.business_scope, {'id': storeEntity.businessScopeCode}).name;
 
+        if(!portEntity.useArea)
+        {
+            delete portEntity.useArea;
+        }
+
         var day = _.find(info_dict.validate_type, {'id': storeEntity.valid}).day;
         storeEntity.expiryDate = moment().add('d', day).valueOf();
         req.models.store.create(storeEntity, function (err, store) {
@@ -240,6 +245,11 @@ module.exports = {
             storeEntity.updatedAt = new Date().getTime();
             storeEntity.storeType = _.find(info_dict.store_type, {'id': storeEntity.storeTypeCode}).name;
             storeEntity.businessScope = _.find(info_dict.business_scope, {'id': storeEntity.businessScopeCode}).name;
+
+            if(!portEntity.useArea)
+            {
+                delete portEntity.useArea;
+            }
 
             var day = _.find(info_dict.validate_type, {'id': storeEntity.valid}).day;
             storeEntity.expiryDate = moment().add('d', day).valueOf();

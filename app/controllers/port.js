@@ -153,6 +153,7 @@ module.exports = {
         res.render('port/add', {params: req.params, port: port, port_type: info_dict.port_type, port_level: info_dict.port_level, validate_type: info_dict.validate_type});
     },
     create: function (req, res, next) {
+        console.log(req.body);
         var portEntity = _.merge(new req.models.port().serialize(), req.body);
         var currentDate = new Date();
         portEntity.createrId = req.session.user.id;
@@ -164,6 +165,21 @@ module.exports = {
         }
         portEntity.portType = _.find(info_dict.port_type, {'id': portEntity.portTypeCode}).name;
         portEntity.portLevel = _.find(info_dict.port_level, {'id': portEntity.portLevelCode}).name;
+
+        if(!portEntity.useableBerthNumber)
+        {
+            delete portEntity.useableBerthNumber;
+        }
+
+        if(!portEntity.landArea)
+        {
+            delete portEntity.landArea;
+        }
+
+        if(!portEntity.outWaterLine)
+        {
+            delete portEntity.outWaterLine;
+        }
 
         var day = _.find(info_dict.validate_type, {'id': portEntity.valid}).day;
         portEntity.expiryDate = moment().add('d', day).valueOf();
@@ -218,6 +234,21 @@ module.exports = {
             portEntity.updatedAt = new Date().getTime();
             portEntity.portType = _.find(info_dict.port_type, {'id': portEntity.portTypeCode}).name;
             portEntity.portLevel = _.find(info_dict.port_level, {'id': portEntity.portLevelCode}).name;
+
+            if(!portEntity.useableBerthNumber)
+            {
+                delete portEntity.useableBerthNumber;
+            }
+
+            if(!portEntity.landArea)
+            {
+                delete portEntity.landArea;
+            }
+
+            if(!portEntity.outWaterLine)
+            {
+                delete portEntity.outWaterLine;
+            }
 
             var day = _.find(info_dict.validate_type, {'id': portEntity.valid}).day;
             portEntity.expiryDate = moment().add('d', day).valueOf();
