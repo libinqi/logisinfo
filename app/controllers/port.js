@@ -4,6 +4,7 @@ var orm = require('orm');
 var moment = require('moment');
 var settings = require('../../config/settings');
 var info_dict = require('../../util/info_dict');
+var ids = require("../../util/ids");
 
 module.exports = {
     all: function (req, res, next) {
@@ -72,8 +73,8 @@ module.exports = {
                 base: req.url,
                 port_type: info_dict.port_type,
                 port_level: info_dict.port_level,
-                portTypeCode:req.query.portType,
-                portLevelCode:req.query.portLevelCode
+                portTypeCode: req.query.portType,
+                portLevelCode: req.query.portLevelCode
             });
         });
     },
@@ -140,8 +141,8 @@ module.exports = {
                 base: req.url,
                 port_type: info_dict.port_type,
                 port_level: info_dict.port_level,
-                portTypeCode:req.query.portType,
-                portLevelCode:req.query.portLevelCode
+                portTypeCode: req.query.portType,
+                portLevelCode: req.query.portLevelCode
             });
         });
     },
@@ -156,6 +157,7 @@ module.exports = {
         console.log(req.body);
         var portEntity = _.merge(new req.models.port().serialize(), req.body);
         var currentDate = new Date();
+        portEntity.id = ids.GenerateId('50');
         portEntity.createrId = req.session.user.id;
         portEntity.createdAt = currentDate.getTime();
         portEntity.updaterId = req.session.user.id;
@@ -166,18 +168,15 @@ module.exports = {
         portEntity.portType = _.find(info_dict.port_type, {'id': portEntity.portTypeCode}).name;
         portEntity.portLevel = _.find(info_dict.port_level, {'id': portEntity.portLevelCode}).name;
 
-        if(!portEntity.useableBerthNumber)
-        {
+        if (!portEntity.useableBerthNumber) {
             delete portEntity.useableBerthNumber;
         }
 
-        if(!portEntity.landArea)
-        {
+        if (!portEntity.landArea) {
             delete portEntity.landArea;
         }
 
-        if(!portEntity.outWaterLine)
-        {
+        if (!portEntity.outWaterLine) {
             delete portEntity.outWaterLine;
         }
 
@@ -235,18 +234,15 @@ module.exports = {
             portEntity.portType = _.find(info_dict.port_type, {'id': portEntity.portTypeCode}).name;
             portEntity.portLevel = _.find(info_dict.port_level, {'id': portEntity.portLevelCode}).name;
 
-            if(!portEntity.useableBerthNumber)
-            {
+            if (!portEntity.useableBerthNumber) {
                 delete portEntity.useableBerthNumber;
             }
 
-            if(!portEntity.landArea)
-            {
+            if (!portEntity.landArea) {
                 delete portEntity.landArea;
             }
 
-            if(!portEntity.outWaterLine)
-            {
+            if (!portEntity.outWaterLine) {
                 delete portEntity.outWaterLine;
             }
 

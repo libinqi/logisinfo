@@ -4,6 +4,7 @@ var orm = require('orm');
 var moment = require('moment');
 var settings = require('../../config/settings');
 var info_dict = require('../../util/info_dict');
+var ids = require("../../util/ids");
 
 module.exports = {
     index: function (req, res, next) {
@@ -163,6 +164,7 @@ module.exports = {
     create: function (req, res, next) {
         var goodsEntity = _.merge(new req.models.goods().serialize(), req.body);
         var currentDate = new Date();
+        goodsEntity.id=ids.GenerateId('10');
         goodsEntity.createrId = req.session.user.id;
         goodsEntity.createdAt = currentDate.getTime();
         goodsEntity.updaterId = req.session.user.id;
