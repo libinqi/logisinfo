@@ -1,5 +1,4 @@
 ﻿var moment = require('moment');
-var ids = require("../../util/ids");
 
 module.exports = function (orm, db) {
     var TrainStore = db.define('trainStore', {
@@ -30,6 +29,7 @@ module.exports = function (orm, db) {
             status: {type: 'number'},
             freeText: {type: 'text'},
             description: {type: 'text'},
+            visitCount:{type:'number'},
             eId: {type: 'text'},//关联企业的uuid
             createrId: {type: 'text', required: true},//关联用户的uuid
             createdAt: { type: 'text', required: true },
@@ -48,7 +48,6 @@ module.exports = function (orm, db) {
             methods: {
                 serialize: function () {
                     return {
-                        id: ids.GenerateId('60'),
                         provinceCode: this.provinceCode,
                         province: this.province,
                         cityCode: this.cityCode,
@@ -74,6 +73,7 @@ module.exports = function (orm, db) {
                         isDeleted: 0,//0:不删除，1:删除
                         status: 1,//0:不发布，1:发布
                         freeText: this.freeText,
+                        visitCount:0,
                         eId: this.eId,
                         createrId: this.createrId,
                         createdAt: moment().format('YYYY-MM-DD HH:mm:ss'),
