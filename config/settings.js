@@ -10,8 +10,8 @@ var settings = {
         protocol: "mysql", // or "mysql"
         query: { pool: true },
         host: "192.168.0.121",
-//        database: "logisinfo",
-        database: "jt56_search",
+        database: "logisinfo",
+//        database: "jt56_search",
         user: "root",
         password: "sin30=1/2"
     },

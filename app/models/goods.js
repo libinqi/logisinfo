@@ -35,6 +35,7 @@ module.exports = function (orm, db) {
             freeText: {type: 'text'},
             infoText: {type: 'text'},
             description: {type: 'text'},
+            visitCount:{type:'number'},
             eId: {type: 'text'},//关联企业的uuid
             createrId: {type: 'text', required: true},//关联用户的uuid
             createdAt: { type: 'text', required: true },
@@ -83,6 +84,7 @@ module.exports = function (orm, db) {
                         isDeleted: 0,//0:不删除，1:删除
                         status: 1,//0:不发布，1:发布
                         freeText: this.freeText,
+                        visitCount:0,
                         eId: this.eId,
                         createrId: this.createrId,
                         createdAt: moment().format('YYYY-MM-DD HH:mm:ss'),

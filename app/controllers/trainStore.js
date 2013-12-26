@@ -4,6 +4,7 @@ var orm = require('orm');
 var moment = require('moment');
 var settings = require('../../config/settings');
 var info_dict = require('../../util/info_dict');
+var ids = require("../../util/ids");
 
 module.exports = {
     all: function (req, res, next) {
@@ -155,6 +156,7 @@ module.exports = {
     create: function (req, res, next) {
         var trainStoreEntity = _.merge(new req.models.trainStore().serialize(), req.body);
         var currentDate = new Date();
+        trainStoreEntity.id=ids.GenerateId('60');
         trainStoreEntity.createrId = req.session.user.id;
         trainStoreEntity.createdAt = currentDate.getTime();
         trainStoreEntity.updaterId = req.session.user.id;
