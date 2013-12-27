@@ -159,45 +159,44 @@ module.exports = {
                             return next(err);
                         }
                     }
-
-                    line.updatedAt = moment(parseInt(line.updatedAt)).format('YYYY-MM-DD HH:mm');
-                    line.status = line.status == "1" ? "已发布" : "未发布";
-                    line.transTimeText = _.find(info_dict.trans_time, {'id': line.transTime}).name;
-                    line.valid = _.find(info_dict.validate_type, {'id': line.valid}).name;
-                    if (!line.image) {
-                        line.image = "http://img1.jt56.org/uploads/line/no-line.jpg";
-                    }
-                    if (line.heavyCargoPrice == "" || line.heavyCargoPrice == "0") {
-                        line.heavyCargoPrice = "面议";
-                    }
-                    else {
-                        line.heavyCargoPrice = line.heavyCargoPrice + "元/吨";
-                    }
-                    if (line.foamGoodsPrice == "" || line.foamGoodsPrice == "0") {
-                        line.foamGoodsPrice = "面议";
-                    }
-                    else {
-                        line.foamGoodsPrice = line.foamGoodsPrice + "元/公斤"
-                    }
-                    if (line.isFrozen == "0") {
-                        line.transRate = "不固定";
-                    }
-                    else {
-                        line.transRate = "每" + line.transRateDay + "天" + line.transRateNumber + "班";
-                    }
-                    if (line.lineGoodsType) {
-                        var lineGoodsTypes = line.lineGoodsType.split(',');
-                        if (lineGoodsTypes && lineGoodsTypes.length > 0) {
-                            line.lineGoodsType = "";
-                            for (var i = 0; i < lineGoodsTypes.length; i++) {
-                                if (i == 0)
-                                    line.lineGoodsType += _.find(info_dict.line_goods_type, {'id': lineGoodsTypes[i]}).name;
-                                else
-                                    line.lineGoodsType += "," + _.find(info_dict.line_goods_type, {'id': lineGoodsTypes[i]}).name;
-                            }
+                });
+                line.updatedAt = moment(parseInt(line.updatedAt)).format('YYYY-MM-DD HH:mm');
+                line.status = line.status == "1" ? "已发布" : "未发布";
+                line.transTimeText = _.find(info_dict.trans_time, {'id': line.transTime}).name;
+                line.valid = _.find(info_dict.validate_type, {'id': line.valid}).name;
+                if (!line.image) {
+                    line.image = "http://img1.jt56.org/uploads/line/no-line.jpg";
+                }
+                if (line.heavyCargoPrice == "" || line.heavyCargoPrice == "0") {
+                    line.heavyCargoPrice = "面议";
+                }
+                else {
+                    line.heavyCargoPrice = line.heavyCargoPrice + "元/吨";
+                }
+                if (line.foamGoodsPrice == "" || line.foamGoodsPrice == "0") {
+                    line.foamGoodsPrice = "面议";
+                }
+                else {
+                    line.foamGoodsPrice = line.foamGoodsPrice + "元/公斤"
+                }
+                if (line.isFrozen == "0") {
+                    line.transRate = "不固定";
+                }
+                else {
+                    line.transRate = "每" + line.transRateDay + "天" + line.transRateNumber + "班";
+                }
+                if (line.lineGoodsType) {
+                    var lineGoodsTypes = line.lineGoodsType.split(',');
+                    if (lineGoodsTypes && lineGoodsTypes.length > 0) {
+                        line.lineGoodsType = "";
+                        for (var i = 0; i < lineGoodsTypes.length; i++) {
+                            if (i == 0)
+                                line.lineGoodsType += _.find(info_dict.line_goods_type, {'id': lineGoodsTypes[i]}).name;
+                            else
+                                line.lineGoodsType += "," + _.find(info_dict.line_goods_type, {'id': lineGoodsTypes[i]}).name;
                         }
                     }
-                });
+                }
             }
             res.send(JSON.stringify(line));
         });
@@ -320,20 +319,20 @@ module.exports = {
                             return next(err);
                         }
                     }
-                    store.updatedAt = moment(parseInt(store.updatedAt)).format('YYYY-MM-DD HH:mm');
-                    store.status = store.status == "1" ? "已发布" : "未发布";
-                    store.valid = _.find(info_dict.validate_type, {'id': store.valid}).name;
-
-                    if (!store.image) {
-                        store.image = "http://img1.jt56.org/uploads/store/no-store.jpg";
-                    }
-                    if (store.referPrice == "" || store.referPrice == "0") {
-                        store.referPrice = "面议";
-                    }
-                    else {
-                        store.referPrice = store.referPrice + (store.referPriceFlag == 0 ? "元/平方/年" : "元/平方/月");
-                    }
                 });
+                store.updatedAt = moment(parseInt(store.updatedAt)).format('YYYY-MM-DD HH:mm');
+                store.status = store.status == "1" ? "已发布" : "未发布";
+                store.valid = _.find(info_dict.validate_type, {'id': store.valid}).name;
+
+                if (!store.image) {
+                    store.image = "http://img1.jt56.org/uploads/store/no-store.jpg";
+                }
+                if (store.referPrice == "" || store.referPrice == "0") {
+                    store.referPrice = "面议";
+                }
+                else {
+                    store.referPrice = store.referPrice + (store.referPriceFlag == 0 ? "元/平方/年" : "元/平方/月");
+                }
             }
             res.send(JSON.stringify(store));
         });
@@ -461,22 +460,22 @@ module.exports = {
                             return next(err);
                         }
                     }
-                    moment.lang('zh-cn');
-                    goods.updatedAt = moment(parseInt(goods.updatedAt)).fromNow();
-                    if (!goods.image) {
-                        goods.image = "http://img1.jt56.org/uploads/goods/no-goods.jpg";
-                    }
-                    if (goods.phone && goods.tel)
-                        goods.tel = "/ " + goods.tel;
-
-                    goods.vehicle = "";
-                    goods.weight = goods.weight + (goods.unit == 0 ? "方" : "吨");
-                    goods.vehicle += goods.vehicleLength + "米" + _.find(info_dict.vehicle_type, {'id': goods.vehicleTypeCode}).name;
-                    if (goods.vehicleCount > 0)
-                        goods.vehicle += goods.vehicleCount + "辆";
-
-                    goods.loadingTime = _.find(info_dict.loading_time, {'id': goods.loadingTime}).name;
                 });
+                moment.lang('zh-cn');
+                goods.updatedAt = moment(parseInt(goods.updatedAt)).fromNow();
+                if (!goods.image) {
+                    goods.image = "http://img1.jt56.org/uploads/goods/no-goods.jpg";
+                }
+                if (goods.phone && goods.tel)
+                    goods.tel = "/ " + goods.tel;
+
+                goods.vehicle = "";
+                goods.weight = goods.weight + (goods.unit == 0 ? "方" : "吨");
+                goods.vehicle += goods.vehicleLength + "米" + _.find(info_dict.vehicle_type, {'id': goods.vehicleTypeCode}).name;
+                if (goods.vehicleCount > 0)
+                    goods.vehicle += goods.vehicleCount + "辆";
+
+                goods.loadingTime = _.find(info_dict.loading_time, {'id': goods.loadingTime}).name;
             }
             res.send(JSON.stringify(goods));
         });
@@ -612,29 +611,29 @@ module.exports = {
                             return next(err);
                         }
                     }
-                    moment.lang('zh-cn');
-                    vehicle.updatedAt = moment(parseInt(vehicle.updatedAt)).fromNow();
-
-                    if (!vehicle.image) {
-                        vehicle.image = "http://img1.jt56.org/uploads/vehicle/no-vehicle.jpg";
-                    }
-                    vehicle.vehicle = "";
-                    vehicle.vehicle += vehicle.vehicleLength + "米" + _.find(info_dict.vehicle_type, {'id': vehicle.vehicleTypeCode}).name;
-                    if (vehicle.vehicleNumber)
-                        vehicle.vehicle += ",车牌号" + vehicle.vehicleNumber;
-
-                    if (vehicle.loadWeight) {
-                        vehicle.loadWeight = vehicle.loadWeight + (vehicle.unit == 0 ? "方" : "吨");
-                    }
-
-                    vehicle.loadingTime = _.find(info_dict.loading_time, {'id': vehicle.loadingTime}).name;
-                    if (vehicle.referPrice && vehicle.referPrice != 0) {
-                        vehicle.referPrice += vehicle.referPriceFlag == 0 ? "元/方" : "元/吨";
-                    }
-                    else {
-                        vehicle.referPrice = "面议";
-                    }
                 });
+                moment.lang('zh-cn');
+                vehicle.updatedAt = moment(parseInt(vehicle.updatedAt)).fromNow();
+
+                if (!vehicle.image) {
+                    vehicle.image = "http://img1.jt56.org/uploads/vehicle/no-vehicle.jpg";
+                }
+                vehicle.vehicle = "";
+                vehicle.vehicle += vehicle.vehicleLength + "米" + _.find(info_dict.vehicle_type, {'id': vehicle.vehicleTypeCode}).name;
+                if (vehicle.vehicleNumber)
+                    vehicle.vehicle += ",车牌号" + vehicle.vehicleNumber;
+
+                if (vehicle.loadWeight) {
+                    vehicle.loadWeight = vehicle.loadWeight + (vehicle.unit == 0 ? "方" : "吨");
+                }
+
+                vehicle.loadingTime = _.find(info_dict.loading_time, {'id': vehicle.loadingTime}).name;
+                if (vehicle.referPrice && vehicle.referPrice != 0) {
+                    vehicle.referPrice += vehicle.referPriceFlag == 0 ? "元/方" : "元/吨";
+                }
+                else {
+                    vehicle.referPrice = "面议";
+                }
             }
             res.send(JSON.stringify(vehicle));
         });
@@ -750,13 +749,13 @@ module.exports = {
                             return next(err);
                         }
                     }
-                    port.updatedAt = moment(parseInt(port.updatedAt)).format('YYYY-MM-DD HH:mm');
-                    port.statusText = port.status == "1" ? "已发布" : "未发布";
-
-                    if (!port.image) {
-                        port.image = "http://img1.jt56.org/uploads/port/no-port.jpg";
-                    }
                 });
+                port.updatedAt = moment(parseInt(port.updatedAt)).format('YYYY-MM-DD HH:mm');
+                port.statusText = port.status == "1" ? "已发布" : "未发布";
+
+                if (!port.image) {
+                    port.image = "http://img1.jt56.org/uploads/port/no-port.jpg";
+                }
             }
             res.send(JSON.stringify(port));
         });
@@ -867,13 +866,13 @@ module.exports = {
                             return next(err);
                         }
                     }
-                    trainStore.updatedAt = moment(parseInt(trainStore.updatedAt)).format('YYYY-MM-DD HH:mm');
-                    trainStore.statusText = trainStore.status == "1" ? "已发布" : "未发布";
-
-                    if (!trainStore.image) {
-                        trainStore.image = "http://img1.jt56.org/uploads/trainstore/no-trainstore.jpg";
-                    }
                 });
+                trainStore.updatedAt = moment(parseInt(trainStore.updatedAt)).format('YYYY-MM-DD HH:mm');
+                trainStore.statusText = trainStore.status == "1" ? "已发布" : "未发布";
+
+                if (!trainStore.image) {
+                    trainStore.image = "http://img1.jt56.org/uploads/trainstore/no-trainstore.jpg";
+                }
             }
             res.send(JSON.stringify(trainStore));
         });
@@ -984,13 +983,13 @@ module.exports = {
                             return next(err);
                         }
                     }
-                    trainLine.updatedAt = moment(parseInt(trainLine.updatedAt)).format('YYYY-MM-DD HH:mm');
-                    trainLine.statusText = trainLine.status == "1" ? "已发布" : "未发布";
-
-                    if (!trainLine.image) {
-                        trainLine.image = "http://img1.jt56.org/uploads/trainline/no-trainline.jpg";
-                    }
                 });
+                trainLine.updatedAt = moment(parseInt(trainLine.updatedAt)).format('YYYY-MM-DD HH:mm');
+                trainLine.statusText = trainLine.status == "1" ? "已发布" : "未发布";
+
+                if (!trainLine.image) {
+                    trainLine.image = "http://img1.jt56.org/uploads/trainline/no-trainline.jpg";
+                }
             }
             res.send(JSON.stringify(trainLine));
         });
