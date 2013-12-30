@@ -50,7 +50,7 @@ module.exports = {
                 moment.lang('zh-cn');
                 vehicle.updatedAt = moment(parseInt(vehicle.updatedAt)).fromNow();
                 if (!vehicle.image) {
-                    vehicle.image = "/images/no-vehicle.jpg";
+                    vehicle.image = settings.image_path+"/uploads/vehicle/no-vehicle.jpg";
                 }
                 if (vehicle.phone && vehicle.tel)
                     vehicle.tel = "/ " + vehicle.tel;
@@ -134,7 +134,7 @@ module.exports = {
                 moment.lang('zh-cn');
                 vehicle.updatedAt = moment(parseInt(vehicle.updatedAt)).fromNow();
                 if (!vehicle.image) {
-                    vehicle.image = "/images/no-vehicle.jpg";
+                    vehicle.image = settings.image_path+"/uploads/vehicle/no-vehicle.jpg";
                 }
                 if (vehicle.phone && vehicle.tel)
                     vehicle.tel = "/ " + vehicle.tel;
@@ -245,7 +245,7 @@ module.exports = {
                 }
             }
             if (!vehicle.image) {
-                vehicle.image = "/images/no-vehicle.jpg";
+                vehicle.image = settings.image_path+"/uploads/vehicle/no-vehicle.jpg";
             }
 
             if (!vehicle.eProvinceCode) {

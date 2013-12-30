@@ -81,7 +81,7 @@ module.exports = {
                 line.valid = _.find(info_dict.validate_type, {'id': line.valid}).name;
 
                 if (!line.image) {
-                    line.image = "http://img1.jt56.org/uploads/line/no-line.jpg";
+                    line.image = settings.image_path+"/uploads/line/no-line.jpg";
                 }
 
                 if (line.heavyCargoPrice == "" || line.heavyCargoPrice == "0") {
@@ -165,7 +165,7 @@ module.exports = {
                 line.transTimeText = _.find(info_dict.trans_time, {'id': line.transTime}).name;
                 line.valid = _.find(info_dict.validate_type, {'id': line.valid}).name;
                 if (!line.image) {
-                    line.image = "http://img1.jt56.org/uploads/line/no-line.jpg";
+                    line.image = settings.image_path+"/uploads/line/no-line.jpg";
                 }
                 if (line.heavyCargoPrice == "" || line.heavyCargoPrice == "0") {
                     line.heavyCargoPrice = "面议";
@@ -266,7 +266,7 @@ module.exports = {
                 store.valid = _.find(info_dict.validate_type, {'id': store.valid}).name;
 
                 if (!store.image) {
-                    store.image = "http://img1.jt56.org/uploads/store/no-store.jpg";
+                    store.image = settings.image_path+"/uploads/store/no-store.jpg";
                 }
                 if (store.referPrice == "" || store.referPrice == "0") {
                     store.referPrice = "面议";
@@ -325,7 +325,7 @@ module.exports = {
                 store.valid = _.find(info_dict.validate_type, {'id': store.valid}).name;
 
                 if (!store.image) {
-                    store.image = "http://img1.jt56.org/uploads/store/no-store.jpg";
+                    store.image = settings.image_path+"/uploads/store/no-store.jpg";
                 }
                 if (store.referPrice == "" || store.referPrice == "0") {
                     store.referPrice = "面议";
@@ -405,7 +405,7 @@ module.exports = {
                 goods.updatedAt = moment(parseInt(goods.updatedAt)).fromNow();
 
                 if (!goods.image) {
-                    goods.image = "http://img1.jt56.org/uploads/goods/no-goods.jpg";
+                    goods.image = settings.image_path+"/uploads/goods/no-goods.jpg";
                 }
 
                 goods.vehicle = "";
@@ -464,7 +464,7 @@ module.exports = {
                 moment.lang('zh-cn');
                 goods.updatedAt = moment(parseInt(goods.updatedAt)).fromNow();
                 if (!goods.image) {
-                    goods.image = "http://img1.jt56.org/uploads/goods/no-goods.jpg";
+                    goods.image = settings.image_path+"/uploads/goods/no-goods.jpg";
                 }
                 if (goods.phone && goods.tel)
                     goods.tel = "/ " + goods.tel;
@@ -548,7 +548,7 @@ module.exports = {
                 vehicle.updatedAt = moment(parseInt(vehicle.updatedAt)).fromNow();
 
                 if (!vehicle.image) {
-                    vehicle.image = "http://img1.jt56.org/uploads/vehicle/no-vehicle.jpg";
+                    vehicle.image = settings.image_path+"/uploads/vehicle/no-vehicle.jpg";
                 }
                 vehicle.vehicle = "";
                 vehicle.vehicle += vehicle.vehicleLength + "米" + _.find(info_dict.vehicle_type, {'id': vehicle.vehicleTypeCode}).name;
@@ -616,7 +616,7 @@ module.exports = {
                 vehicle.updatedAt = moment(parseInt(vehicle.updatedAt)).fromNow();
 
                 if (!vehicle.image) {
-                    vehicle.image = "http://img1.jt56.org/uploads/vehicle/no-vehicle.jpg";
+                    vehicle.image = settings.image_path+"/uploads/vehicle/no-vehicle.jpg";
                 }
                 vehicle.vehicle = "";
                 vehicle.vehicle += vehicle.vehicleLength + "米" + _.find(info_dict.vehicle_type, {'id': vehicle.vehicleTypeCode}).name;
@@ -702,7 +702,7 @@ module.exports = {
                 port.statusText = port.status == "1" ? "已发布" : "未发布";
 
                 if (!port.image) {
-                    port.image = "http://img1.jt56.org/uploads/port/no-port.jpg";
+                    port.image = settings.image_path+"/uploads/port/no-port.jpg";
                 }
             });
             res.send(JSON.stringify({
@@ -754,7 +754,7 @@ module.exports = {
                 port.statusText = port.status == "1" ? "已发布" : "未发布";
 
                 if (!port.image) {
-                    port.image = "http://img1.jt56.org/uploads/port/no-port.jpg";
+                    port.image = settings.image_path+"/uploads/port/no-port.jpg";
                 }
             }
             res.send(JSON.stringify(port));
@@ -819,7 +819,7 @@ module.exports = {
                 trainStore.statusText = trainStore.status == "1" ? "已发布" : "未发布";
 
                 if (!trainStore.image) {
-                    trainStore.image = "http://img1.jt56.org/uploads/trainstore/no-trainstore.jpg";
+                    trainStore.image = settings.image_path+"/uploads/trainstore/no-trainstore.jpg";
                 }
             });
             res.send(JSON.stringify({
@@ -871,7 +871,7 @@ module.exports = {
                 trainStore.statusText = trainStore.status == "1" ? "已发布" : "未发布";
 
                 if (!trainStore.image) {
-                    trainStore.image = "http://img1.jt56.org/uploads/trainstore/no-trainstore.jpg";
+                    trainStore.image = settings.image_path+"/uploads/trainstore/no-trainstore.jpg";
                 }
             }
             res.send(JSON.stringify(trainStore));
@@ -936,7 +936,7 @@ module.exports = {
                 trainLine.statusText = trainLine.status == "1" ? "已发布" : "未发布";
 
                 if (!trainLine.image) {
-                    trainLine.image = "http://img1.jt56.org/uploads/trainline/no-trainline.jpg";
+                    trainLine.image = settings.image_path+"/uploads/trainline/no-trainline.jpg";
                 }
             });
             res.send(JSON.stringify({
@@ -988,7 +988,7 @@ module.exports = {
                 trainLine.statusText = trainLine.status == "1" ? "已发布" : "未发布";
 
                 if (!trainLine.image) {
-                    trainLine.image = "http://img1.jt56.org/uploads/trainline/no-trainline.jpg";
+                    trainLine.image = settings.image_path+"/uploads/trainline/no-trainline.jpg";
                 }
             }
             res.send(JSON.stringify(trainLine));

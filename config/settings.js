@@ -24,7 +24,8 @@ var settings = {
 //        password: ""
 //    },
     db: null,
-    list_count: 10 //信息列表页-每页显示的信息的条数
+    list_count: 10, //信息列表页-每页显示的信息的条数
+    image_path:'http://img1.jt56.org'
 };
 
 module.exports = settings;

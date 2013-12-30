@@ -58,7 +58,7 @@ module.exports = {
                 }
 
                 if (!port.image) {
-                    port.image = "/images/no-port.jpg";
+                    port.image = settings.image_path+"/uploads/port/no-port.jpg";
                 }
 
                 if (port.phone && port.tel)
@@ -126,7 +126,7 @@ module.exports = {
                 port.statusText = port.status == "1" ? "已发布" : "未发布";
 
                 if (!port.image) {
-                    port.image = "/images/no-port.jpg";
+                    port.image = settings.image_path+"/uploads/port/no-port.jpg";
                 }
 
                 if (port.phone && port.tel)
@@ -209,7 +209,7 @@ module.exports = {
             port.updatedAt = moment(parseInt(port.updatedAt)).format('YYYY-MM-DD HH:mm:ss');
             port.statusText = port.status == "1" ? "已发布" : "未发布";
             if (!port.image) {
-                port.image = "/images/no-port.jpg";
+                port.image = settings.image_path+"/uploads/port/no-port.jpg";
             }
 
             port.telText = "";

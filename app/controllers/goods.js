@@ -54,7 +54,7 @@ module.exports = {
                 moment.lang('zh-cn');
                 goods.updatedAt = moment(parseInt(goods.updatedAt)).fromNow();
                 if (!goods.image) {
-                    goods.image = "/images/no-goods.jpg";
+                    goods.image = settings.image_path+"/uploads/goods/no-goods.jpg";
                 }
                 if (goods.phone && goods.tel)
                     goods.tel = "/ " + goods.tel;
@@ -126,7 +126,7 @@ module.exports = {
                 moment.lang('zh-cn');
                 goods.updatedAt = moment(parseInt(goods.updatedAt)).fromNow();
                 if (!goods.image) {
-                    goods.image = "/images/no-goods.jpg";
+                    goods.image = settings.image_path+"/uploads/goods/no-goods.jpg";
                 }
                 if (goods.phone && goods.tel)
                     goods.tel = "/ " + goods.tel;
@@ -225,7 +225,7 @@ module.exports = {
                 }
             }
             if (!goods.image) {
-                goods.image = "/images/no-goods.jpg";
+                goods.image = settings.image_path+"/uploads/goods/no-goods.jpg";
             }
 
             //货物描述

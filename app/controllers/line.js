@@ -64,7 +64,7 @@ module.exports = {
                 }
 
                 if (!line.image) {
-                    line.image = "/images/no-line.jpg";
+                    line.image =  settings.image_path+"/uploads/line/no-line.jpg";
                 }
                 if (line.heavyCargoPrice == "" || line.heavyCargoPrice == "0") {
                     line.heavyCargoPrice = "面议";
@@ -156,7 +156,7 @@ module.exports = {
                 line.statusText = line.status == "1" ? "已发布" : "未发布";
                 line.transTimeText = _.find(info_dict.trans_time, {'id': line.transTime}).name;
                 if (!line.image) {
-                    line.image = "/images/no-line.jpg";
+                    line.image =  settings.image_path+"/uploads/line/no-line.jpg";
                 }
                 if (line.heavyCargoPrice == "" || line.heavyCargoPrice == "0") {
                     line.heavyCargoPrice = "面议";
@@ -267,7 +267,7 @@ module.exports = {
             line.statusText = line.status == "1" ? "已发布" : "未发布";
             line.transTimeText = _.find(info_dict.trans_time, {'id': line.transTime}).name;
             if (!line.image) {
-                line.image = "/images/no-line.jpg";
+                line.image = settings.image_path+"/uploads/line/no-line.jpg";
             }
             if (line.heavyCargoPrice == "" || line.heavyCargoPrice == "0") {
                 line.heavyCargoPriceText = "面议";

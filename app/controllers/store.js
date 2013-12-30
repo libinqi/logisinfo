@@ -59,7 +59,7 @@ module.exports = {
                 }
 
                 if (!store.image) {
-                    store.image = "/images/no-store.jpg";
+                    store.image = settings.image_path+"/uploads/store/no-store.jpg";
                 }
                 if (store.referPrice == "" || store.referPrice == "0") {
                     store.referPrice = "面议";
@@ -142,7 +142,7 @@ module.exports = {
                 store.statusText = store.status == "1" ? "已发布" : "未发布";
 
                 if (!store.image) {
-                    store.image = "/images/no-store.jpg";
+                    store.image = settings.image_path+"/uploads/store/no-store.jpg";
                 }
                 if (store.referPrice == "" || store.referPrice == "0") {
                     store.referPrice = "面议";
@@ -226,7 +226,7 @@ module.exports = {
             store.updatedAt = moment(parseInt(store.updatedAt)).format('YYYY-MM-DD HH:mm:ss');
             store.statusText = store.status == "1" ? "已发布" : "未发布";
             if (!store.image) {
-                store.image = "/images/no-store.jpg";
+                store.image = settings.image_path+"/uploads/store/no-store.jpg";
             }
 
             store.telText = "";
