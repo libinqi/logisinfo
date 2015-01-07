@@ -1,0 +1,200 @@
+<%- partial("layouts/info_nav", {current_url: "/goods"}) %>
+<div class="title_item">
+    <span>当前位置：<a href="/">首页 </a>&gt;<a href="/goods"> 货源 </a>&gt;</span>
+    <span class="tag"><%= goods.attrs.scity %>货源信息详情</span>
+</div>
+<div class="title_item">
+    <div class="quanxi_huo">货</div>
+    <div class="quanxi_title">
+        <p id="quanxi_datitle" class="ln_margin"><%= goods.attrs.infotext %></p>
+
+        <p class="ln_margin">发布时间：<%= DateFormat.TimeAgo(goods.attrs.date * 1000) %></p>
+    </div>
+</div>
+<div class="quanxi_content">
+    <div class="quanxi_content_left">
+        <p>货物类型：<span
+                    id="huo_content_orange"><%= goods.attrs.goodstype ? goods.attrs.goodstype : '不详' %></span>
+        </p>
+
+        <p>车辆需求：<span
+                    id="huo_content"><%= goods.attrs.vehiclelength ? goods.attrs.vehiclelength + '米' : '不详' %>
+                <%= goods.attrs.vehicletype ? goods.attrs.vehicletype : '' %></span></p>
+
+        <p>联系方式：<span id="huo_content_1" style="display: none">查看联系方式，<a href="#" id="quanxi_duanji">请登录</a></span></p>
+    </div>
+
+    <div class="quanxi_content_left">
+        <p>&nbsp;&nbsp;&nbsp;重量：<span
+                    id="huo_content"><%= goods.attrs.weight ? goods.attrs.weight + '吨' : '不详' %></span>
+        </p>
+
+        <p>出发地：<span id="huo_content"><%= goods.attrs.scity %></span></p>
+    </div>
+</div>
+<script type="text/javascript">
+    $(document).ready(function () {
+        setTimeout(function () {
+            var userInfo = window.userInfo;
+            $('#huo_content_1').empty();
+            if (!userInfo) {
+                var current = window.location.href;
+                var loginurl = topurl.login + "?service=" + current;
+                $('#huo_content_1').append('查看联系方式，<a href="' + loginurl + '" id="quanxi_duanji">请登录</a>');
+            }
+            else {
+                $('#huo_content_1').append('<font style="color:red;font-weight:bold"><%= goods.attrs.phone %> <%= goods.attrs.contact %></font>   <a href="javascript:void(0);" onclick="return applyIntentGoods(\'<%= goods.attrs.infoid %>\');" class="tuoyun">我要承运</a>');
+            }
+            $('#huo_content_1').show();
+        }, 500);
+    });
+
+    function getGoodsInfo(goodsId) {
+        var goodsInfo = null;
+        $.ajax({
+            async: false,
+            url: '/goods/detail?format=json&infoid=' + goodsId,
+            type: 'GET',
+            dataType: 'json',
+            error: function (error) {
+                goodsInfo = null;
+            },
+            success: function (result) {
+                if (result) {
+                    goodsInfo = result;
+                }
+                else {
+                    goodsInfo = null;
+                }
+            }
+        });
+        return goodsInfo;
+    }
+
+    function applyIntentGoods(goodsId) {
+        var userInfo = window.userInfo;
+        if (!userInfo) {
+            var current = window.location.href;
+            window.location.href = topurl.login + "?service=" + current;
+            return;
+        }
+        var enterprise = null;
+        var user = null;
+        var goodsInfo = getGoodsInfo(goodsId);
+        if (userInfo.usertype == 1) {
+            getEnterpriseByUserId(userInfo.userid, function (result) {
+                enterprise = result;
+                if (!enterprise || !goodsInfo || goodsInfo.attrs.eid == enterprise.enterpriseid) {
+                    alert('对不起,您不能给自己发送承运意向！');
+                }
+                else {
+                    var box_html = '<textarea id="yixiang_content" class="text_box" style="width:400px;height: 150px;">请填写您的意向...</textarea><div class="box_btn"><a href="javascript:void(0)" class="box_send">发送</a></div></div>';
+                    var prompt = $.prompt('发送承运意向', box_html, 450, 300);
+                    prompt.find('.box_send').bind('click', function () {
+                        if ($.trim($('#yixiang_content').val()) == "" || $('#yixiang_content').val() == "请填写您的意向...") {
+                            shake($('#yixiang_content'), 'text_red_box', 3);
+                            return;
+                        }
+                        else {
+                            var messageText = $('#yixiang_content').val();
+                            $('.prompt').remove();
+
+                            try {
+                                $.ajax({
+                                    url: '/goods/applyIntentGoods',
+                                    type: 'POST',
+                                    data: {
+                                        goodsId: goodsId,
+                                        userId: enterprise.enterpriseid,
+                                        userName: enterprise.enterprisename,
+                                        userType: 2,
+                                        tel: enterprise.telephonenumber,
+                                        message: messageText
+                                    },
+                                    dataType: 'json',
+                                    error: function (error) {
+                                        alert('申请失败,请稍后再试！');
+                                    },
+                                    success: function (result) {
+                                        if (result.status) {
+                                            alert('申请成功！');
+                                        }
+                                        else {
+                                            alert('申请失败,请稍后再试！');
+                                        }
+                                    }
+                                });
+                            }
+                            catch (ex) {
+                                alert('申请失败,请稍后再试！');
+                            }
+                        }
+                    });
+                }
+            });
+        }
+        else {
+            getDriver(userInfo.userid, function (result) {
+                user = result.user;
+                if (!goodsInfo || goodsInfo.attrs.createrid == user.userid) {
+                    alert('对不起,您不能给自己发送承运意向！');
+                }
+                else {
+                    var box_html = '<textarea id="yixiang_content" class="text_box" style="width:400px;height: 150px;">请填写您的意向...</textarea><div class="box_btn"><a href="javascript:void(0)" class="box_send">发送</a></div></div>';
+                    var prompt = $.prompt('发送承运意向', box_html, 450, 300);
+                    prompt.find('.box_send').bind('click', function () {
+                        if ($.trim($('#yixiang_content').val()) == "" || $('#yixiang_content').val() == "请填写您的意向...") {
+                            shake($('#yixiang_content'), 'text_red_box', 3);
+                            return;
+                        }
+                        else {
+                            var messageText = $('#yixiang_content').val();
+                            $('.prompt').remove();
+
+                            $.ajax({
+                                url: '/goods/applyIntentGoods',
+                                type: 'POST',
+                                data: {
+                                    goodsId: goodsId,
+                                    userId: user.userid,
+                                    userName: user.realname,
+                                    userType: 1,
+                                    tel: user.mobile,
+                                    message: messageText
+                                },
+                                dataType: 'json',
+                                error: function (error) {
+                                    alert('申请失败,请稍后再试！');
+                                },
+                                success: function (result) {
+                                    if (result.status) {
+                                        alert('申请成功！');
+                                    }
+                                    else {
+                                        alert('申请失败,请稍后再试！');
+                                    }
+                                }
+                            });
+                        }
+                    });
+                }
+            });
+        }
+
+        $("#yixiang_content").bind('focus', function () {
+            if ($(this).val() === "请填写您的意向...") {
+                $(this).val("");
+                $(this).css("color", "#000");
+            }
+        });
+        $("#yixiang_content").bind('blur', function () {
+            if ($(this).val() === "") {
+                $(this).css("color", "#aaaaaa");
+                $(this).val("请填写您的意向...");
+            } else {
+                $(this).css("color", "#000");
+            }
+        });
+        return false;
+    }
+</script>

@@ -1,0 +1,221 @@
+<link href="stylesheets/trainstore.css" rel="stylesheet" type="text/css"/>
+<form id="form1" action="/trainstore" method="get">
+<div class="banner">
+<div class="banner_con">
+<dl class="banner_top">
+    <a href="/"><dt class="banner_title"></dt></a>
+    <dd class="banner_huo">
+        <p class="banner_com margin-46">
+            <a href="http://guanjia.jt56.org/butler/carinfoController/carinfo" class="banner_che"></a>
+            <a href="http://guanjia.jt56.org/butler/carinfoController/carinfo" class="banner_txt">发布车源</a>
+        </p>
+        <p class="banner_com margin-46">
+            <a href="http://guanjia.jt56.org/butler/pubGoods/view" class="ban_huo"></a>
+            <a href="http://guanjia.jt56.org/butler/pubGoods/view" class="banner_txt">发布货源</a>
+        </p>
+        <p class="banner_com margin-17">
+            <a href="http://guanjia.jt56.org/butler/userRegister/register" class="ban_com"></a>
+            <a href="http://guanjia.jt56.org/butler/userRegister/register" class="banner_txt">企业入驻</a>
+        </p>
+    </dd>
+</dl>
+<div class="w screening">
+    <div class="til">
+        <%- partial("layouts/info_nav", {current_url: "/trainstore"}) %>
+        <div class="title_item">Hi，本次为您找到 <span id="total_found" class="green"><%= model.total_find %></span>
+            条货场信息，总用时：<span
+                    id="time_found"><%= model.time %></span>s
+        </div>
+        <div class="panel">
+            <div class="NEWS_city">
+                <div class="row">
+                    <label class="label" for="from">所在城市：</label>
+                    <input id="scity" name="scity" class="citynum"
+                           autocomplete="off" value="<%= model.filter.scity %>"/>
+                    <a id="chaxun" href="javascript:void(0);" class="chaxun">查&nbsp;&nbsp;询</a>
+                </div>
+            </div>
+            <div class="shousuo up"></div>
+            <div class="shaixuankuang">
+                <div class="row">
+                    <span class="label">货场类型：</span>
+
+                    <div class="item">
+                        <%
+                        if(model.filter.trainstoretype == '')
+                        {
+                        %>
+                        <span class="item_1"
+                              onclick="document.getElementById('trainstoretype').value='';form1.submit();"><a
+                                    href="javascript:;">不限</a></span>
+                        <%
+                        }
+                        else
+                        {
+                        %>
+                        <span class="item_1"
+                              onclick="document.getElementById('trainstoretype').value='';form1.submit();">不限</span>
+                        <%
+                        }
+                                info_dict.train_store_type.forEach(function(item){
+                                if(item.id == model.filter.trainstoretype)
+                        {
+                        %>
+                        <span class="item_1"
+                              onclick="document.getElementById('trainstoretype').value='<%= item.id %>';form1.submit();"><a
+                                    href="javascript:;"><%= item.name %></a></span>
+                        <%
+                        }
+                        else
+                        {
+                        %>
+                        <span onclick="document.getElementById('trainstoretype').value='<%= item.id %>';form1.submit();"><%= item.name %></span>
+                        <%
+                        }
+                        }) %>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <span class="label">货场级别：</span>
+
+                    <div class="item">
+                        <%
+                        if(model.filter.trainstorelevel == '')
+                        {
+                        %>
+                        <span class="item_1"
+                              onclick="document.getElementById('trainstorelevel').value='';form1.submit();"><a
+                                    href="javascript:;">不限</a></span>
+                        <%
+                        }
+                        else
+                        {
+                        %>
+                        <span class="item_1"
+                              onclick="document.getElementById('trainstorelevel').value='';form1.submit();">不限</span>
+                        <%
+                        }
+                                info_dict.train_store_level.forEach(function(item){
+                                if(item.id == model.filter.trainstorelevel)
+                        {
+                        %>
+                        <span class="item_1"
+                              onclick="document.getElementById('trainstorelevel').value='<%= item.id %>';form1.submit();"><a
+                                    href="javascript:;"><%= item.name %></a></span>
+                        <%
+                        }
+                        else
+                        {
+                        %>
+                        <span onclick="document.getElementById('trainstorelevel').value='<%= item.id %>';form1.submit();"><%= item.name %></span>
+                        <%
+                        }
+                        }) %>
+                    </div>
+                </div>
+                <div class="row">
+                    <span class="label">面积：</span>
+
+                    <div class="item">
+                        <input type="text" id="sa" maxlength="7" value="<%= model.filter.sarea %>"/> - <input type="text"
+                                                                                                id="ea"
+                                                                                                maxlength="7"
+                                                                                                value="<%= model.filter.earea %>"/>
+                        <span>平方</span>
+                        <input type="button" id="btnGFilter" class="btngl" value="面积过滤" onclick="areaFilter()"/>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="conditionBox" class="selected"><span id="yixuan">已选条件：</span><span
+                class="conditionBox">
+            <%
+            var selected = false;
+                    if (model.filter.trainstoretype)
+            {
+                    info_dict.train_store_type.forEach(function(item){
+                    if(item.id == model.filter.trainstoretype)
+            {
+            %>
+            <span class="condition"><%= item.name %><a class="paramDelBtn" href="javascript:;"
+                                                       onclick="removeFilter('trainstoretype')"></a></span>
+            <%
+                selected = true;
+            }
+            });
+            }
+                    if (model.filter.trainstorelevel)
+            {
+                    info_dict.train_store_level.forEach(function(item){
+                    if(item.id == model.filter.trainstorelevel)
+            {
+            %>
+            <span class="condition"><%= item.name %><a class="paramDelBtn" href="javascript:;"
+                                                       onclick="removeFilter('trainstorelevel')"></a></span>
+            <%
+                selected = true;
+            }
+            });
+            }
+                    if (model.filter.sarea && model.filter.earea) {
+            %>
+            <span class="condition"><%= model.filter.sarea %> - <%= model.filter.earea %> 平米<a class="paramDelBtn"
+                                                                                               href="javascript:;"
+                                                                                               onclick="removeFilter('sarea','earea')"></a></span>
+            <%
+                selected = true;
+            }else if(model.filter.sarea){
+            %>
+            <span class="condition"><%= model.filter.sarea %>平米以上<a class="paramDelBtn" href="javascript:;"
+                                                                    onclick="removeFilter('sarea')"></a></span>
+            <%
+                selected = true;
+            }else if(model.filter.earea){
+            %>
+            <span class="condition"><%= model.filter.earea %>平米以下<a class="paramDelBtn" href="javascript:;"
+                                                                    onclick="removeFilter('earea')"></a></span>
+            <%
+                selected = true;
+            }
+            %>
+        </span>
+    </div>
+    <%
+    if(selected)
+    {
+    %>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('#conditionBox').show();
+        });
+    </script>
+    <%
+    }
+    else{
+    %>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('#conditionBox').hide();
+        });
+    </script>
+    <%
+    }
+    %>
+</div>
+</div>
+</div>
+<input class="hidden-area" autocomplete="off" type="hidden" name="scitycode" value="<%= model.filter.scitycode %>"/>
+<input id="trainstorelevel" name="trainstorelevel" value="<%= model.filter.trainstorelevel %>" type="hidden"/>
+<input id="trainstoretype" name="trainstoretype" value="<%= model.filter.trainstoretype %>" type="hidden"/>
+<input id="sarea" name="sarea" value="<%= model.filter.sarea %>" type="hidden"/>
+<input id="earea" name="earea" value="<%= model.filter.earea %>" type="hidden"/>
+</form>
+<%- partial("trainstore/list", {
+    model: model
+}) %>
+<script type="text/javascript" charset="utf-8" src="javascripts/city.js"></script>
+<script type="text/javascript" charset="utf-8" src="javascripts/citySelector.js"></script>
+<script type="text/javascript" src="javascripts/trainstore.js"></script>
+<script type="text/javascript" src="javascripts/prompt.js"></script>

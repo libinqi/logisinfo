@@ -1,0 +1,59 @@
+<li class="center_whole">
+    <div class="center_whole8">
+        <p clang="no_pic"><img
+                    src="<%= store.attrs.image ? store.attrs.image : '/images/no-store.jpg' %>"
+                    width="130" height="100"/></p>
+    </div>
+    <div id="uc_<%= store.id %>" class="center_whole9">
+        <p class="center_addr"><%= store.attrs.storename %></p>
+        <script type="text/javascript">
+            $(document).ready(function () {
+                bindEnterpriseInfo('<%= store.attrs.eid %>', 'uc_<%= store.id %>');
+            });
+        </script>
+    </div>
+    <div class="center_whole10">
+        <P class="center_length martop-17">面积：<span
+                    class="price_red"><%= (store.attrs.storearea && store.attrs.storearea != 0) ? store.attrs.storearea + '㎡' : '不详' %></span>
+        </P>
+
+        <P class="center_length">可用面积：<span
+                    class="price_red"><%= (store.attrs.usearea && store.attrs.usearea != 0) ? store.attrs.usearea + '㎡' : '不详' %></span>
+        </P>
+        <!--<p class="martop-20"><%= store.attrs.contact %></p>-->
+    </div>
+    <div class="center_whole10">
+        <P class="center_length martop-17">仓库类型：<span
+                    class="price_red">
+                <%
+                info_dict.store_type.forEach(function (item, index) {
+                        if(item.id == store.attrs.storetypecode)
+                {
+                %>
+                <%= item.name %>
+                <%
+                }
+                });
+                %>
+            </span></P>
+
+        <P class="center_length">经营范围：<span class="price_red">
+                <%
+                info_dict.business_scope.forEach(function (item, index) {
+                        if(item.id == store.attrs.businessscopecode)
+                {
+                %>
+                <%= item.name %>
+                <%
+                }
+                });
+                %>
+            </span></P>
+        <!--<p class="martop-20"><%= store.attrs.phone %></p>-->
+    </div>
+    <div class="center_whole7">
+    </div>
+    <div class="center_whole4">
+        <p class="martop-27"><a href="/store/detail?infoid=<%= store.attrs.infoid %>" class="please" target="_blank">查看详情</a></p>
+    </div>
+</li>

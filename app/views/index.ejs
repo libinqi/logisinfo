@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <title><%- title %></title>
+    <link href="http://www.jt56.org/templates/style/share_style.css" rel="stylesheet">
+    <link href="/stylesheets/citySelector.css" rel="stylesheet"/>
+    <link href="stylesheets/main.css" rel="stylesheet">
+    <link href="stylesheets/style.css" rel="stylesheet">
+    <script type="text/javascript" src="/javascripts/jquery-1.10.2.min.js"></script>
+</head>
+<body id="top">
+<!--<p id="back-to-fankui"><a href="javascript:;" id="fankui"><span></span>点击反馈</a></p>-->
+<p id="back-to-top"><a href="#top"><span></span>返回顶部</a></p>
+<%- partial("layouts/top_nav") %>
+<div class="banner">
+    <div class="banner_con">
+        <dl class="banner_top">
+            <dt class="banner_title"></dt>
+            <dd class="banner_huo">
+                <p class="banner_com margin-46">
+                    <a href="http://guanjia.jt56.org/butler/carinfoController/carinfo" class="banner_che"></a>
+                    <a href="http://guanjia.jt56.org/butler/carinfoController/carinfo" class="banner_txt">发布车源</a>
+                </p>
+
+                <p class="banner_com margin-46">
+                    <a href="http://guanjia.jt56.org/butler/pubGoods/view" class="ban_huo"></a>
+                    <a href="http://guanjia.jt56.org/butler/pubGoods/view" class="banner_txt">发布货源</a>
+                </p>
+
+                <p class="banner_com margin-17">
+                    <a href="http://guanjia.jt56.org/" class="ban_com"></a>
+                    <a href="http://guanjia.jt56.org/" class="banner_txt">企业入驻</a>
+                </p>
+            </dd>
+        </dl>
+        <div class="banner_main">
+            <div class="banner_l">
+                <ul class="banner_nav">
+                    <li class="banner_li"><a href="#" class="nav_car nav_caractive">找车</a></li>
+                    <li class="banner_li"><a href="#" class="nav_goods">找货</a></li>
+                </ul>
+                <div class="panel_car panel_active">
+                    <div class="nav_input1"><input id="scity_car" type="text" class="origin"/></div>
+                    <div class="change1"><a href="javascript:carCityChange()" class="change"></a></div>
+                    <div class="nav_input2"><input id="ecity_car" type="text" class="origin"/></div>
+                    <div class="choice1">
+                        <div id="select_carlen" class="choice"><span class="choice_txt">车长</span><a href="#" class="choice_img"></a>
+                        </div>
+                        <ul id="select_carlen_ul" class="choice_ul" style="display:none;">
+                            <li class="choice_li">3-6米</li>
+                            <li class="choice_li">6-10米</li>
+                            <li class="choice_li">10-13米</li>
+                            <li class="choice_li">13-16米</li>
+                            <li class="choice_li">16米以上</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="panel_goods">
+                    <div class="nav_input1"><input id="scity_goods" type="text" class="origin"/></div>
+                    <div class="change1"><a href="javascript:goodsCityChange()" class="change"></a></div>
+                    <div class="nav_input2"><input id="ecity_goods" type="text" class="origin"/></div>
+                    <div class="choice1">
+                        <div id="select_goodstype" class="choice"><span class="choice_txt">货型</span><a href="#" class="choice_img"></a>
+                        </div>
+                        <ul id="select_goodstype_ul" class="choice_ul" style="display:none;">
+                            <li class="choice_li">普货</li>
+                            <li class="choice_li">重货</li>
+                            <li class="choice_li">泡货</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="nav_check"><a href="javascript:queryInfo()" class="check">查询</a></div>
+            </div>
+            <div class="banner_r"><img src="images/banner.jpg" width="750" height="378"/></div>
+        </div>
+    </div>
+</div>
+<div class="message">
+    <div class="message_con">
+        <div class="message_l">
+            <div class="mess_top">
+                <div class="mess_huo">最近货源</div>
+                <div class="mess_more"><a href="/goods" class="more">+ 更多货源</a></div>
+            </div>
+            <ul id="goodsList" class="mess_con">
+            </ul>
+        </div>
+        <div class="message_r">
+            <div class="mess_top">
+                <div class="mess_car">最近车源</div>
+                <div class="mess_more"><a href="/car" class="more">+ 更多车源</a></div>
+            </div>
+            <ul id="carList" class="mess_con">
+            </ul>
+        </div>
+    </div>
+</div>
+<div class="hot">
+    <div class="hot_con">
+        <div class="hot_title">最新专线</div>
+        <!--<div class="hot_city"><span class="city_name margin-7">热门城市</span><a href="#" class="city_bg margin-9">长沙</a><a href="#" class="city_bg margin-9">长沙</a><a href="#" class="city_bg margin-9">长沙</a><a href="#" class="city_bg margin-9">长沙</a></div>-->
+        <!--<div class="hot_city"><span class="city_name margin-7">热门线路</span><a href="#" class="hot_line margin-9">长沙-广州</a><a href="#" class="hot_line margin-9">长沙-广州</a><a href="#" class="hot_line margin-9">长沙-广州</a><a href="#" class="hot_line margin-9">长沙-广州</a></div>-->
+        <div class="mess_more"><a href="/line" class="more">+ 更多专线</a></div>
+    </div>
+</div>
+<div class="line">
+    <div id="lineList" class="line_main">
+    </div>
+</div>
+<div class="enter">
+    <div class="enter_com">
+        <ul class="enter_nav">
+            <li class="enter_li">推荐企业</li>
+            <!-- <li class="enter_li"><a href="#" class="com_nav">整车企业</a></li>
+             <li class="enter_li"><a href="#" class="com_nav">零担企业</a></li>
+             <li class="enter_li"><a href="#" class="com_nav">配货信息部</a></li>
+             <li class="enter_li"><a href="#" class="com_nav">仓储企业</a></li>
+             <li class="enter_li"><a href="#" class="com_nav">物流园区</a></li>-->
+            <!--<li class="com_page"><a href="#" class="page_l"></a><a href="#" class="page_r"></a></li>-->
+        </ul>
+        <ul id="enterpriseList" class="en_com">
+        </ul>
+    </div>
+</div>
+<div class="footer">
+    <div class="footer_con">
+        <p class="footer_p">
+            <a href="http://www.jt56.org/HTML/aboutus/about.shtml" class="f_nav" target="_blank">平台介绍</a> |
+            <a href="http://www.jt56.org/HTML/about/maps.shtml" class="f_nav" target="_blank">网站地图</a> |
+            <a href="http://www.jt56.org/HTML/about/Legal.shtml" class="f_nav" target="_blank">法律声明</a> |
+            <a href="http://www.jt56.org/HTML/download.shtml" class="f_nav" target="_blank">下载中心</a> |
+            <a href="http://www.jt56.org/HTML/2014/1/591.shtml" class="f_nav" target="_blank">诚聘英才</a> |
+            <a href="http://www.jt56.org/HTML/about/Contact.shtml" class="f_nav" target="_blank">联系我们</a>
+        </p>
+        <p class="footer_p">copyright©2013-2014 版权所有 湖南交通物流信息服务有限公司 备案/许可证号：湘ICP备13003937号-1</p>
+    </div>
+</div>
+<script type="text/javascript" src="/javascripts/jquery.timeago.js"></script>
+<script type="text/javascript" charset="utf-8" src="javascripts/city.js"></script>
+<script type="text/javascript" charset="utf-8" src="javascripts/citySelector.js"></script>
+<script type="text/javascript" src="/javascripts/main.js"></script>
+<script type="text/javascript" src="/javascripts/index.js"></script>
+</body>
+</html>

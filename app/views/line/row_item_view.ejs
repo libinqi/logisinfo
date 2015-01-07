@@ -1,0 +1,35 @@
+<li class="center_whole">
+    <div class="center_whole8">
+        <p clang="no_pic"><img
+                    src="<%= line.attrs.image ? line.attrs.image : '/images/no-line.jpg' %>"
+                    width="130" height="100"/></p>
+    </div>
+    <div id="uc_<%= line.id %>" class="center_whole9">
+        <p class="center_addr"><%= line.attrs.scity + '至' + line.attrs.ecity + '专线' %></p>
+        <script type="text/javascript">
+            $(document).ready(function () {
+                bindEnterpriseInfo('<%= line.attrs.eid %>', 'uc_<%= line.id %>');
+            });
+        </script>
+    </div>
+    <div class="center_whole10">
+        <P class="center_length martop-17">重货价格：<span
+                    class="price_red"><%= (line.attrs.heavycargoprice && line.attrs.heavycargoprice != 0) ? line.attrs.heavycargoprice + '元/公斤' : '面议' %></span>
+        </P>
+
+        <P class="center_length">泡货价格：<span
+                    class="price_red"><%= (line.attrs.foamgoodsprice && line.attrs.foamgoodsprice != 0) ? line.attrs.foamgoodsprice + '元/立方' : '面议' %></span>
+        </P>
+    </div>
+    <div class="center_whole10">
+        <P class="center_length martop-17">发车班次：<span
+                    class="price_red"><%= line.attrs.modetransport %></span></P>
+
+        <P class="center_length">运输时长：<span class="price_red"><%= line.attrs.transtime %>天</span></P>
+    </div>
+    <div class="center_whole7">
+    </div>
+    <div class="center_whole4">
+        <p class="martop-27"><a href="/line/detail?infoid=<%= line.attrs.infoid %>" class="please" target="_blank">查看详情</a></p>
+    </div>
+</li>

@@ -1,0 +1,39 @@
+<div class="fenye">
+    <div class="pagination">
+    </div>
+</div>
+<script type="text/javascript" src="javascripts/jquery.pagination.js"></script>
+<script type="text/javascript">
+    var currentUrl = window.location.href;
+    var re = eval('/(page=)([^&]*)/gi');
+    var newUrl = currentUrl.replace(re, 'page=__id__');
+
+    if (newUrl.indexOf('page') <= 0) {
+        if (newUrl.indexOf('?') <= 0)
+            newUrl += "?page=__id__";
+        else
+            newUrl += "&page=__id__";
+    }
+
+    if(<%=total%>>0)
+    {
+        $('.fenye').show();
+    }
+    else
+    {
+        $('.fenye').hide();
+    }
+
+    $(".pagination").pagination(<%=total%>, {
+        num_edge_entries: 2,
+        num_display_entries: 4,
+        current_page: <%=page_index%>,
+        prev_text: "上一页",
+        next_text: "下一页",
+        items_per_page: <%=page_size%>,
+        link_to: newUrl,
+        callback: function () {
+            return true;
+        }
+    });
+</script>

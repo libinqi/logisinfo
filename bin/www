@@ -1,0 +1,7 @@
+#!/usr/bin/env node
+var debug = require('debug')('LogisTrade');
+var app = require('../app');
+
+var server = app.listen(app.get('settings').port, function() {
+  debug('listening on port ' + server.address().port);
+});

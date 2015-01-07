@@ -1,0 +1,5 @@
+@charset "utf-8";
+.store_kuang{float:left;height:100px; overflow:hidden;padding:2px; text-align:center; width:130px; margin:0 5px 0 0;}
+.store_right{ line-height:100px;margin-left: 2px;}
+.store_right span{ padding:0 35px;*padding:0 20px;}
+.frit_store{ margin:0 350px 0 100px;}

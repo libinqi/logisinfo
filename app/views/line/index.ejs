@@ -1,0 +1,199 @@
+<link href="stylesheets/line.css" rel="stylesheet" type="text/css"/>
+<form id="form1" action="/line" method="get">
+<div class="banner">
+    <div class="banner_con">
+        <dl class="banner_top">
+            <a href="/"><dt class="banner_title"></dt></a>
+            <dd class="banner_huo">
+                <p class="banner_com margin-46">
+                    <a href="http://guanjia.jt56.org/butler/carinfoController/carinfo" class="banner_che"></a>
+                    <a href="http://guanjia.jt56.org/butler/carinfoController/carinfo" class="banner_txt">发布车源</a>
+                </p>
+                <p class="banner_com margin-46">
+                    <a href="http://guanjia.jt56.org/butler/pubGoods/view" class="ban_huo"></a>
+                    <a href="http://guanjia.jt56.org/butler/pubGoods/view" class="banner_txt">发布货源</a>
+                </p>
+                <p class="banner_com margin-17">
+                    <a href="http://guanjia.jt56.org/butler/userRegister/register" class="ban_com"></a>
+                    <a href="http://guanjia.jt56.org/butler/userRegister/register" class="banner_txt">企业入驻</a>
+                </p>
+            </dd>
+        </dl>
+        <div class="w screening">
+            <div class="til">
+                <%- partial("layouts/info_nav", {current_url: "/line"}) %>
+                <div class="title_item">Hi，本次为您找到 <span id="total_found" class="green"><%= model.total_find %></span>
+                    条专线信息，总用时：<span
+                            id="time_found"><%= model.time %></span>s
+                </div>
+                <div class="panel">
+                    <div class="city city_info">
+                        <div class="city_now">
+                            <div class="row3">
+                                <label class="label" for="from">出发地：</label>
+                                <input id="scity" name="scity" class="citynum"
+                                       autocomplete="off" value="<%= model.filter.scity %>"/>
+                                <label class="label" for="to">目的地：</label>
+                                <input id="ecity" name="ecity" class="citynum"
+                                       autocomplete="off" value="<%= model.filter.ecity %>"/>
+                                <a id="chaxun" href="javascript:void(0);" class="chaxun">查&nbsp;&nbsp;询</a>
+                            </div>
+                        </div>
+                        <!--<div class="huanbox">-->
+                            <!--<a id="changeAreaBtn" class="huan" href="javascript:void(0)">换</a>-->
+                        <!--</div>-->
+                    </div>
+
+                    <div class="shousuo up"></div>
+                    <div class="shaixuankuang">
+                        <div class="row">
+                            <span class="label">发车班次：</span>
+
+                            <div class="item">
+                                <%
+                                if(model.filter.transrate == '')
+                                {
+                                %>
+                                <span class="item_1"
+                                      onclick="document.getElementById('transrate').value='';form1.submit();"><a
+                                            href="javascript:;">不限</a></span>
+                                <%
+                                }
+                                else
+                                {
+                                %>
+                                <span class="item_1"
+                                      onclick="document.getElementById('transrate').value='';form1.submit();">不限</span>
+                                <%
+                                }
+                                        info_dict.trans_rate.forEach(function(transrate){
+                                        if(transrate.id == model.filter.transrate)
+                                {
+                                %>
+                                <span class="item_1"
+                                      onclick="document.getElementById('transrate').value='<%= transrate.id %>';form1.submit();"><a
+                                            href="javascript:;"><%= transrate.name %></a></span>
+                                <%
+                                }
+                                else
+                                {
+                                %>
+                                <span onclick="document.getElementById('transrate').value='<%= transrate.id %>';form1.submit();"><%= transrate.name %></span>
+                                <%
+                                }
+                                }) %>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <span class="label">运输时长：</span>
+
+                            <div class="item">
+                                <%
+                                if(model.filter.transtime == '')
+                                {
+                                %>
+                                <span class="item_1"
+                                      onclick="document.getElementById('transtime').value='';form1.submit();"><a
+                                            href="javascript:;">不限</a></span>
+                                <%
+                                }
+                                else
+                                {
+                                %>
+                                <span class="item_1"
+                                      onclick="document.getElementById('transtime').value='';form1.submit();">不限</span>
+                                <%
+                                }
+                                        info_dict.trans_time.forEach(function(transtime){
+                                        if(transtime.id == model.filter.transtime)
+                                {
+                                %>
+                                <span class="item_1"
+                                      onclick="document.getElementById('transtime').value='<%= transtime.id %>';form1.submit();"><a
+                                            href="javascript:;"><%= transtime.name %></a></span>
+                                <%
+                                }
+                                else
+                                {
+                                %>
+                                <span onclick="document.getElementById('transtime').value='<%= transtime.id %>';form1.submit();"><%= transtime.name %></span>
+                                <%
+                                }
+                                }) %>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div id="conditionBox" class="selected"><span id="yixuan">已选条件：</span><span
+                        class="conditionBox">
+                    <%
+                    var selected = false;
+                            if (model.filter.transrate)
+                    {
+                            info_dict.trans_rate.forEach(function(item){
+                            if(item.id == model.filter.transrate)
+                    {
+                    %>
+                    <span class="condition"><%= item.name %><a class="paramDelBtn" href="javascript:;"
+                                                               onclick="removeFilter('transrate')"></a></span>
+                    <%
+                        selected = true;
+                    }
+                    });
+                    }
+                            if (model.filter.transtime)
+                    {
+                            info_dict.trans_time.forEach(function(item){
+                            if(item.id == model.filter.transtime)
+                    {
+                    %>
+                    <span class="condition"><%= item.name %><a class="paramDelBtn" href="javascript:;"
+                                                               onclick="removeFilter('transtime')"></a></span>
+                    <%
+                        selected = true;
+                    }
+                    });
+                    }
+                    %>
+                </span>
+            </div>
+            <%
+            if(selected)
+            {
+            %>
+            <script type="text/javascript">
+                $(document).ready(function () {
+                    $('#conditionBox').show();
+                });
+            </script>
+            <%
+            }
+            else{
+            %>
+            <script type="text/javascript">
+                $(document).ready(function () {
+                    $('#conditionBox').hide();
+                });
+            </script>
+            <%
+            }
+            %>
+        </div>
+    </div>
+</div>
+<input class="hidden-area" autocomplete="off" type="hidden" name="scitycode" value="<%= model.filter.scitycode %>"/>
+<input class="hidden-area" autocomplete="off" type="hidden" name="ecitycode" value="<%= model.filter.ecitycode %>"/>
+<input id="linetype" name="linetype" value="<%= model.filter.linetype %>" type="hidden"/>
+<input id="transrate" name="transrate" value="<%= model.filter.transrate %>" type="hidden"/>
+<input id="transtime" name="transtime" value="<%= model.filter.transtime %>" type="hidden"/>
+<input id="listtype" name="listtype" value="<%= model.filter.listtype %>" type="hidden"/>
+</form>
+<%- partial("line/list", {
+    model: model
+}) %>
+<script type="text/javascript" charset="utf-8" src="javascripts/city.js"></script>
+<script type="text/javascript" charset="utf-8" src="javascripts/citySelector.js"></script>
+<script type="text/javascript" src="javascripts/line.js"></script>
+<script type="text/javascript" src="javascripts/prompt.js"></script>
