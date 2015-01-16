@@ -35,6 +35,7 @@ module.exports = function (app) {
     router.post('/car/applyIntentCar',controllers.car.applyIntentCar);
     router.get('/line',controllers.line.index);
     router.get('/line/detail',controllers.line.detail);
+    router.get('/line/add',controllers.line.add);
     router.get('/line/GetLineList',controllers.line.GetLineList);
     router.get('/store',controllers.store.index);
     router.get('/store/detail',controllers.store.detail);

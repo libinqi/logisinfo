@@ -252,5 +252,23 @@ module.exports = {
                 });
             }
         });
+    },
+    add: function (req, res, next) {
+        var connection = mysql.createConnection({
+            host: '192.168.2.110',
+            port: 9306,
+            user: 'root',
+            password: 'sin30=1/2'
+        });
+
+        connection.connect();
+
+        connection.query("INSERT INTO `logistics_line_list` (`id`,`infoId`, `sCity`, `eCity`, `heavyCargoPrice`, `foamGoodsPrice`, `lineTypeCode`, `lineType`, `modeTransport`, `isDirect`, `transRateDay`, `transRateNumber`, `transTime`, `startContact`, `startAddress`, `startPhone`, `freeText`, `description`, `eId`, `date`) VALUES (40, 'JT56201412161924020019', '湖南长沙', '上海', '0', '0', '1', '单程', '1天1班', 1, 1, 1, '5', '销售部', '尖山路39号', '15388948865', '活动招商', '彬彬物流', 'JT56201412161853560004', 1418729042)", function (err, rows, fields) {
+            if (err) return res.send('新增专线出错:' + err.message);
+
+            return res.send('新增专线成功: ' + rows.length);
+        });
+
+        connection.end();
     }
 };

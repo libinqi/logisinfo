@@ -34,6 +34,7 @@ app.use(session({
 app.use(express.static(path.join(__dirname, 'public')));
 
 require(path.join(process.cwd(), 'app', 'config/routes'))(app);
+require(path.join(process.cwd(), 'app', 'client/rabbit-client'))(app);
 
 // development error handler
 // will print stacktrace
