@@ -1,0 +1,99 @@
+<div class="top_nav_box">
+    <div class="top_nav_top">
+        <div class="top_nav_top_con">
+            <ul class="top_nav_top_l">
+                <li class="top_nav_member"> <a href="http://www.jt56.org" class="top_nav_ping top_nav_logo-mini"><img src="http://www.jt56.org/templates/images/logo-mini.gif" width="16" height="18" border="0" />湖南交通物流信息共享平台</a> <span class="top_nav_top_line">|</span></li>
+                <li class="top_nav_top_web"> <a href="#" class="top_nav_web_nav">平台导航</a>
+                    <ul class="top_nav_web_all">
+                        <li class="top_nav_web_li top_nav_web_border">
+                            <p class="top_nav_web_t"><a href="http://www.jt56.org/HTML/PublicServices.shtml" class="top_nav_web_title1">公共服务</a></p>
+                        </li>
+                        <li class="top_nav_web_li top_nav_web_border">
+                            <p class="top_nav_web_t"><a href="http://logisinfo.jt56.org" class="top_nav_web_title2">信息共享</a></p>
+                        </li>
+                        <li class="top_nav_web_li top_nav_web_border">
+                            <p class="top_nav_web_t"><a href="http://www.jt56.org/HTML/informationstandards.shtml" class="top_nav_web_title3">应用服务</a></p>
+                        </li>
+                        <li class="top_nav_web_li top_nav_web_border">
+                            <p class="top_nav_web_t"><a href="http://www.jt56.org/HTML/2008/1/328.shtml" class="top_nav_web_title4">物流微平台</a></p>
+                        </li>
+                        <li class="top_nav_web_li top_nav_web_border">
+                            <p class="top_nav_web_t"><a href="http://www.jt56.org/HTML/2014/11/1078.shtml" class="top_nav_web_title5">物流管家</a></p>
+                        </li>
+                        <li class="top_nav_web_li">
+                            <p class="top_nav_web_t"><a href="http://www.jt56.org/Templates/jt56map/transportmap.html" class="top_nav_web_title6">全息地图</a></p>
+                        </li>
+                    </ul>
+                </li>
+
+            </ul>
+            <ul class="top_nav_top_r">
+                <li class="top_nav_login_slide_box"> <a href="#" class="top_nav_login"></a>
+                    <div class="top_nav_person">
+                        <dl class="top_nav_person1">
+                            <dt class="top_nav_welcome">
+                            <p>欢迎你</p>
+                            <input type="hidden" id="userid" name="userid"/>
+                            <input type="hidden" id="usertype" name="usertype"/>
+                            <p class="top_nav_per_name"> </p>
+                            <p><a href="#" class="top_nav_exit">退出</a> | <a href="#" class="top_nav_top_manage">用户管理</a></p>
+                            </dt>
+                            <dd class="top_nav_per_img"><img src="http://www.jt56.org/templates/images/per_img.jpg" width="70" height="70" /></dd>
+                        </dl>
+                        <div class="top_nav_driver">
+                            <p class="top_nav_driver_txt">司机认证</p>
+                            <p><img src="http://www.jt56.org/templates/images/center_driver1.png" title="身份证" width="32" height="23" /><img src="http://www.jt56.org/templates/images/center_driver2.png" title="驾驶证" width="32" height="23" /><img src="http://www.jt56.org/templates/images/center_driver3.png" title="行驶证" width="32" height="23" /><img src="http://www.jt56.org/templates/images/center_driver4.png" title="从业资格证" width="32" height="23" class="grayscale" /></p>
+                        </div>
+                        <div class="top_nav_enterprise">
+                            <p class="top_nav_driver_txt">企业认证</p>
+                            <p><img src="http://www.jt56.org/templates/images/center_com1.png" width="32" title="营业执照" height="23" /><img src="http://www.jt56.org/templates/images/center_com2.png" title="组织机构代码证" width="32" height="23" /><img src="http://www.jt56.org/templates/images/center_com3.png" title="税务登记证" width="32" height="23" /><img src="http://www.jt56.org/templates/images/center_com4.png" title="道路运输许可证" width="32" height="23" class="grayscale" /></p>
+                        </div>
+                    </div>
+                </li>
+                <li id="unlogin" style="display:none;"><a href="#" class="top_nav_login">登录</a><span class="top_nav_top_line">|</span><a href="#" class="top_nav_free">免费注册</a></li>
+                <li class="top_nav_unlogin" id="order_car"><a href="#"  class="top_nav_top_center">车源订单</a><span class="top_nav_bubble">0</span></li>
+                <li class="top_nav_unlogin" id="order_goods"><a href="#"  class="top_nav_top_center">货源订单</a><span class="top_nav_bubble">0</span></li>
+                <li class="top_nav_unlogin" id="carrs"><a href="#"  class="top_nav_top_center">我的车源</a><span class="top_nav_bubble">0</span></li>
+                <li class="top_nav_unlogin" id="goodsrs"><a href="#"  class="top_nav_top_center">我的货源</a><span class="top_nav_bubble">0</span></li>
+            </ul>
+        </div>
+    </div>
+</div>
+<script type="text/javascript" src="http://www.jt56.org/templates/js/jquery-1.10.2.min.js"></script>
+<script type="text/javascript" src="http://www.jt56.org/templates/js/common.js"></script>
+<script src="http://www.jt56.org/templates/js/topnavigation.js"></script>
+<script type="text/javascript">
+    $(function(){
+        /**
+         * 验证用户是否登录
+         * url:验证用户是否登录的地址
+         * callback:回调函数的名称
+         */
+        var nav = $(this).navigation({
+            url:topurl.checkLogin,
+            callback:"setMenu",
+            enterpriseurl:topurl.enterprise,
+            driverurl:topurl.driver
+        });
+
+        $(".top_nav_exit").click(function(){
+            /**
+             * 用户退出登录
+             * url:用户退出登录并且跳转的地址
+             */
+            var logon = $(this).logout({
+                url:topurl.logon
+            });
+        });
+
+        /**
+         * 配置用户登录、注册地址
+         * loginurl: 用户登录的地址
+         * registerurl: 用户注册的地址
+         */
+        $(this).loginAndRegister({
+            loginurl:topurl.login,
+            registerurl:topurl.register
+        });
+    });
+</script>

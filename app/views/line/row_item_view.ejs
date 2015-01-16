@@ -1,0 +1,26 @@
+<li class="center_whole_line">
+    <div class="center_whole15 martop-25">
+        <p class="center_addr"><%= line.attrs.scity %><span class="line_row"><img src="<%=line.attrs.linetypecode==1?'images/dan_03.jpg':'images/kuai.jpg'%>" width="23"
+                                                                                  height="12"/></span><%= line.attrs.ecity %>
+        </p>
+    </div>
+    <div id="uc_<%= line.id %>" class="center_whole12">
+        <script type="text/javascript">
+            $(document).ready(function () {
+                bindEnterpriseInfo('<%= line.attrs.eid %>', 'uc_<%= line.id %>');
+            });
+        </script>
+    </div>
+    <div class="center_whole10">
+        <P class="center_length martop-25">发班车次：<span class="price_red"><%= line.attrs.modetransport %></span></P>
+
+    </div>
+    <div class="center_whole6">
+        <P class="center_length martop-25">运输时长：<span
+                    class="price_red"><%= line.attrs.transtime ? line.attrs.transtime : 1 %>天</span></P>
+    </div>
+
+    <div class="center_whole4">
+        <p class="martop-17"><a href="/line/detail?infoid=<%= line.attrs.infoid %>" class="please">查看详情</a></p>
+    </div>
+</li>

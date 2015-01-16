@@ -1,0 +1,64 @@
+<div class="banner">
+    <div class="banner_con">
+        <dl class="banner_top">
+            <a href="/">
+                <dt class="banner_title"></dt>
+            </a>
+            <dd class="banner_huo">
+                <p class="banner_com margin-46">
+                    <a href="http://guanjia.jt56.org/butler/carinfoController/carinfo" class="banner_che"></a>
+                    <a href="http://guanjia.jt56.org/butler/carinfoController/carinfo" class="banner_txt">发布车源</a>
+                </p>
+
+                <p class="banner_com margin-46">
+                    <a href="http://guanjia.jt56.org/butler/pubGoods/view" class="ban_huo"></a>
+                    <a href="http://guanjia.jt56.org/butler/pubGoods/view" class="banner_txt">发布货源</a>
+                </p>
+
+                <p class="banner_com margin-17">
+                    <a href="http://guanjia.jt56.org/" class="ban_com"></a>
+                    <a href="http://guanjia.jt56.org/" class="banner_txt">企业入驻</a>
+                </p>
+            </dd>
+        </dl>
+    </div>
+</div>
+<div class="w screening hy_detail">
+    <div class="til">
+        <%
+        if(model.items.length > 0)
+        {
+             if (model.items[0].attrs.source == 1)
+            {
+            %>
+            <%- partial("goods/detail/jt56_item_detail", {
+                goods: model.items[0]
+            }) %>
+            <%
+            }
+             if (model.items[0].attrs.source == 2) {
+            %>
+            <%- partial("goods/detail/yc_item_detail", {
+                goods: model.items[0]
+            }) %>
+            <%
+            }
+            if (model.items[0].attrs.source == 3) {
+            %>
+        <%- partial("goods/detail/zj_item_detail", {
+            goods: model.items[0]
+        }) %>
+        <%
+        }
+            if (model.items[0].attrs.source == 4) {
+            %>
+            <%- partial("goods/detail/tj_item_detail", {
+                goods: model.items[0]
+            }) %>
+            <%
+            }
+        }
+        %>
+    </div>
+</div>
+<script type="text/javascript" src="/javascripts/prompt.js"></script>

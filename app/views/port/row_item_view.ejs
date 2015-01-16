@@ -1,0 +1,57 @@
+<li class="center_whole">
+    <div class="center_whole8">
+        <p clang="no_pic"><img
+                    src="<%= port.attrs.image ? port.attrs.image : '/images/no-port.jpg' %>"
+                    width="130" height="100"/></p>
+    </div>
+    <div id="uc_<%= port.id %>" class="center_whole9">
+        <p class="center_addr"><%= port.attrs.portname %></p>
+        <script type="text/javascript">
+            $(document).ready(function () {
+                bindEnterpriseInfo('<%= port.attrs.eid %>', 'uc_<%= port.id %>');
+            });
+        </script>
+    </div>
+    <div class="center_whole10">
+        <P class="center_length martop-17">泊位数：<span
+                    class="price_red"><%= (port.attrs.berthnumber && port.attrs.berthnumber != 0) ? port.attrs.berthnumber + '个' : '不详' %></span>
+        </P>
+
+        <P class="center_length">年吞吐量：<span
+                    class="price_red"><%= (port.attrs.yearthroughput && port.attrs.yearthroughput != 0) ? port.attrs.yearthroughput + '吨' : '不详' %></span>
+        </P>
+    </div>
+    <div class="center_whole10">
+        <P class="center_length martop-17">港口类型：<span
+                    class="price_red">
+                <%
+                info_dict.port_type.forEach(function (item, index) {
+                        if(item.id == port.attrs.porttypecode)
+                {
+                %>
+                <%= item.name %>
+                <%
+                }
+                });
+                %>
+            </span></P>
+
+        <P class="center_length">港口级别：<span class="price_red">
+                <%
+                info_dict.port_level.forEach(function (item, index) {
+                        if(item.id == port.attrs.portlevelcode)
+                {
+                %>
+                <%= item.name %>
+                <%
+                }
+                });
+                %>
+            </span></P>
+    </div>
+    <div class="center_whole7">
+    </div>
+    <div class="center_whole4">
+        <p class="martop-27"><a href="/port/detail?infoid=<%= port.attrs.infoid %>" class="please" target="_blank">查看详情</a></p>
+    </div>
+</li>

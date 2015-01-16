@@ -1,0 +1,27 @@
+<li class="center_car">
+    <div class="center_whole1-2">
+        <span id="infoId" style="display:none;"><%= goods.id %></span>
+
+        <p class="center_addr1"><a href="goods/detail?infoid=<%= goods.attrs.infoid %>"
+                                   target="_blank"><%- goods.attrs.infotext %></a></p>
+    </div>
+    <div class="center_car3">
+        <p class="martop-27"><span class="com_img margin-5"><img src="/images/center_com1.png" title="营业执照" width="32"
+                                                                 height="23" class="grayscale"/></span><span
+                    class="com_img margin-5"><img
+                        src="/images/center_com2.png" title="组织机构代码证" width="32" height="23"
+                        class="grayscale"/></span><span
+                    class="com_img margin-5"><img src="/images/center_com3.png" title="税务登记证" width="32" height="23"
+                                                  class="grayscale"/></span><span
+                    class="com_img"><img src="/images/center_com4.png" title="企业道路运输营业许可证" width="32" height="23"
+                                         class="grayscale"/></span></p>
+    </div>
+    <div class="center_car4">
+        <p class="shijian martop-22"><%= DateFormat.TimeAgo(goods.attrs.date * 1000) %></p>
+
+        <p class="pingtai martop-6">衡阳雁城物流园</p>
+    </div>
+    <div class="center_car5">
+        <a class="contact" href="javascript:viewConcatInfo()" target="_blank">马上联系</a>
+    </div>
+</li>

@@ -1,0 +1,114 @@
+<div class="center_all">
+    <ul class="center_driver">
+        <%
+        if (model.filter.linetype == 1) {
+        %>
+        <li class="center_driver1"><a href="javascript:document.getElementById('linetype').value='';form1.submit();"
+                                      class="center_com">全部</a></li>
+        <li class="center_driver1"><a
+                    href="javascript:document.getElementById('linetype').value='1';form1.submit();"
+                    class="center_com_hover">单程</a></li>
+        <li class="center_driver1"><a href="javascript:document.getElementById('linetype').value='2';form1.submit();"
+                                      class="center_com">往返</a></li>
+        <%
+        }
+        else if (model.filter.linetype == 2) {
+        %>
+        <li class="center_driver1"><a href="javascript:document.getElementById('linetype').value='';form1.submit();"
+                                      class="center_com">全部</a></li>
+        <li class="center_driver1"><a
+                    href="javascript:document.getElementById('linetype').value='1';form1.submit();" class="center_com">单程</a>
+        </li>
+        <li class="center_driver1"><a
+                    href="javascript:document.getElementById('linetype').value='2';form1.submit();"
+                    class="center_com_hover">往返</a></li>
+        <%
+        }
+        else {
+        %>
+        <li class="center_driver1"><a
+                    href="javascript:document.getElementById('linetype').value='';form1.submit();"
+                    class="center_com_hover">全部</a></li>
+        <li class="center_driver1"><a
+                    href="javascript:document.getElementById('linetype').value='1';form1.submit();" class="center_com">单程</a>
+        </li>
+        <li class="center_driver1"><a href="javascript:document.getElementById('linetype').value='2';form1.submit();"
+                                      class="center_com">往返</a></li>
+        <%
+        }
+        %>
+    </ul>
+    <div class="center_new">
+        <!--<input type="checkbox" class="good"/><span class="good_txt margin-32">直达</span><a href="#"-->
+                                                                                          <!--class="new_pub">运输时长</a> <a-->
+                <!--href="#" class="new_pub">泡货价格</a><a href="#" class="new_pub">重货价格</a>-->
+    </div>
+</div>
+<div class="clear"></div>
+<div class="w line_content">
+    <%
+    if (model.items.length > 0) {
+            model.items.forEach(function (line) {
+    %>
+    <%- partial("line/row_item_view", {
+        line: line
+    }) %>
+    <%
+    });
+    }
+    else{
+    %>
+    <div class="content_no">
+        <dl>
+            <dd>
+                <div class="content_kuang"><img src="images/no.jpg" width="420" height="227"/></div>
+            </dd>
+            <div class="content_one">
+                <%
+                    var filterStr = '';
+                    if (model.filter.scity && model.filter.ecity) {
+                        filterStr += model.filter.scity + '至' + model.filter.ecity;
+                    }
+                    else if (model.filter.scity) {
+                        filterStr += model.filter.scity + '至全国';
+                    }
+                    else if (model.filter.ecity) {
+                        filterStr += '全国至' + model.filter.ecity;
+                    }
+
+                    if (model.filter.linetype) {
+                        filterStr += '+' + model.filter.linetype == 1 ? '单程' : '往返';
+                    }
+                    if (model.filter.transrate) {
+                        info_dict.trans_rate.forEach(function (item) {
+                            if (item.id == model.filter.transrate) {
+                                filterStr += '+' + item.name;
+                            }
+                        });
+                    }
+                    if (model.filter.transtime) {
+                        info_dict.trans_time.forEach(function (item) {
+                            if (item.id == model.filter.transtime) {
+                                filterStr += '+' + item.name;
+                            }
+                        });
+                    }
+                %>
+                <p id="no_w" name="no_w">没有找到与<span id="no_center">“
+                        <%= filterStr %>
+                        ”</span>相关的专线信息</p>
+                <script type="text/javascript">window.location.hash = "no_w"</script>
+                <p>建议减少筛选条件或更改关键词再试试.</p>
+            </div>
+            </dd>
+        </dl>
+    </div>
+    <%
+    }
+    %>
+    <%- partial("layouts/info_page", {
+        total: model.total,
+        page_index: model.page.page_index,
+        page_size: model.page.page_size
+    }) %>
+</div>

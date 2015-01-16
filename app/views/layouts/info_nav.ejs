@@ -1,0 +1,31 @@
+<ul class="title sub_nav" current_url="<%= current_url %>">
+    <li><a href="/goods">货源</a></li>
+    <li><a href="/car">车源</a></li>
+    <li><a href="/line">专线</a></li>
+    <li><a href="/store">仓储</a></li>
+    <li><a href="/trainstore">货场</a></li>
+    <li><a href="/port">港口</a></li>
+</ul>
+<script type="text/javascript">
+    $(document).ready(function () {
+        var $nav = $('.sub_nav');
+        var current_url = $nav.attr('current_url');
+        if (current_url) {
+            $nav.find('li').each(function () {
+                var $li = $(this);
+                var $a = $li.find('a');
+                if (current_url.indexOf($a.attr("href")) >= 0 || $a.attr("href").indexOf(current_url) >= 0) {
+                    $li.addClass('hover');
+                }
+                else
+                {
+                    $li.removeClass('hover');
+                }
+            });
+        }
+        else {
+            var $li = $nav.find('li')[0];
+            $li.addClass('hover');
+        }
+    });
+</script>

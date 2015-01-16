@@ -1,0 +1,35 @@
+<%- partial("layouts/info_nav", {current_url: "/car"}) %>
+<div class="title_item">
+    <span>当前位置：<a href="/">首页 </a>&gt;<a href="/car"> 车源 </a>&gt;</span>
+    <span class="tag"><%= car.attrs.scity %>车源信息详情</span>
+</div>
+<div class="title_item">
+    <div class="quanxi_huo">车</div>
+    <div class="quanxi_title">
+        <p id="quanxi_datitle" class="ln_margin"><%= car.attrs.infotext %></p>
+
+        <p class="ln_margin"> 发布时间：<%= DateFormat.TimeAgo(car.attrs.date * 1000) %></p>
+    </div>
+</div>
+<div class="quanxi_content">
+    <div class="quanxi_content_left">
+        <p>车型：<span
+                    id="huo_content_orange"><%= car.attrs.vehicletype ? car.attrs.vehicletype : '不详' %></span>
+        </p>
+
+        <p>车长：<span
+                    id="huo_content"><%= car.attrs.vehiclelength ? car.attrs.vehiclelength + '米' : '不详' %></span>
+        </p>
+
+        <p>联系方式：<span id="huo_content_1">查看联系方式，<a href="http://www.56tj.cn" id="quanxi_duanji"
+                                                   target="_blank">请联系天骄信息网</a></span></p>
+    </div>
+
+    <div class="quanxi_content_left">
+        <p>&nbsp;&nbsp;&nbsp;载重：<span
+                    id="huo_content"><%= car.attrs.loadweight ? car.attrs.loadweight + '吨' : '不详' %></span>
+        </p>
+
+        <p>出发地：<span id="huo_content"><%= car.attrs.scity %></span></p>
+    </div>
+</div>

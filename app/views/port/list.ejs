@@ -1,0 +1,82 @@
+<div class="center_all">
+    <ul class="center_driver">
+    </ul>
+    <div class="center_new">
+        <!--<a href="#" class="new_pub">年吞吐量</a>-->
+        <!--<a href="#" class="new_pub">泊位数</a>-->
+    </div>
+</div>
+<div class="clear"></div>
+<div class="w content">
+    <!--<div class="subtitle">-->
+        <!--<span class="frit">信息内容</span>-->
+        <!--<span class="frit_cankao">年吞吐量</span>-->
+        <!--<span class="frit_time">发布时间</span>-->
+        <!--<span class="frit_change">操作</span>-->
+    <!--</div>-->
+    <!--<div class="clear"></div>-->
+    <%
+    if (model.items.length > 0) {
+            model.items.forEach(function (port) {
+    %>
+    <%- partial("port/row_item_view", {
+        port: port
+    }) %>
+    <%
+    });
+    }
+    else{
+        var filterStr = '';
+        if (model.filter.scity) {
+            filterStr += model.filter.scity;
+        }
+        else {
+            filterStr += "全国";
+        }
+        if (model.filter.portlevel) {
+            info_dict.port_level.forEach(function (item) {
+                if (item.id == model.filter.portlevel) {
+                    filterStr += '+' + item.name;
+                }
+            });
+        }
+        if (model.filter.porttype) {
+            info_dict.port_type.forEach(function (item) {
+                if (item.id == model.filter.porttype) {
+                    filterStr += '+' + item.name;
+                }
+            });
+        }
+        if (model.filter.sberth && model.filter.eberth) {
+            filterStr += '+' + model.filter.sberth + '-' + model.filter.eberth + '个';
+        }
+        else if (model.filter.sberth) {
+            filterStr += '+' + model.filter.sberth + '个以上';
+        }
+        else if (model.filter.eberth) {
+            filterStr += '+' + model.filter.eberth + '个以下';
+        }
+    %>
+    <div class="content_no">
+        <dl>
+            <dd>
+                <div class="content_kuang"><img src="images/no.jpg" width="420" height="227"/></div>
+            </dd>
+            <div class="content_one">
+                <p id="no_w" name="no_w">没有找到与<span id="no_center">“<%= filterStr %>”</span>相关的港口信息</p>
+                <script type="text/javascript">window.location.hash = "no_w"</script>
+                <p>建议减少筛选条件或更改关键词再试试.</p>
+            </div>
+            </dd>
+        </dl>
+    </div>
+    <%
+    }
+    %>
+
+    <%- partial("layouts/info_page", {
+        total: model.total,
+        page_index: model.page.page_index,
+        page_size: model.page.page_size
+    }) %>
+</div>

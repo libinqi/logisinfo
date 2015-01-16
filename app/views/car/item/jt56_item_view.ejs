@@ -1,0 +1,38 @@
+<li class="center_car">
+    <div class="center_whole1">
+        <p class="center_addr1"><a href="car/detail?infoid=<%= car.attrs.infoid %>"
+                                   target="_blank"><%- car.attrs.infotext %></a></p>
+    </div>
+    <div id="uc_<%= car.id %>">
+        <% if(car.attrs.infotype == 1)
+        {
+        %>
+        <script type="text/javascript">
+            $(document).ready(function () {
+                bindDriverInfo('<%= car.attrs.createrid %>', 'uc_<%= car.id %>');
+            });
+        </script>
+        <%
+        }
+        else if(car.attrs.infotype == 2)
+        {
+        %>
+        <script type="text/javascript">
+            $(document).ready(function () {
+                bindEnterpriseInfo('<%= car.attrs.eid %>', 'uc_<%= car.id %>');
+            });
+        </script>
+        <%
+        }
+        %>
+    </div>
+    <div class="center_car4">
+        <p class="shijian martop-22"><%= DateFormat.TimeAgo(car.attrs.date * 1000) %></p>
+
+        <p class="pingtai martop-6">湖南平台</p>
+    </div>
+    <div class="center_car5">
+        <a href="javascript:void(0);" onclick="return applyIntentCar('<%= car.attrs.infoid %>')" class="tuoyun">我要托运</a>
+        <!--<a class="xianqing martop-2" href="car/detail?infoid=<%= car.attrs.infoid %>" target="_blank">查看详情</a>-->
+    </div>
+</li>

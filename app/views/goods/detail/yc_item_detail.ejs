@@ -1,0 +1,54 @@
+<%- partial("layouts/info_nav", {current_url: "/goods"}) %>
+<div class="title_item">
+    <span>当前位置：<a href="/">首页 </a>&gt;<a href="/goods"> 货源 </a>&gt;</span>
+    <span class="tag"><%= goods.attrs.scity %>货源信息详情</span>
+</div>
+<div class="title_item">
+    <div class="quanxi_huo">货</div>
+    <div class="quanxi_title">
+        <p id="quanxi_datitle" class="ln_margin"><%= goods.attrs.infotext %></p>
+
+        <p class="ln_margin">发布时间：<%= DateFormat.TimeAgo(goods.attrs.date * 1000) %></p>
+    </div>
+</div>
+<div class="quanxi_content">
+    <div class="quanxi_content_left">
+        <p>货物类型：<span
+                    id="huo_content_orange"><%= goods.attrs.goodstype ? goods.attrs.goodstype : '不详' %></span>
+        </p>
+
+        <p>车辆需求：<span
+                    id="huo_content"><%= goods.attrs.vehiclelength ? goods.attrs.vehiclelength + '米' : '不详' %>
+                <%= goods.attrs.vehicletype ? goods.attrs.vehicletype : '' %></span></p>
+
+        <p>联系方式：<span id="huo_content_1"><a href="javascript:void(0)" onclick="viewConcatInfo()" id="quanxi_duanji"
+                                            target="_blank">马上联系</a></span></p>
+    </div>
+
+    <div class="quanxi_content_left">
+        <p>&nbsp;&nbsp;&nbsp;重量：<span
+                    id="huo_content"><%= goods.attrs.weight ? goods.attrs.weight + '吨' : '不详' %></span>
+        </p>
+
+        <p>出发地：<span id="huo_content"><%= goods.attrs.scity %></span></p>
+    </div>
+</div>
+<script type="text/javascript">
+    function viewConcatInfo() {
+        var userInfo = window.userInfo;
+        if (!userInfo) {
+            var current = window.location.href;
+            window.location.href = topurl.login + "?service=" + current;
+            return;
+        }
+        var box_html = ' <div class="box_con">';
+        box_html += ' <p class="box_p"><span class="box_tel">公司名称：</span><span class="box_addr">衡阳雁城物流园</span></p>';
+        box_html += '   <p class="box_p"><span class="box_tel">联系电话：</span><span class="center_tel1">0734-2999999</span></p>';
+        box_html += ' <p class="box_p"><span class="box_tel">地址：</span><span class="box_addr">湖南省衡阳市石鼓区松木经济开发区</span></p>';
+        box_html += '   <div class="box_map">';
+        box_html += '    <img src="/images/map.jpg" width="550" height="250">';
+        box_html += '      </div>';
+        box_html += '   </div>';
+        var prompt = $.prompt('湖南省衡阳市雁城物流园', box_html, 650, 475);
+    }
+</script>

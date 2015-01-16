@@ -1,0 +1,57 @@
+<li class="center_whole">
+    <div class="center_whole8">
+        <p clang="no_pic"><img
+                    src="<%= trainstore.attrs.image ? trainstore.attrs.image : '/images/no-trainstore.jpg' %>"
+                    width="130" height="100"/></p>
+    </div>
+    <div id="uc_<%= trainstore.id %>" class="center_whole9">
+        <p class="center_addr"><%= trainstore.attrs.trainstorename %></p>
+        <script type="text/javascript">
+            $(document).ready(function () {
+                bindEnterpriseInfo('<%= trainstore.attrs.eid %>', 'uc_<%= trainstore.id %>');
+            });
+        </script>
+    </div>
+    <div class="center_whole10">
+        <P class="center_length martop-17">面积：<span
+                    class="price_red"><%= (trainstore.attrs.trainstorearea && trainstore.attrs.trainstorearea != 0) ? trainstore.attrs.trainstorearea + '㎡' : '不详' %></span>
+        </P>
+
+        <P class="center_length">年吞吐量：<span
+                    class="price_red"><%= (trainstore.attrs.yearthroughput && trainstore.attrs.yearthroughput != 0) ? trainstore.attrs.yearthroughput + '吨' : '不详' %></span>
+        </P>
+    </div>
+    <div class="center_whole10">
+        <P class="center_length martop-17">货场类型：<span
+                    class="price_red">
+                <%
+                info_dict.train_store_type.forEach(function (item, index) {
+                        if(item.id == trainstore.attrs.trainstoretypecode)
+                {
+                %>
+                <%= item.name %>
+                <%
+                }
+                });
+                %>
+            </span></P>
+
+        <P class="center_length">货场级别：<span class="price_red">
+                <%
+                info_dict.train_store_level.forEach(function (item, index) {
+                        if(item.id == trainstore.attrs.trainstorelevelcode)
+                {
+                %>
+                <%= item.name %>
+                <%
+                }
+                });
+                %>
+            </span></P>
+    </div>
+    <div class="center_whole7">
+    </div>
+    <div class="center_whole4">
+        <p class="martop-27"><a href="/trainstore/detail?infoid=<%= trainstore.attrs.infoid %>" class="please" target="_blank">查看详情</a></p>
+    </div>
+</li>

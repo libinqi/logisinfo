@@ -1,0 +1,239 @@
+<div class="banner">
+    <div class="banner_con">
+        <dl class="banner_top">
+            <a href="/">
+                <dt class="banner_title"></dt>
+            </a>
+            <dd class="banner_huo">
+                <p class="banner_com margin-46">
+                    <a href="http://guanjia.jt56.org/butler/carinfoController/carinfo" class="banner_che"></a>
+                    <a href="http://guanjia.jt56.org/butler/carinfoController/carinfo" class="banner_txt">发布车源</a>
+                </p>
+
+                <p class="banner_com margin-46">
+                    <a href="http://guanjia.jt56.org/butler/pubGoods/view" class="ban_huo"></a>
+                    <a href="http://guanjia.jt56.org/butler/pubGoods/view" class="banner_txt">发布货源</a>
+                </p>
+
+                <p class="banner_com margin-17">
+                    <a href="http://guanjia.jt56.org/" class="ban_com"></a>
+                    <a href="http://guanjia.jt56.org/" class="banner_txt">企业入驻</a>
+                </p>
+            </dd>
+        </dl>
+    </div>
+</div>
+<div class="w screening">
+    <div class="til">
+        <%- partial("layouts/info_nav", {current_url: "/port"}) %>
+        <div class="line_detail">
+            <p class="line_mess">当前位置：<a href="/">首页 </a>&gt;<a href="/port"> 港口 </a>&gt;<span
+                        class="line_topic"><%= port.attrs.portname %>信息详情</span></p>
+
+            <div class="line_addr">
+                <%= port.attrs.portname %>
+                <p class="update">更新时间：<%= DateFormat.Format(port.attrs.date * 1000) %></p>
+            </div>
+            <dl class="detail_con">
+                <dt class="detail_img"><img src="<%= port.attrs.image ? port.attrs.image : '/images/no-port.jpg' %>"
+                                            width="367"
+                                            height="264"/></dt>
+                <dd class="detail_txt" style="display: none">
+                    <p class="detail_p">要查看详细联系方式请：</p>
+
+                    <p class="detail_p"><a id="login_url" href="#" class="detail_blue">登录</a> 或 <a
+                                href="http://guanjia.jt56.org/butler/userRegister/register"
+                                class="detail_blue">免费注册</a>
+                    </p>
+                </dd>
+                <dd class="detail_txt1" style="display: none">
+                    <%
+                    if(port.attrs.enterprise)
+                    {
+                    if(port.attrs.enterprise.enterprisename)
+                    {
+                    %>
+                    <p class="detail_p"><span class="detail_p1">企业名称：</span><span
+                                class="detail_p2"><%= port.attrs.enterprise.enterprisename %></span>
+                    </p>
+                    <%
+                    }
+                    if(port.attrs.contact)
+                    {
+                    %>
+                    <p class="detail_p"><span class="detail_p1">联 系 人：</span><span
+                                class="detail_p2"><%= port.attrs.contact %></span></p>
+                    <%
+                    }
+                    if(port.attrs.phone)
+                    {
+                    %>
+                    <p class="detail_p"><span class="detail_p1">联系电话：</span><span
+                                class="detail_p2"><%= port.attrs.phone + (port.attrs.tel ? '/' + port.attrs.tel : '') %></span>
+                    </p>
+                    <%
+                    }
+                    if(port.attrs.city)
+                    {
+                    %>
+                    <p class="detail_p"><span class="detail_p1">联系地址：</span><span
+                                class="detail_p2"><%= port.attrs.city + port.attrs.address %></span></p>
+                    <%
+                    }
+                    %>
+                    <p class="credentials"><span class="detail_p3">企业资质：</span>
+                        <%
+                        if(port.attrs.enterprise.bizlic && port.attrs.enterprise.bizlic.status == 1)
+                        {
+                        %>
+                        <span class="com_img margin-5"><img src="/images/center_com1.png" title="营业执照" width="32"
+                                                            height="23"/></span>
+                        <%
+                        }
+                        else
+                        {
+                        %>
+                        <span class="com_img margin-5"><img src="/images/center_com1.png" title="营业执照" width="32"
+                                                            height="23"
+                                                            class="grayscale"/></span>
+                        <%
+                        }
+
+                        if(port.attrs.enterprise.orgcodelic && port.attrs.enterprise.orgcodelic.status == 1)
+                        {
+                        %>
+                        <span class="com_img margin-5"><img src="/images/center_com2.png" title="组织机构代码证" width="32"
+                                                            height="23"/></span>
+                        <%
+                        }
+                        else
+                        {
+                        %>
+                        <span class="com_img margin-5"><img src="/images/center_com2.png" title="组织机构代码证" width="32"
+                                                            height="23"
+                                                            class="grayscale"/></span>
+                        <%
+                        }
+
+                        if(port.attrs.enterprise.taxlic && port.attrs.enterprise.taxlic.status == 1)
+                        {
+                        %>
+                        <span class="com_img margin-5"><img src="/images/center_com3.png" title="税务登记证" width="32"
+                                                            height="23"/></span>
+                        <%
+                        }
+                        else
+                        {
+                        %>
+                        <span class="com_img margin-5"><img src="/images/center_com3.png" title="税务登记证" width="32"
+                                                            height="23"
+                                                            class="grayscale"/></span>
+                        <%
+                        }
+
+                        if(port.attrs.enterprise.transbizlic && port.attrs.enterprise.transbizlic.status == 1)
+                        {
+                        %>
+                        <span class="com_img"><img src="/images/center_com4.png" title="企业道路运输营业许可证" width="32"
+                                                   height="23"/></span>
+                        <%
+                        }
+                        else
+                        {
+                        %>
+                        <span class="com_img"><img src="/images/center_com4.png" title="企业道路运输营业许可证" width="32"
+                                                   height="23"
+                                                   class="grayscale"/></span>
+                        <%
+                        }
+                        %>
+                    </p>
+                    <%
+                    }
+                    else
+                    {
+                    %>
+                    <p class="credentials"><span class="detail_p3">企业资质：</span><span class="com_img margin-5"><img
+                                    src="/images/center_com1.png" title="营业执照" width="32"
+                                    height="23" class="grayscale"/></span><span
+                                class="com_img margin-5"><img
+                                    src="/images/center_com2.png" title="组织机构代码证" width="32" height="23"
+                                    class="grayscale"/></span><span
+                                class="com_img margin-5"><img src="/images/center_com3.png" title="税务登记证" width="32"
+                                                              height="23" class="grayscale"/></span><span
+                                class="com_img"><img src="/images/center_com4.png" title="企业道路运输营业许可证" width="32"
+                                                     height="23" class="grayscale"/></span></p>
+                    <%
+                    }
+                    %>
+                </dd>
+            </dl>
+            <div class="detail_mess">
+                <p class="xiangxi">详细信息</p>
+                <ul class="detail_main">
+                    <li class="detail_main_li"><span class="initiation">港口类型：</span><span class="checi">
+                            <%
+                            info_dict.port_type.forEach(function (item, index) {
+                            if(item.id == port.attrs.porttypecode)
+                            {
+                            %>
+                            <%= item.name %>
+                            <%
+                            }
+                            });
+                            %>
+                        </span><span class="initiation">泊位数量：</span><span
+                                class="checi"><%= (port.attrs.berthnumber && port.attrs.berthnumber != 0) ? port.attrs.berthnumber + '个' : '不详' %></span>
+                    </li>
+                    <li class="detail_main_li"><span class="initiation">年吞吐量：</span><span
+                                class="checi"><%= (port.attrs.yearthroughput && port.attrs.yearthroughput != 0) ? port.attrs.yearthroughput + '吨' : '不详' %>
+                        </span><span class="initiation">港口级别：</span><span class="checi">
+                            <%
+                            info_dict.port_level.forEach(function (item, index) {
+                            if(item.id == port.attrs.portlevelcode)
+                            {
+                            %>
+                            <%= item.name %>
+                            <%
+                            }
+                            });
+                            %>
+                        </span></li>
+                </ul>
+            </div>
+            <%
+            if(port.attrs.freetext)
+            {
+            %>
+            <div class="detail_desc">
+                <p class="xiangxi">港口说明</p>
+                <ul class="detail_main">
+                    <li class="detail_desc_li">
+                        <%= port.attrs.freetext %>
+                    </li>
+                </ul>
+            </div>
+            <%
+            }
+            %>
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+    $(document).ready(function () {
+        setTimeout(function () {
+            var userInfo = window.userInfo;
+            if (!userInfo) {
+                var current = window.location.href;
+                var loginurl = topurl.login + "?service=" + current;
+                $('.detail_txt1').hide();
+                $('#login_url').attr('href', loginurl);
+                $('.detail_txt').show();
+            }
+            else {
+                $('.detail_txt1').show();
+                $('.detail_txt').hide();
+            }
+        }, 500);
+    });
+</script>

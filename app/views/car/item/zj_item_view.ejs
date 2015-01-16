@@ -1,0 +1,20 @@
+<li class="center_car">
+    <div class="center_whole1-2">
+        <span id="infoId" style="display:none;"><%= car.id %></span>
+        <p class="center_addr1"><a href="car/detail?infoid=<%= car.attrs.infoid %>" target="_blank"><%- car.attrs.infotext %></a></p>
+    </div>
+    <div class="center_car3">
+        <p class="martop-27"><span class="com_img margin-5"><img src="/images/center_driver1.png" title="驾驶证" width="32"
+                                                                 height="23" class="grayscale"/></span><span class="com_img margin-5"><img
+                        src="/images/center_driver2.png" title="道路运输从业资格证" width="32" height="23" class="grayscale"/></span><span
+                    class="com_img margin-5"><img src="/images/center_driver3.png" title="身份证" width="32" height="23" class="grayscale"/></span><span
+                    class="com_img"><img src="/images/center_driver4.png" title="行驶证" width="32" height="23" class="grayscale"/></span></p>
+    </div>
+    <div class="center_car4">
+        <p class="shijian martop-25"><%= DateFormat.TimeAgo(car.attrs.date * 1000) %></p>
+        <p class="pingtai martop-6">国家公共信息平台</p>
+    </div>
+    <div class="center_car5">
+        <a class="xianqing martop-27" href="car/detail?infoid=<%= car.attrs.infoid %>" target="_blank">查看详情</a>
+    </div>
+</li>
