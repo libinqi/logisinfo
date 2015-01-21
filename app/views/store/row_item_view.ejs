@@ -38,16 +38,7 @@
             </span></P>
 
         <P class="center_length">经营范围：<span class="price_red">
-                <%
-                info_dict.business_scope.forEach(function (item, index) {
-                        if(item.id == store.attrs.businessscopecode)
-                {
-                %>
-                <%= item.name %>
-                <%
-                }
-                });
-                %>
+                <%= store.attrs.businessscope %>
             </span></P>
         <!--<p class="martop-20"><%= store.attrs.phone %></p>-->
     </div>

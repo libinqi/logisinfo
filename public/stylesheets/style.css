@@ -243,8 +243,8 @@ a.nav_caractive{width:63px;height:40px;display:inline-block;background:url(../im
 a.nav_goodsactive{width:63px;height:40px;display:inline-block;background:url(../images/nav_goods.png) 30px center  no-repeat #95d543;padding-left:62px;color:#477204;font-size:16px;font-family:Microsoft YaHei;line-height:40px;text-decoration:none;}
 .nav_goods{width:63px;height:40px;display:inline-block;background:url(../images/nav_goodsed.png) 30px center  no-repeat #67a506;padding-left:62px;color:#fff;font-size:16px;font-family:Microsoft YaHei;line-height:40px;}
 .nav_goods:hover{width:63px;height:40px;display:inline-block;background:url(../images/nav_goods.png) 30px center  no-repeat #67a506;padding-left:62px;color:#477204;font-size:16px;font-family:Microsoft YaHei;line-height:40px;text-decoration:none;}
-.nav_input1{overflow:hidden;width:213px;background:url(../images/nav_input1.jpg) right 20px no-repeat;margin:30px 0 0 22px;}
-.nav_input2{overflow:hidden;width:213px;background:url(../images/nav_input2.jpg) right 2px no-repeat;margin:0 0 14px 22px;}
+.nav_input1{overflow:hidden;width:213px;background:url(../images/nav_input1.jpg) right 51px no-repeat;padding:30px 0 0 22px;}
+.nav_input2{overflow:hidden;width:213px;background:url(../images/nav_input2.jpg) right 2px no-repeat;padding:0 0 14px 22px;}
 .origin{width:172px;height:42px;border:1px solid #86bc41;border-radius:10px;padding-left:23px;}
 .change{display:inline-block;background:url(../images/change.jpg) no-repeat;width:15px;height:14px;float:right;}
 .change1{width:218px;overflow:hidden;margin-left:22px;}

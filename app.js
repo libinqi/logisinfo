@@ -9,6 +9,7 @@ var utils = require(path.join(process.cwd(), 'lib', 'utils'));
 var info_dict = require(path.join(process.cwd(), 'lib', 'info_dict'));
 var session = require('express-session');
 var app = express();
+var amqp = require('amqp');
 
 app.set('settings', require(path.join(process.cwd(), 'app', 'config/settings')));
 app.set('env', require(path.join(process.cwd(), 'app', 'config/settings')).env);
@@ -33,8 +34,8 @@ app.use(session({
 
 app.use(express.static(path.join(__dirname, 'public')));
 
-require(path.join(process.cwd(), 'app', 'config/routes'))(app);
 require(path.join(process.cwd(), 'app', 'client/rabbit-client'))(app);
+require(path.join(process.cwd(), 'app', 'config/routes'))(app);
 
 // development error handler
 // will print stacktrace

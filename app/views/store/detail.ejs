@@ -27,26 +27,30 @@
     <div class="til">
         <%- partial("layouts/info_nav", {current_url: "/store"}) %>
         <div class="line_detail">
-            <p class="line_mess">当前位置：<a href="/">首页 </a>&gt;<a href="/store"> 仓储 </a>&gt; <span class="line_topic"><%= store.attrs.storename %>信息详情</span></p>
+            <p class="line_mess">当前位置：<a href="/">首页 </a>&gt;<a href="/store"> 仓储 </a>&gt; <span
+                        class="line_topic"><%= store.attrs.storename %>信息详情</span></p>
+
             <div class="line_addr">
                 <%= store.attrs.storename %>
                 <p class="update">更新时间：<%= DateFormat.Format(store.attrs.date * 1000) %></p>
             </div>
             <dl class="detail_con">
-                <dt class="detail_img"><img src="<%= store.attrs.image ? store.attrs.image : '/images/no-store.jpg' %>" width="367"
+                <dt class="detail_img"><img src="<%= store.attrs.image ? store.attrs.image : '/images/no-store.jpg' %>"
+                                            width="367"
                                             height="264"/></dt>
                 <dd class="detail_txt" style="display: none">
                     <p class="detail_p">要查看详细联系方式请：</p>
 
-                    <p class="detail_p"><a id="login_url" href="#" class="detail_blue">登录</a> 或 <a href="http://guanjia.jt56.org/butler/userRegister/register"
-                                                                                                   class="detail_blue">免费注册</a>
+                    <p class="detail_p"><a id="login_url" href="#" class="detail_blue">登录</a> 或 <a
+                                href="http://guanjia.jt56.org/butler/userRegister/register"
+                                class="detail_blue">免费注册</a>
                     </p>
                 </dd>
                 <dd class="detail_txt1" style="display: none">
                     <%
                     if(store.attrs.enterprise)
                     {
-                            if(store.attrs.enterprise.enterprisename)
+                    if(store.attrs.enterprise.enterprisename)
                     {
                     %>
                     <p class="detail_p"><span class="detail_p1">企业名称：</span><span
@@ -95,7 +99,7 @@
                         <%
                         }
 
-                                if(store.attrs.enterprise.orgcodelic && store.attrs.enterprise.orgcodelic.status == 1)
+                        if(store.attrs.enterprise.orgcodelic && store.attrs.enterprise.orgcodelic.status == 1)
                         {
                         %>
                         <span class="com_img margin-5"><img src="/images/center_com2.png" title="组织机构代码证" width="32"
@@ -111,7 +115,7 @@
                         <%
                         }
 
-                                if(store.attrs.enterprise.taxlic && store.attrs.enterprise.taxlic.status == 1)
+                        if(store.attrs.enterprise.taxlic && store.attrs.enterprise.taxlic.status == 1)
                         {
                         %>
                         <span class="com_img margin-5"><img src="/images/center_com3.png" title="税务登记证" width="32"
@@ -127,7 +131,7 @@
                         <%
                         }
 
-                                if(store.attrs.enterprise.transbizlic && store.attrs.enterprise.transbizlic.status == 1)
+                        if(store.attrs.enterprise.transbizlic && store.attrs.enterprise.transbizlic.status == 1)
                         {
                         %>
                         <span class="com_img"><img src="/images/center_com4.png" title="企业道路运输营业许可证" width="32"
@@ -170,7 +174,7 @@
                     <li class="detail_main_li"><span class="initiation">仓库类型：</span><span class="checi">
                             <%
                             info_dict.store_type.forEach(function (item, index) {
-                                    if(item.id == store.attrs.storetypecode)
+                            if(item.id == store.attrs.storetypecode)
                             {
                             %>
                             <%= item.name %>
@@ -178,20 +182,14 @@
                             }
                             });
                             %>
-                    </span><span class="initiation">经营范围：</span><span class="checi">
-                            <%
-                            info_dict.business_scope.forEach(function (item, index) {
-                                    if(item.id == store.attrs.businessscopecode)
-                            {
-                            %>
-                            <%= item.name %>
-                            <%
-                            }
-                            });
-                            %>
+                        </span><span class="initiation">经营范围：</span><span class="checi">
+                             <%= store.attrs.businessscope %>
                     </span></li>
-                    <li class="detail_main_li"><span class="initiation">面    积：</span><span class="checi"><%= (store.attrs.storearea && store.attrs.storearea != 0) ? store.attrs.storearea + '㎡' : '不详' %></span>
-                        <span class="initiation">可用面积：</span><span class="checi"><%= (store.attrs.usearea && store.attrs.usearea != 0) ? store.attrs.usearea + '㎡' : '不详' %></span></li>
+                    <li class="detail_main_li"><span class="initiation">面    积：</span><span
+                                class="checi"><%= (store.attrs.storearea && store.attrs.storearea != 0) ? store.attrs.storearea + '㎡' : '不详' %></span>
+                        <span class="initiation">可用面积：</span><span
+                                class="checi"><%= (store.attrs.usearea && store.attrs.usearea != 0) ? store.attrs.usearea + '㎡' : '不详' %></span>
+                    </li>
                     <!--<li class="detail_main_li no-border"><span class="initiation">参考报价：</span><span class="checi">面议</span></li>-->
                 </ul>
             </div>
