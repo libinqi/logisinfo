@@ -176,13 +176,12 @@ module.exports = {
         cl.SetSortMode(4, model.sort.filed + ' ' + model.sort.sorttype);
 
         if (model.filter.transrate) {
-            if (model.filter.transrate == 1) {
-                cl.SetFilter('transRate', [0]);
-            }
-            else {
-                cl.SetFilter('transRate', [1]);
-                cl.SetFilter('transRateDay', [model.filter.transrate - 1]);
-            }
+            info_dict.trans_rate.forEach(function (item, index) {
+                if (item.id == model.filter.transrate) {
+                    cl.SetFilter('transRateDay', [item.value[0]]);
+                    cl.SetFilter('transRateNumber', [item.value[1]]);
+                }
+            });
         }
         if (model.filter.transtime) {
             cl.SetFilter('transTime', [model.filter.transtime]);

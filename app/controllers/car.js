@@ -368,7 +368,7 @@ module.exports = {
         if (model.filter.ctype) {
             info_dict.goods_type.forEach(function (item, index) {
                 if (item.id == model.filter.ctype) {
-                    cl.SetFilterString('vehicleType', item.name);
+                    cl.SetFilterString('vehicleType', item.name,true);
                 }
             });
         }

@@ -315,6 +315,9 @@ module.exports = function (app) {
         {
             lineModel.transRateNumber=0;
         }
+        if (line.roadtime) {
+            lineModel.transTime = line.roadtime;
+        }
         if (line.contactaddr) {
             lineModel.startAddress = line.contactaddr;
         }
