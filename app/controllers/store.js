@@ -54,7 +54,11 @@ module.exports = {
         cl.SetSortMode(4, model.sort.filed + ' ' + model.sort.sorttype);
 
         if (model.filter.businessscope) {
-            cl.SetFilter('businessScopeCode', [model.filter.businessscope]);
+            info_dict.business_scope.forEach(function (item, index) {
+                if (item.id == model.filter.businessscope) {
+                    cl.SetFilterString('businessScope', item.name);
+                }
+            });
         }
         if (model.filter.storetype) {
             cl.SetFilter('storeTypeCode', [model.filter.storetype]);

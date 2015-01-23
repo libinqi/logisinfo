@@ -304,8 +304,16 @@ module.exports = function (app) {
         if (line.flightinfo && line.flightinfo != '其他') {
             lineModel.transRateDay = line.flightinfo.substring(0, 1);
         }
+        else
+        {
+            lineModel.transRateDay=0;
+        }
         if (line.flightinfo && line.flightinfo != '其他') {
             lineModel.transRateNumber = line.flightinfo.substring(2, 3);
+        }
+        else
+        {
+            lineModel.transRateNumber=0;
         }
         if (line.contactaddr) {
             lineModel.startAddress = line.contactaddr;

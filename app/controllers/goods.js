@@ -107,7 +107,7 @@ module.exports = {
         if (model.filter.gtype) {
             info_dict.goods_type.forEach(function (item, index) {
                 if (item.id == model.filter.gtype) {
-                    cl.SetFilterString('goodsType', item.name);
+                    cl.SetFilterString('goodsType', item.name,true);
                 }
             });
         }
