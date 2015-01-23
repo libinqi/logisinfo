@@ -7,7 +7,7 @@ module.exports = {
     domain: 'jt56.org',
     url: 'http://logisinfo.jt56.org',
     session_secret: "logisinfo",
-    env: 'development',
+    env: 'production',
     port: process.env.PORT || 80,
 
     database: {
