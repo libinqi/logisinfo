@@ -351,7 +351,7 @@ function bindDriverInfo(driverId, docId) {
             else {
                 licenseinfo.append($('<span class="com_img margin-5"></span>').append($(drivelic).addClass('grayscale')));
             }
-            if (driver.travellics) {
+            if (driver.travellics && driver.travellics.length > 0) {
                 licenseinfo.append($('<span class="com_img margin-5"></span>').append($(travellics)));
             }
             else {
