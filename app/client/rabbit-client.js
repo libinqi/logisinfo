@@ -19,7 +19,7 @@ module.exports = function (app) {
     connection.addListener('ready', function () {
         var exchange = connection.exchange(exchangeName, exchOption);
         // 新增队列
-        var queue = connection.queue("ApolloQueue", {durable: true, autoDelete: false});
+        var queue = connection.queue("ApolloQueueTest", {durable: true, autoDelete: false});
         console.log('created queue:' + queue.name);
         queue.bind(exchange, 'apollo.#.*');
         queue.subscribe(function (message, headers, deliveryInfo) {
@@ -552,7 +552,7 @@ module.exports = function (app) {
             portTypeCode: port.porttype,
             portLevelCode: port.portlevel,
             berthNumber: 0,
-            yearThroughput: '',
+            yearThroughput: 0,
             city: port.location,
             eId: port.enterpriseid,
             infoId: port.wharfid,
