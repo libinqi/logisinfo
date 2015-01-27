@@ -107,7 +107,7 @@ select, button { font-size: 12px; font-family: Tahoma, Geneva, sans-serif;backgr
 #conditionBox{display: none;}
 .selected {height: 35px;line-height: 35px;background: #fcfcfc;margin: 0 auto 20px auto;border: 1px solid #e5e5e5;width: 930px;padding-left: 10px;color: #F30;}
 .condition {display: inline-block;height: 22px;line-height: 22px;border: 1px solid #ffb54b;padding: 0 8px;margin: 0 4px;background: #fff;}
-.condition a {background: #ffffff url(../images/icons.png) no-repeat right;padding-left: 20px;display: inline-block;}
+.condition a {background: #ffffff url(../images/icons.png) no-repeat right;padding-left: 20px;display: inline; _zoom:1;*display:inline-block;}
 #yixuan {color: #808080;}
 
 /*---内容块---*/
