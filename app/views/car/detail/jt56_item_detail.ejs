@@ -86,7 +86,10 @@
         if (userInfo.usertype == 1) {
             getEnterpriseByUserId(userInfo.userid, function (result) {
                 enterprise = result;
-                if (!enterprise || !carInfo || carInfo.attrs.eid == enterprise.enterpriseid) {
+                if (enterprise == null) {
+                    alert('您还没有完善个人资料,不能发送承运意向！');
+                }
+                else if (!enterprise || !carInfo || carInfo.attrs.eid == enterprise.enterpriseid) {
                     alert('对不起,您不能给自己发送承运意向！');
                 }
                 else {
@@ -139,7 +142,10 @@
         else {
             getDriver(userInfo.userid, function (result) {
                 user = result.user;
-                if (!carInfo || carInfo.attrs.createrid == user.userid) {
+                if (user == null) {
+                    alert('您还没有完善个人资料,不能发送承运意向！');
+                }
+                else if (!carInfo || carInfo.attrs.createrid == user.userid) {
                     alert('对不起,您不能给自己发送托运意向！');
                 }
                 else {

@@ -19,7 +19,9 @@ module.exports = {
         debug:true
     },
     amqp: {
-        host: '192.168.2.106'
+        host: '192.168.2.106',
+        login:'admin',
+        password:'123456'
     },
     sphinx: {
         host: "searchsrv.jt56.org",

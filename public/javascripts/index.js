@@ -197,6 +197,8 @@ function getEnterpriseByUserId(userId, callback) {
         success: function (result) {
             if (result && result.body) {
                 callback(result.body);
+            } else {
+                callback(null);
             }
         }
     });
@@ -216,6 +218,8 @@ function getEnterprise(enterpriseId, callback) {
         success: function (result) {
             if (result && result.body) {
                 callback(result.body);
+            } else {
+                callback(null);
             }
         }
     });
@@ -235,6 +239,8 @@ function getDriver(driverId, callback) {
         success: function (result) {
             if (result && result.body) {
                 callback(result.body);
+            } else {
+                callback(null);
             }
         }
     });
