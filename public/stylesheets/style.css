@@ -64,9 +64,9 @@ select, button { font-size: 12px; font-family: Tahoma, Geneva, sans-serif;backgr
 /*--.panel{padding-top: 10px;}--*/
 .panel{padding-top: 10px;}
 .panel .row, .city .row, .city .row2 {padding-left: 110px;line-height: 30px;height: 30px;margin-bottom: 12px;}
-.panel .row3 {padding-left: 40px;line-height: 30px;height: 30px;margin-bottom: 12px;}
+.panel .row3 {line-height: 30px;height: 30px;margin-bottom: 12px;}
 .city .row2 {heigth: auto;}
-.row3 .label {width: 100px;text-align: right;margin-left:15px;padding-right: 4px;color: #666;font-size: 14px;}
+.row3 .label {width: 100px;text-align: right;margin-left:15px;padding-right: 4px;color: #666;font-size: 14px;float: left;}
 .row .label {float: left;width: 100px;margin-left: -100px;text-align: right;padding-right: 4px;color: #666;font-size: 14px;}
 .row .label2 {margin-top: 3px;}
 .row .addBtn {color: #ff3300;}
@@ -88,13 +88,13 @@ select, button { font-size: 12px; font-family: Tahoma, Geneva, sans-serif;backgr
 .row .item input.btngl {width: 70px;height: 25px;font-size: 12px;background: #fff;border: 1px solid #999;color: #666;margin-left: -10px;cursor: pointer;display: none;}
 #sw, #ew {border: 1px solid #ddd;width: 50px;height: 32px;background: #fff;}
 .w .content {width: 70px;height: 25px;font-size: 12px;background: #fff;border: 1px solid #999;color: #666;margin-left: -10px;cursor: pointer;display: none;}
-.fromaddress, .toaddress, .citynum {border: 1px solid #ddd;width: 180px;height: 32px;background: #fff;color: #999;font-size: 14px;padding-left: 10px;}
+.fromaddress, .toaddress, .citynum {border: 1px solid #ddd;width: 180px;height: 32px;background: #fff;color: #999;font-size: 14px;padding-left: 10px;float: left;}
 .addBtn {margin: 40px 0 0 15px;float: left;}
 .addBtn a {color: #ff4e00;}
 
 /*这里是新增的line css*/
 .city{padding:16px 0 30px 0; zoom: 1;}
-.city_info{padding: 10px 0 20px 0;zoom: 1;}
+.city_info{padding: 10px 0 20px 0;zoom: 1;overflow: hidden;}
 .city .inner{height:46px; position: relative; font-size: 12px; float: left; border: 1px solid #cccccc; border-left: none; padding-right: 18px;}
 .city .inner .row{background: #ffffff; position: relative; top: -14px;}
 .city .inner a{font-style: normal; position: absolute; right: -8px; top:12px; height:18px; width:18px; line-height:18px; text-align: center; color: #ffffff; cursor: pointer; background: #cccccc; text-decoration: none;}
