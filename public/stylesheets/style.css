@@ -86,9 +86,9 @@ select, button { font-size: 12px; font-family: Tahoma, Geneva, sans-serif;backgr
 .city .huanbox .huan:hover {background: #66ae34;}
 .item_1 a {color: #4d4d4d;text-decoration: none;font-weight: bold;padding-right: 10px;}
 .row .item input.btngl {width: 70px;height: 25px;font-size: 12px;background: #fff;border: 1px solid #999;color: #666;margin-left: -10px;cursor: pointer;display: none;}
-#sw, #ew {border: 1px solid #ddd;width: 50px;height: 32px;background: #fff;}
+#sw, #ew {border: 1px solid #ddd;width: 50px;height: 32px;line-height: 32px;background: #fff;}
 .w .content {width: 70px;height: 25px;font-size: 12px;background: #fff;border: 1px solid #999;color: #666;margin-left: -10px;cursor: pointer;display: none;}
-.fromaddress, .toaddress, .citynum {border: 1px solid #ddd;width: 180px;height: 32px;background: #fff;color: #999;font-size: 14px;padding-left: 10px;float: left;}
+.fromaddress, .toaddress, .citynum {border: 1px solid #ddd;width: 180px;height: 32px;line-height:32px;background: #fff;color: #999;font-size: 14px;padding-left: 10px;float: left;}
 .addBtn {margin: 40px 0 0 15px;float: left;}
 .addBtn a {color: #ff4e00;}
 
@@ -245,7 +245,7 @@ a.nav_goodsactive{width:63px;height:40px;display:inline-block;background:url(../
 .nav_goods:hover{width:63px;height:40px;display:inline-block;background:url(../images/nav_goods.png) 30px center  no-repeat #67a506;padding-left:62px;color:#477204;font-size:16px;font-family:Microsoft YaHei;line-height:40px;text-decoration:none;}
 .nav_input1{overflow:hidden;width:213px;background:url(../images/nav_input1.jpg) right 51px no-repeat;padding:30px 0 0 22px;}
 .nav_input2{overflow:hidden;width:213px;background:url(../images/nav_input2.jpg) right 2px no-repeat;padding:0 0 14px 22px;}
-.origin{width:172px;height:42px;border:1px solid #86bc41;border-radius:10px;padding-left:23px;}
+.origin{width:172px;height:42px;line-height:42px;border:1px solid #86bc41;border-radius:10px;padding-left:23px;}
 .change{display:inline-block;background:url(../images/change.jpg) no-repeat;width:15px;height:14px;float:right;}
 .change1{width:218px;overflow:hidden;margin-left:22px;}
 .choice{overflow:hidden;width:195px;height:42px;border:1px solid #86bc41;border-radius:10px;margin:0 0 14px 22px;background:#fff;cursor:pointer;}
